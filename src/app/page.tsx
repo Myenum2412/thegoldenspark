@@ -55,26 +55,26 @@ export default async function Page() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(245,158,11,0.35),transparent),radial-gradient(ellipse_40%_35%_at_85%_110%,rgba(234,88,12,0.25),transparent),radial-gradient(ellipse_40%_35%_at_10%_110%,rgba(245,158,11,0.15),transparent)]"
         />
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-10 text-center sm:py-24">
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-8 text-center sm:py-12">
           <Image
             src="/logo.png"
             alt="Golden Spark logo"
             width={240}
             height={240}
-            className="h-44 w-44 object-contain sm:h-60 sm:w-60"
+            className="h-24 w-24 object-contain sm:h-32 sm:w-32"
             priority
           />
-          <h1 className="google-sans mt-8 text-4xl font-bold tracking-tight sm:text-6xl">
+          <h1 className="google-sans mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
             Golden{" "}
             <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 bg-clip-text text-transparent">
               Spark
             </span>
           </h1>
-          <p className="mt-4 max-w-xl text-base text-neutral-400 sm:text-lg">
+          <p className="mt-2 max-w-xl text-sm text-neutral-400 sm:text-base">
             Every Spark has a Story — light up your celebrations with premium
             crackers, directly from Sivakasi.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+          <div className="mt-5 flex flex-col items-center gap-2 sm:flex-row">
             <Button
               size="lg"
               className="bg-amber-500 text-black hover:bg-amber-400"

@@ -7,7 +7,6 @@ import {
   ShoppingCartIcon,
   Trash2Icon,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -135,47 +134,45 @@ export default function PricelistTable({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-center">
-        <Badge
-          variant="secondary"
-          className="border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300"
-        >
-          <ShoppingCartIcon className="size-3.5" aria-hidden="true" />
-          Shop
-        </Badge>
-        <h2 className="google-sans mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-          Pricelist 2026
-        </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-          80% discount on MRP — add items to your cart and order on WhatsApp.
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <Input
-          type="search"
-          placeholder="Search crackers… (name or item no.)"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search products"
-          className="sm:max-w-xs"
-        />
-        <div className="flex flex-wrap gap-1.5">
-          {categories.map((c) => (
-            <Button
-              key={c}
-              variant={category === c ? "default" : "outline"}
-              size="sm"
-              onClick={() => setCategory(c)}
-              className={
-                category === c ? "bg-amber-500 text-black hover:bg-amber-400" : ""
-              }
+      <Card>
+        <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
+              <ShoppingCartIcon className="size-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="google-sans text-xl font-bold tracking-tight sm:text-2xl">
+                Pricelist 2026
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                80% off MRP — add items and order on WhatsApp.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <Input
+              type="search"
+              placeholder="Search crackers…"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search products"
+              className="sm:w-52"
+            />
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              aria-label="Filter by category"
+              className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
             >
-              {c}
-            </Button>
-          ))}
-        </div>
-      </div>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c === "All" ? "All categories" : c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className="hidden sm:block">
         <CardContent className="p-0">
