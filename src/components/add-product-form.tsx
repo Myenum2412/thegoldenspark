@@ -15,7 +15,13 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 
-export default function AddProductForm() {
+export default function AddProductForm({
+  onAdded,
+  plain = false,
+}: {
+  onAdded?: () => void;
+  plain?: boolean;
+}) {
   const router = useRouter();
   const [itemNo, setItemNo] = React.useState("");
   const [name, setName] = React.useState("");
@@ -55,7 +61,33 @@ export default function AddProductForm() {
     setRate("");
     setStock("");
     router.refresh();
+    onAdded?.();
   }
+
+  const fields = (
+    <AddProductFields
+      itemNo={itemNo}
+      setItemNo={setItemNo}
+      name={name}
+      setName={setName}
+      category={category}
+      setCategory={setCategory}
+      packing={packing}
+      setPacking={setPacking}
+      mrp={mrp}
+      setMrp={setMrp}
+      rate={rate}
+      setRate={setRate}
+      stock={stock}
+      setStock={setStock}
+      saving={saving}
+      onSubmit={handleSubmit}
+      cols={plain ? "sm:grid-cols-2" : "sm:grid-cols-3"}
+      btnClass={plain ? "sm:col-span-2" : "sm:col-span-3"}
+    />
+  );
+
+  if (plain) return fields;
 
   return (
     <Card>
@@ -63,8 +95,52 @@ export default function AddProductForm() {
         <CardTitle>Add Product</CardTitle>
         <CardDescription>Saved directly to Supabase.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-3">
+      <CardContent>{fields}</CardContent>
+    </Card>
+  );
+}
+
+export function AddProductFields({
+  itemNo,
+  setItemNo,
+  name,
+  setName,
+  category,
+  setCategory,
+  packing,
+  setPacking,
+  mrp,
+  setMrp,
+  rate,
+  setRate,
+  stock,
+  setStock,
+  saving,
+  onSubmit,
+  cols = "sm:grid-cols-3",
+  btnClass = "sm:col-span-3",
+}: {
+  itemNo: string;
+  setItemNo: (v: string) => void;
+  name: string;
+  setName: (v: string) => void;
+  category: string;
+  setCategory: (v: string) => void;
+  packing: string;
+  setPacking: (v: string) => void;
+  mrp: string;
+  setMrp: (v: string) => void;
+  rate: string;
+  setRate: (v: string) => void;
+  stock: string;
+  setStock: (v: string) => void;
+  saving: boolean;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  cols?: string;
+  btnClass?: string;
+}) {
+  return (
+<form onSubmit={onSubmit} className={`grid gap-4 ${cols}`}>
           <Field>
             <FieldLabel htmlFor="product-item">Item No.</FieldLabel>
             <Input
@@ -139,13 +215,11 @@ export default function AddProductForm() {
               onChange={(e) => setStock(e.target.value.replace(/\D/g, ""))}
             />
           </Field>
-          <div className="sm:col-span-3">
+          <div className={btnClass}>
             <Button type="submit" disabled={saving}>
               {saving ? "Adding…" : "Add product"}
             </Button>
           </div>
         </form>
-      </CardContent>
-    </Card>
   );
 }

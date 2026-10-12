@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import AddProductForm from "@/components/add-product-form";
+import AddProductDialog from "@/components/add-product-dialog";
 import ProductsTable from "@/components/products-table";
 import {
   DashboardLoading,
@@ -32,7 +32,9 @@ export default function Page() {
           </Suspense>
         }
       >
-        <AddProductForm />
+        <div className="flex justify-end">
+          <AddProductDialog />
+        </div>
         <Suspense fallback={<DashboardLoading />}>
           <ProductsData />
         </Suspense>
