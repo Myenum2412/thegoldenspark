@@ -47,6 +47,12 @@ export default function PricelistTable({
   const [category, setCategory] = React.useState("All");
   const [cart, setCart] = React.useState<Record<string, number>>(loadCart);
   const [checkoutOpen, setCheckoutOpen] = React.useState(false);
+  const [customer, setCustomer] = React.useState({
+    name: "",
+    phone: "",
+    address: "",
+    pincode: "",
+  });
 
   React.useEffect(() => {
     try {
@@ -98,22 +104,85 @@ export default function PricelistTable({
     });
   }
 
-  if (products.length === 0) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Pricelist 2026</CardTitle>
-          <CardDescription>
-            Our cracker pricelist is being updated — please call or WhatsApp
-            us for today&apos;s rates.
-          </CardDescription>
-        </CardHeader>
-      </Card>
-    );
-  }
+  const listEmpty = products.length === 0;
 
   return (
     <div className="flex flex-col gap-4">
+      {/* ── Customer details (used at checkout) ────── */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Your Details</CardTitle>
+          <CardDescription>
+            Fill once here — these go with your order at checkout.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-1.5">
+            <label htmlFor="top-name" className="text-sm font-medium">
+              Full Name *
+            </label>
+            <Input
+              id="top-name"
+              placeholder="e.g. Karthik Raja"
+              value={customer.name}
+              onChange={(e) =>
+                setCustomer((c) => ({ ...c, name: e.target.value }))
+              }
+              maxLength={80}
+            />
+          </div>
+          <div className="grid gap-1.5">
+            <label htmlFor="top-phone" className="text-sm font-medium">
+              Mobile Number *
+            </label>
+            <Input
+              id="top-phone"
+              inputMode="numeric"
+              placeholder="10-digit mobile"
+              value={customer.phone}
+              onChange={(e) =>
+                setCustomer((c) => ({
+                  ...c,
+                  phone: e.target.value.replace(/[^0-9+ ]/g, ""),
+                }))
+              }
+              maxLength={14}
+            />
+          </div>
+          <div className="grid gap-1.5 sm:col-span-2">
+            <label htmlFor="top-address" className="text-sm font-medium">
+              Full Address *
+            </label>
+            <Input
+              id="top-address"
+              placeholder="Door no, street, area, city"
+              value={customer.address}
+              onChange={(e) =>
+                setCustomer((c) => ({ ...c, address: e.target.value }))
+              }
+              maxLength={300}
+            />
+          </div>
+          <div className="grid gap-1.5">
+            <label htmlFor="top-pincode" className="text-sm font-medium">
+              Pincode *
+            </label>
+            <Input
+              id="top-pincode"
+              inputMode="numeric"
+              placeholder="e.g. 636005"
+              value={customer.pincode}
+              onChange={(e) =>
+                setCustomer((c) => ({
+                  ...c,
+                  pincode: e.target.value.replace(/\D/g, ""),
+                }))
+              }
+              maxLength={6}
+            />
+          </div>
+        </CardContent>
+      </Card>
       <Card>
         <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
           <div className="flex items-center gap-3">
@@ -154,7 +223,19 @@ export default function PricelistTable({
         </CardContent>
       </Card>
 
-      <Card className="hidden sm:block">
+      {listEmpty ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Pricelist 2026</CardTitle>
+            <CardDescription>
+              Our cracker pricelist is being updated — please call or WhatsApp
+              us for today&apos;s rates.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      ) : (
+        <>
+          <Card className="hidden sm:block">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
@@ -323,6 +404,8 @@ export default function PricelistTable({
           })
         )}
       </div>
+        </>
+      )}
 
       {count > 0 && (
         <Card className="sticky bottom-4 border-amber-500/40 shadow-lg">
@@ -369,6 +452,7 @@ export default function PricelistTable({
         onOpenChange={setCheckoutOpen}
         lines={lines}
         total={total}
+        initialCustomer={customer}
         onSaved={() => setCart({})}
       />
     </div>

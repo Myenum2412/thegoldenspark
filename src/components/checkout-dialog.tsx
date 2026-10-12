@@ -69,21 +69,35 @@ export default function CheckoutDialog({
   onOpenChange,
   lines,
   total,
+  initialCustomer,
   onSaved,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   lines: OrderLine[];
   total: number;
+  initialCustomer: { name: string; phone: string; address: string; pincode: string };
   onSaved: () => void;
 }) {
   const router = useRouter();
-  const [name, setName] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [pincode, setPincode] = React.useState("");
+  const [name, setName] = React.useState(initialCustomer.name);
+  const [phone, setPhone] = React.useState(initialCustomer.phone);
+  const [address, setAddress] = React.useState(initialCustomer.address);
+  const [pincode, setPincode] = React.useState(initialCustomer.pincode);
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [saving, setSaving] = React.useState(false);
+
+  // Prefill from the details form above the pricelist each time it opens.
+  React.useEffect(() => {
+    if (open) {
+      setName(initialCustomer.name);
+      setPhone(initialCustomer.phone);
+      setAddress(initialCustomer.address);
+      setPincode(initialCustomer.pincode);
+      setErrors({});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open ]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
