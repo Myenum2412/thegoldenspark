@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { ArrowRight, ClipboardList, Phone } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  ClipboardList,
+  Package,
+  Phone,
+  ShieldCheck,
+} from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,6 +21,24 @@ import { createClient } from "@/utils/supabase/client";
 const PHONE_DISPLAY = "+91 99629 70062";
 const PHONE_TEL = "tel:+919962970062";
 const WHATSAPP = "https://wa.me/919962970062";
+
+const highlights = [
+  {
+    icon: BadgeCheck,
+    title: "Genuine Quality",
+    text: "Handpicked crackers sourced directly from Sivakasi makers.",
+  },
+  {
+    icon: Package,
+    title: "Retail & Bulk",
+    text: "From single family packs to full wholesale orders.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Safe & Certified",
+    text: "Quality-checked products with clear safety instructions.",
+  },
+];
 
 export default function CustomerForm() {
   const [name, setName] = React.useState("");
@@ -81,7 +106,24 @@ export default function CustomerForm() {
             Share your details and we will get back to you about your order —
             retail, bulk or wholesale.
           </p>
-          <div className="mt-6 space-y-2 text-sm">
+          <ul className="mt-6 space-y-4">
+            {highlights.map((h) => (
+              <li key={h.title} className="flex items-start gap-3">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-400">
+                  <h.icon className="size-4" aria-hidden="true" />
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-white">
+                    {h.title}
+                  </span>
+                  <span className="block text-xs leading-relaxed text-neutral-400">
+                    {h.text}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 space-y-2 border-t border-white/10 pt-4 text-sm">
             <a
               href={PHONE_TEL}
               className="flex items-center gap-2 text-neutral-300 hover:text-amber-300"
