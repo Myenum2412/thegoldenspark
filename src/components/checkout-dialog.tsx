@@ -99,14 +99,9 @@ export default function CheckoutDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open ]);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const input = { name, phone, address, pincode, lines };
-    const { errors: errs, phone: cleanPhone } = validateOrder(input);
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setSaving(true);
+  // Saves customer + order + items. Returns the order id, or null
+  // when only the customer details could be saved.
+  async function persistOrder(cleanPhone: string) {
     const supabase = createClient();
 
     const { data: customer, error: customerError } = await supabase
@@ -121,11 +116,10 @@ export default function CheckoutDialog({
       .single();
 
     if (customerError || !customer) {
-      setSaving(false);
       toast.error("Could not save details", {
         description: customerError?.message,
       });
-      return;
+      return null;
     }
 
     const { data: order, error: orderError } = await supabase
@@ -140,7 +134,6 @@ export default function CheckoutDialog({
       .single();
 
     if (orderError || !order) {
-      setSaving(false);
       const missing =
         orderError?.message?.includes("orders") ||
         orderError?.code === "42P01";
@@ -153,7 +146,7 @@ export default function CheckoutDialog({
         }
       );
       router.refresh();
-      return;
+      return null;
     }
 
     const { error: itemsError } = await supabase.from("order_items").insert(
@@ -168,15 +161,29 @@ export default function CheckoutDialog({
       }))
     );
 
-    setSaving(false);
     if (itemsError) {
       toast.error("Order saved, items failed", {
         description: itemsError.message,
       });
-      return;
+      return null;
     }
 
-    toast.success(`Order #${order.id} saved!`, {
+    return order.id;
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const input = { name, phone, address, pincode, lines };
+    const { errors: errs, phone: cleanPhone } = validateOrder(input);
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setSaving(true);
+    const orderId = await persistOrder(cleanPhone);
+    setSaving(false);
+    if (orderId == null) return;
+
+    toast.success(`Order #${orderId} saved!`, {
       description: `${name.trim()} · ₹${total.toLocaleString("en-IN")} · we will call you back.`,
     });
     onOpenChange(false);
@@ -184,9 +191,9 @@ export default function CheckoutDialog({
     router.refresh();
   }
 
-  // WhatsApp ordering also requires valid details first —
-  // the message carries the customer's info with the items.
-  function handleWhatsAppOrder() {
+  // WhatsApp ordering also requires valid details first — and the
+  // details + items are saved to Supabase before opening WhatsApp.
+  async function handleWhatsAppOrder() {
     const { errors: errs, phone: cleanPhone } = validateOrder({
       name,
       phone,
@@ -197,6 +204,11 @@ export default function CheckoutDialog({
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
+    setSaving(true);
+    const orderId = await persistOrder(cleanPhone);
+    setSaving(false);
+    if (orderId == null) return;
+
     const orderLines = lines.map(
       (l) =>
         `${l.qty} x ${l.product.name} - ₹${(
@@ -204,7 +216,7 @@ export default function CheckoutDialog({
         ).toLocaleString("en-IN")}`
     );
     const text = [
-      "Vanakkam Golden Spark! New order:",
+      `Vanakkam Golden Spark! New order #${orderId}:`,
       "",
       `Name: ${name.trim()}`,
       `Phone: ${cleanPhone}`,
@@ -215,9 +227,10 @@ export default function CheckoutDialog({
       `Total: ₹${total.toLocaleString("en-IN")}`,
     ].join("\n");
     window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
-    toast.success("Order sent on WhatsApp!");
+    toast.success(`Order #${orderId} saved & sent on WhatsApp!`);
     onOpenChange(false);
     onSaved();
+    router.refresh();
   }
 
   return (

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import { ClipboardListIcon, PackageIcon, WalletIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -25,6 +26,7 @@ import OrderView, {
   type Order,
   type OrderItem,
 } from "@/components/order-view";
+import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
 import { createClient } from "@/utils/supabase/server";
@@ -72,9 +74,42 @@ async function OrdersData() {
     list.push(it);
     itemsByOrder.set(key, list);
   }
+  const orderValue = orders.reduce((sum, o) => sum + Number(o.total), 0);
+  const itemsSold = Array.from(itemsByOrder.values())
+    .flat()
+    .reduce((n, it) => n + Number(it.qty), 0);
 
   return (
-    <Card>
+    <>
+      <DashboardStats
+        stats={[
+          {
+            name: "Total Orders",
+            value: error ? "—" : String(orders.length),
+            description: "Checkouts from the homepage pricelist.",
+            href: "/dashboard/orders",
+            linkLabel: "View all",
+            icon: ClipboardListIcon,
+          },
+          {
+            name: "Order Value",
+            value: error ? "—" : `₹${orderValue.toLocaleString("en-IN")}`,
+            description: "Sum of all order totals.",
+            href: "/dashboard/orders",
+            linkLabel: "View all",
+            icon: WalletIcon,
+          },
+          {
+            name: "Items Sold",
+            value: error ? "—" : String(itemsSold),
+            description: "Total quantity across orders.",
+            href: "/dashboard/orders",
+            linkLabel: "View all",
+            icon: PackageIcon,
+          },
+        ]}
+      />
+      <Card>
       <CardHeader>
         <CardTitle>
           Orders{" "}
@@ -158,6 +193,7 @@ async function OrdersData() {
           </div>
         )}
       </CardContent>
-    </Card>
+      </Card>
+    </>
   );
 }

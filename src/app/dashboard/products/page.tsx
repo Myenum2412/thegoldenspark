@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import { PackageIcon, TriangleAlertIcon, WalletIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -23,6 +24,7 @@ import {
   DashboardShell,
 } from "@/components/dashboard-shell";
 import SetupNotice from "@/components/setup-notice";
+import DashboardStats from "@/components/dashboard-stats";
 import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
 import { createClient } from "@/utils/supabase/server";
 import type { Product } from "@/lib/store-data";
@@ -58,9 +60,43 @@ async function ProductsData() {
     .limit(200);
 
   const products = (data ?? []) as Product[];
+  const stockValue = products.reduce(
+    (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
+    0
+  );
+  const lowStock = products.filter((p) => Number(p.stock) <= 10).length;
 
   return (
-    <Card>
+    <>
+      <DashboardStats
+        stats={[
+          {
+            name: "Total Products",
+            value: error ? "—" : String(products.length),
+            description: "Items live in your pricelist.",
+            href: "/dashboard/products",
+            linkLabel: "View all",
+            icon: PackageIcon,
+          },
+          {
+            name: "Stock Value",
+            value: error ? "—" : `₹${stockValue.toLocaleString("en-IN")}`,
+            description: "Our rate × stock across products.",
+            href: "/dashboard/reports",
+            linkLabel: "View reports",
+            icon: WalletIcon,
+          },
+          {
+            name: "Low Stock",
+            value: error ? "—" : String(lowStock),
+            description: "Products with stock ≤ 10.",
+            href: "/dashboard/reports",
+            linkLabel: "View reports",
+            icon: TriangleAlertIcon,
+          },
+        ]}
+      />
+      <Card>
       <CardHeader>
         <CardTitle>
           Products{" "}
@@ -132,6 +168,7 @@ async function ProductsData() {
             </div>
           )}
         </CardContent>
-    </Card>
+      </Card>
+    </>
   );
 }

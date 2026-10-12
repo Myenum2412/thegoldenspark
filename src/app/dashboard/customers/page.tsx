@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import { CalendarIcon, ClipboardListIcon, UsersIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -21,6 +22,7 @@ import {
   DashboardShell,
 } from "@/components/dashboard-shell";
 import SetupNotice from "@/components/setup-notice";
+import DashboardStats from "@/components/dashboard-stats";
 import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
 import { createClient } from "@/utils/supabase/server";
 import type { Customer } from "@/lib/store-data";
@@ -76,7 +78,48 @@ async function CustomersData() {
   }
 
   return (
-    <Card>
+    <>
+      <DashboardStats
+        stats={[
+          {
+            name: "Total Customers",
+            value: error ? "—" : String(customers.length),
+            description: "Details submitted from the store website.",
+            href: "/dashboard/customers",
+            linkLabel: "View all",
+            icon: UsersIcon,
+          },
+          {
+            name: "Customers with Orders",
+            value: error ? "—" : String(statsByCustomer.size),
+            description: "Placed at least one order.",
+            href: "/dashboard/orders",
+            linkLabel: "View orders",
+            icon: ClipboardListIcon,
+          },
+          {
+            name: "New This Month",
+            value: error
+              ? "—"
+              : String(
+                  customers.filter((c) => {
+                    if (!c.created_at) return false;
+                    const d = new Date(c.created_at);
+                    const now = new Date();
+                    return (
+                      d.getMonth() === now.getMonth() &&
+                      d.getFullYear() === now.getFullYear()
+                    );
+                  }).length
+                ),
+            description: "Joined in the current month.",
+            href: "/dashboard/customers",
+            linkLabel: "View all",
+            icon: CalendarIcon,
+          },
+        ]}
+      />
+      <Card>
       <CardHeader>
         <CardTitle>
           Customers{" "}
@@ -159,6 +202,7 @@ async function CustomersData() {
             </div>
           )}
         </CardContent>
-    </Card>
+      </Card>
+    </>
   );
 }
