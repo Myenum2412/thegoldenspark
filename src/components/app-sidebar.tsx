@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import {
   ChartColumnIcon,
+  ClipboardListIcon,
   LayoutDashboardIcon,
   PackageIcon,
   StoreIcon,
@@ -53,6 +54,11 @@ const data = {
       title: "Products",
       url: "/dashboard/products",
       icon: <PackageIcon />,
+    },
+    {
+      title: "Orders",
+      url: "/dashboard/orders",
+      icon: <ClipboardListIcon />,
     },
     {
       title: "Reports",

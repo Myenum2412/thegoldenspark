@@ -56,6 +56,25 @@ async function CustomersData() {
 
   const customers = (data ?? []) as Customer[];
 
+  const { data: orderData } = await supabase
+    .from("orders")
+    .select("id, customer_id, total");
+  const statsByCustomer = new Map<
+    string,
+    { count: number; total: number }
+  >();
+  for (const o of (orderData ?? []) as {
+    customer_id: number | null;
+    total: number;
+  }[]) {
+    if (o.customer_id == null) continue;
+    const key = String(o.customer_id);
+    const s = statsByCustomer.get(key) ?? { count: 0, total: 0 };
+    s.count += 1;
+    s.total += Number(o.total);
+    statsByCustomer.set(key, s);
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -84,6 +103,7 @@ async function CustomersData() {
                     <TableHead>Address</TableHead>
                     <TableHead>Pincode</TableHead>
                     <TableHead>Phone</TableHead>
+                    <TableHead className="text-right">Orders</TableHead>
                     <TableHead>Submitted</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -91,7 +111,7 @@ async function CustomersData() {
                   {customers.length === 0 ? (
                     <TableRow>
                       <TableCell
-                        colSpan={5}
+                        colSpan={6}
                         className="h-24 text-center text-sm text-muted-foreground"
                       >
                         No customer submissions yet — new form entries will
@@ -99,25 +119,40 @@ async function CustomersData() {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    customers.map((c) => (
-                      <TableRow key={c.id}>
-                        <TableCell className="font-medium">{c.name}</TableCell>
-                        <TableCell className="max-w-xs">
-                          {c.address}
-                        </TableCell>
-                        <TableCell className="tabular-nums">
-                          {c.pincode}
-                        </TableCell>
-                        <TableCell className="tabular-nums">
-                          {c.phone}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">
+                    customers.map((c) => {
+                      const stats = statsByCustomer.get(String(c.id));
+                      return (
+                        <TableRow key={c.id}>
+                          <TableCell className="font-medium">
+                            {c.name}
+                          </TableCell>
+                          <TableCell className="max-w-xs">
+                            {c.address}
+                          </TableCell>
+                          <TableCell className="tabular-nums">
+                            {c.pincode}
+                          </TableCell>
+                          <TableCell className="tabular-nums">
+                            {c.phone}
+                          </TableCell>
+                          <TableCell className="text-right tabular-nums">
+                            {stats ? (
+                              <>
+                                {stats.count} · ₹
+                                {stats.total.toLocaleString("en-IN")}
+                              </>
+                            ) : (
+                              <span className="text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">
                           {c.created_at
                             ? new Date(c.created_at).toLocaleString("en-IN")
                             : "—"}
                         </TableCell>
-                      </TableRow>
-                    ))
+                        </TableRow>
+                      );
+                    })
                   )}
                 </TableBody>
               </Table>

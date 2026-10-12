@@ -5,7 +5,7 @@ export default function SetupNotice({
   table,
 }: {
   message: string;
-  table: "customers" | "products";
+  table: "customers" | "products" | "orders";
 }) {
   return (
     <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm">
