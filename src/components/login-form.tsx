@@ -1,5 +1,8 @@
 "use client"
 
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { cn } from "cn"
 
 import { Button } from "@/components/ui/button"
@@ -10,15 +13,41 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { createClient } from "@/utils/supabase/client"
 import Image from "next/image"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter()
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [loading, setLoading] = React.useState(false)
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setLoading(true)
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    })
+    setLoading(false)
+
+    if (error) {
+      toast.error("Login failed", { description: error.message })
+      return
+    }
+
+    toast.success("Welcome back!")
+    router.push("/dashboard")
+    router.refresh()
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
@@ -44,6 +73,8 @@ export function LoginForm({
               id="email"
               type="email"
               placeholder="m@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </Field>
@@ -61,11 +92,15 @@ export function LoginForm({
               id="password"
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Field>
           <Field>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Logging in…" : "Login"}
+            </Button>
           </Field>
         </FieldGroup>
       </form>

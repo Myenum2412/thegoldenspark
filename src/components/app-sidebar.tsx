@@ -1,0 +1,73 @@
+"use client"
+
+import * as React from "react"
+import Image from "next/image"
+import { LayoutDashboardIcon, StoreIcon, UsersIcon } from "lucide-react"
+
+import { NavMain } from "@/components/nav-main"
+import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from "@/components/ui/sidebar"
+
+const teams = [
+  {
+    name: "Golden Spark",
+    logo: (
+      <Image
+        src="/logo.png"
+        alt="Golden Spark logo"
+        width={32}
+        height={32}
+        className="size-8 rounded-md object-cover"
+      />
+    ),
+    plan: "Store Admin",
+  },
+]
+
+const navMain = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: <LayoutDashboardIcon />,
+    isActive: true,
+  },
+  {
+    title: "Customers",
+    url: "/dashboard#customers",
+    icon: <UsersIcon />,
+  },
+  {
+    title: "View Store",
+    url: "/",
+    icon: <StoreIcon />,
+  },
+]
+
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  user: { name: string; email: string; avatar: string }
+}) {
+  return (
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader>
+        <TeamSwitcher teams={teams} />
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain items={navMain} />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={user} />
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
+  )
+}
