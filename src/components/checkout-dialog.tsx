@@ -171,29 +171,10 @@ export default function CheckoutDialog({
     return order.id;
   }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Single common action: validate → save to Supabase → open
+  // WhatsApp with the saved order automatically.
+  async function handlePlaceOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const input = { name, phone, address, pincode, lines };
-    const { errors: errs, phone: cleanPhone } = validateOrder(input);
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setSaving(true);
-    const orderId = await persistOrder(cleanPhone);
-    setSaving(false);
-    if (orderId == null) return;
-
-    toast.success(`Order #${orderId} saved!`, {
-      description: `${name.trim()} · ₹${total.toLocaleString("en-IN")} · we will call you back.`,
-    });
-    onOpenChange(false);
-    onSaved();
-    router.refresh();
-  }
-
-  // WhatsApp ordering also requires valid details first — and the
-  // details + items are saved to Supabase before opening WhatsApp.
-  async function handleWhatsAppOrder() {
     const { errors: errs, phone: cleanPhone } = validateOrder({
       name,
       phone,
@@ -243,7 +224,7 @@ export default function CheckoutDialog({
             with this order.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="grid gap-4">
+        <form onSubmit={handlePlaceOrder} className="grid gap-4">
           <Field>
             <FieldLabel htmlFor="order-name">Full Name *</FieldLabel>
             <Input
@@ -351,20 +332,14 @@ export default function CheckoutDialog({
               }
             />
             <Button
-              type="button"
-              variant="outline"
-              disabled={saving}
-              onClick={handleWhatsAppOrder}
-            >
-              <WhatsappIcon className="size-4" aria-hidden="true" />
-              WhatsApp Order
-            </Button>
-            <Button
               type="submit"
               disabled={saving}
               className="bg-amber-500 text-black hover:bg-amber-400"
             >
-              {saving ? "Saving…" : `Save Order · ₹${total.toLocaleString("en-IN")}`}
+              <WhatsappIcon className="size-4" aria-hidden="true" />
+              {saving
+                ? "Placing…"
+                : `Place Order · ₹${total.toLocaleString("en-IN")}`}
             </Button>
           </DialogFooter>
         </form>
