@@ -109,7 +109,7 @@ export default function PricelistTable({
   return (
     <div className="flex flex-col gap-4">
       {/* ── Heading + customer details panel ───────── */}
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-neutral-950 text-white">
+      <div className="relative overflow-hidden rounded-none border border-border bg-neutral-950 text-white">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_15%_0%,rgba(245,158,11,0.25),transparent),radial-gradient(ellipse_40%_50%_at_90%_100%,rgba(234,88,12,0.2),transparent)]"
@@ -128,7 +128,7 @@ export default function PricelistTable({
               cart, and order in one go.
             </p>
           </div>
-          <div className="grid content-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 sm:p-5">
+          <div className="grid content-start gap-3 rounded-none border border-white/10 bg-white/5 p-4 sm:p-5">
             <p className="text-xs font-semibold tracking-widest text-amber-400 uppercase">
               Your Details
             </p>
@@ -137,7 +137,7 @@ export default function PricelistTable({
                 <label htmlFor="top-name" className="text-xs font-medium text-neutral-300">
                   Full Name *
                 </label>
-                <Input
+                <Input className="rounded-none"
                   id="top-name"
                   placeholder="e.g. Karthik Raja"
                   value={customer.name}
@@ -145,14 +145,14 @@ export default function PricelistTable({
                     setCustomer((c) => ({ ...c, name: e.target.value }))
                   }
                   maxLength={80}
-                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                  className="border-white/20 bg-white text-black placeholder:text-neutral-400"
                 />
               </div>
               <div className="grid gap-1.5">
                 <label htmlFor="top-phone" className="text-xs font-medium text-neutral-300">
                   Mobile Number *
                 </label>
-                <Input
+                <Input className="rounded-none"
                   id="top-phone"
                   inputMode="numeric"
                   placeholder="10-digit mobile"
@@ -164,14 +164,14 @@ export default function PricelistTable({
                     }))
                   }
                   maxLength={14}
-                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                  className="border-white/20 bg-white text-black placeholder:text-neutral-400"
                 />
               </div>
               <div className="grid gap-1.5 sm:col-span-2">
                 <label htmlFor="top-address" className="text-xs font-medium text-neutral-300">
                   Full Address *
                 </label>
-                <Input
+                <Input className="rounded-none"
                   id="top-address"
                   placeholder="Door no, street, area, city"
                   value={customer.address}
@@ -179,14 +179,14 @@ export default function PricelistTable({
                     setCustomer((c) => ({ ...c, address: e.target.value }))
                   }
                   maxLength={300}
-                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                  className="border-white/20 bg-white text-black placeholder:text-neutral-400"
                 />
               </div>
               <div className="grid gap-1.5">
                 <label htmlFor="top-pincode" className="text-xs font-medium text-neutral-300">
                   Pincode *
                 </label>
-                <Input
+                <Input className="rounded-none"
                   id="top-pincode"
                   inputMode="numeric"
                   placeholder="e.g. 636005"
@@ -198,17 +198,17 @@ export default function PricelistTable({
                     }))
                   }
                   maxLength={6}
-                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                  className="border-white/20 bg-white text-black placeholder:text-neutral-400"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Card>
+      <Card className="rounded-none">
         <CardContent className="flex flex-col items-center gap-2 p-4">
           <div className="flex w-full flex-col items-center gap-2">
-            <Input
+            <Input className="rounded-none"
               type="search"
               placeholder="Search crackers…"
               value={query}
@@ -220,7 +220,7 @@ export default function PricelistTable({
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               aria-label="Filter by category"
-              className="h-9 w-full max-w-md rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
+              className="h-9 w-full max-w-md rounded-none border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
             >
               {categories.map((c) => (
                 <option key={c} value={c}>
@@ -233,7 +233,7 @@ export default function PricelistTable({
       </Card>
 
       {listEmpty ? (
-        <Card>
+        <Card className="rounded-none">
           <CardHeader>
             <CardTitle>Pricelist 2026</CardTitle>
             <CardDescription>
@@ -244,7 +244,7 @@ export default function PricelistTable({
         </Card>
       ) : (
         <>
-          <Card className="hidden sm:block">
+          <Card className="rounded-none" className="hidden sm:block">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
@@ -346,7 +346,7 @@ export default function PricelistTable({
       {/* ── Mobile: full-width stacked cards ─────────── */}
       <div className="flex flex-col gap-2 sm:hidden">
         {filtered.length === 0 ? (
-          <Card>
+          <Card className="rounded-none">
             <CardContent className="py-8 text-center text-sm text-muted-foreground">
               No products match your search.
             </CardContent>
@@ -355,9 +355,9 @@ export default function PricelistTable({
           filtered.map((p) => {
             const qty = cart[String(p.id)] ?? 0;
             return (
-              <Card key={p.id} className="gap-0 py-0">
+              <Card className="rounded-none" key={p.id} className="gap-0 py-0">
                 <CardContent className="flex items-center gap-3 p-3">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-none bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums">
                     {p.item_no}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -417,10 +417,10 @@ export default function PricelistTable({
       )}
 
       {count > 0 && (
-        <Card className="sticky bottom-4 border-amber-500/40 shadow-lg">
+        <Card className="rounded-none" className="sticky bottom-4 border-amber-500/40 shadow-lg">
           <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
+              <span className="flex size-10 items-center justify-center rounded-none bg-amber-500/10 text-amber-600">
                 <ShoppingCartIcon className="size-5" aria-hidden="true" />
               </span>
               <div>
