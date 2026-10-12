@@ -91,6 +91,11 @@ export default function Page() {
 
       <Separator className="mx-auto max-w-6xl" />
 
+      {/* ── Customer form ────────────────────────────── */}
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
+        <CustomerForm />
+      </section>
+
       {/* ── Visit us / company card ──────────────────── */}
       <section id="visit" className="mx-auto w-full max-w-6xl px-4 py-10">
         <div className="text-center">
@@ -179,11 +184,6 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ── Customer form ────────────────────────────── */}
-      <section className="mx-auto w-full max-w-2xl px-4 pb-10">
-        <CustomerForm />
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
