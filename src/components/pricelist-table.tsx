@@ -25,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
+import CheckoutDialog from "@/components/checkout-dialog";
 import type { Product } from "@/lib/store-data";
 
 const WHATSAPP = "https://wa.me/918248601417";
@@ -47,6 +48,7 @@ export default function PricelistTable({
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState("All");
   const [cart, setCart] = React.useState<Record<string, number>>(loadCart);
+  const [checkoutOpen, setCheckoutOpen] = React.useState(false);
 
   React.useEffect(() => {
     try {
@@ -372,17 +374,33 @@ export default function PricelistTable({
                 Clear
               </Button>
               <Button
+                variant="outline"
                 size="sm"
-                className="bg-amber-500 text-black hover:bg-amber-400"
                 onClick={orderOnWhatsApp}
               >
                 <WhatsappIcon className="size-4" aria-hidden="true" />
-                Order on WhatsApp
+                WhatsApp
+              </Button>
+              <Button
+                size="sm"
+                className="bg-amber-500 text-black hover:bg-amber-400"
+                onClick={() => setCheckoutOpen(true)}
+              >
+                <ShoppingCartIcon className="size-4" aria-hidden="true" />
+                Checkout
               </Button>
             </div>
           </CardContent>
         </Card>
       )}
+
+      <CheckoutDialog
+        open={checkoutOpen}
+        onOpenChange={setCheckoutOpen}
+        lines={lines}
+        total={total}
+        onSaved={() => setCart({})}
+      />
     </div>
   );
 }
