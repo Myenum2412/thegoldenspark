@@ -6,7 +6,6 @@ import {
   BadgeCheck,
   ClipboardList,
   Package,
-  Phone,
   ShieldCheck,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -15,12 +14,7 @@ import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { createClient } from "@/utils/supabase/client";
-
-const PHONE_DISPLAY = "+91 99629 70062";
-const PHONE_TEL = "tel:+919962970062";
-const WHATSAPP = "https://wa.me/919962970062";
 
 const highlights = [
   {
@@ -123,24 +117,6 @@ export default function CustomerForm() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 space-y-2 border-t border-white/10 pt-4 text-sm">
-            <a
-              href={PHONE_TEL}
-              className="flex items-center gap-2 text-neutral-300 hover:text-amber-300"
-            >
-              <Phone className="size-4" aria-hidden="true" />
-              {PHONE_DISPLAY}
-            </a>
-            <a
-              href={WHATSAPP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-neutral-300 hover:text-amber-300"
-            >
-              <WhatsappIcon className="size-4" aria-hidden="true" />
-              Chat on WhatsApp
-            </a>
-          </div>
         </div>
       </div>
 
