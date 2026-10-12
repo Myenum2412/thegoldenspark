@@ -2,7 +2,6 @@ import Image from "next/image";
 import {
   MapPin,
   Phone,
-  Sparkles,
 } from "lucide-react";
 import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { Badge } from "@/components/ui/badge";
@@ -34,19 +33,12 @@ export default function Page() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(245,158,11,0.35),transparent),radial-gradient(ellipse_40%_35%_at_85%_110%,rgba(234,88,12,0.25),transparent),radial-gradient(ellipse_40%_35%_at_10%_110%,rgba(245,158,11,0.15),transparent)]"
         />
         <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-16 text-center sm:py-24">
-          <Badge
-            variant="secondary"
-            className="border-amber-500/30 bg-amber-500/10 text-amber-300"
-          >
-            <Sparkles className="size-3.5" aria-hidden="true" />
-            Premium Fireworks • Direct Sivakasi Factory Rates
-          </Badge>
           <Image
             src="/logo.png"
             alt="Golden Spark logo"
             width={160}
             height={160}
-            className="mt-8 h-36 w-36 rounded-3xl border border-amber-500/30 object-cover shadow-[0_0_80px_-10px_rgba(245,158,11,0.6)]"
+            className="h-36 w-36 object-contain"
             priority
           />
           <h1 className="google-sans mt-8 text-4xl font-bold tracking-tight sm:text-6xl">
