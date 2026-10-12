@@ -2,7 +2,13 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { LayoutDashboardIcon, StoreIcon, UsersIcon } from "lucide-react"
+import {
+  ChartColumnIcon,
+  LayoutDashboardIcon,
+  PackageIcon,
+  StoreIcon,
+  UsersIcon,
+} from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -40,8 +46,18 @@ const navMain = [
   },
   {
     title: "Customers",
-    url: "/dashboard#customers",
+    url: "/dashboard/customers",
     icon: <UsersIcon />,
+  },
+  {
+    title: "Products",
+    url: "/dashboard/products",
+    icon: <PackageIcon />,
+  },
+  {
+    title: "Reports",
+    url: "/dashboard/reports",
+    icon: <ChartColumnIcon />,
   },
   {
     title: "View Store",
