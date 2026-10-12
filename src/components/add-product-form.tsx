@@ -23,6 +23,7 @@ export default function AddProductForm() {
   const [packing, setPacking] = React.useState("Box");
   const [mrp, setMrp] = React.useState("");
   const [rate, setRate] = React.useState("");
+  const [stock, setStock] = React.useState("");
   const [saving, setSaving] = React.useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -36,6 +37,7 @@ export default function AddProductForm() {
       packing: packing.trim() || "Box",
       mrp: Number(mrp) || 0,
       special_rate: Number(rate) || 0,
+      stock: Number(stock) || 0,
     });
     setSaving(false);
 
@@ -51,6 +53,7 @@ export default function AddProductForm() {
     setPacking("Box");
     setMrp("");
     setRate("");
+    setStock("");
     router.refresh();
   }
 
@@ -124,6 +127,16 @@ export default function AddProductForm() {
               value={rate}
               onChange={(e) => setRate(e.target.value.replace(/[^0-9.]/g, ""))}
               required
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="product-stock">Stock</FieldLabel>
+            <Input
+              id="product-stock"
+              inputMode="numeric"
+              placeholder="0"
+              value={stock}
+              onChange={(e) => setStock(e.target.value.replace(/\D/g, ""))}
             />
           </Field>
           <div className="sm:col-span-3">

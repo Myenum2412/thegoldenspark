@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import Link from "next/link";
 import { PackageIcon, UsersIcon, WalletIcon } from "lucide-react";
 import {
   Card,
@@ -21,6 +20,7 @@ import {
   DashboardLoading,
   DashboardShell,
 } from "@/components/dashboard-shell";
+import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { requireUser } from "@/lib/require-user";
 import type { Customer, Product } from "@/lib/store-data";
@@ -60,67 +60,36 @@ async function DashboardData() {
 
   return (
     <DashboardShell email={user.email ?? ""} title="Dashboard">
-      <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex-row items-center gap-3 space-y-0">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-              <UsersIcon className="size-5" aria-hidden="true" />
-            </span>
-            <CardTitle className="text-base">Total Customers</CardTitle>
-          </CardHeader>
-          <CardContent className="-mt-2">
-            <p className="text-3xl font-bold tabular-nums">
-              {customerError ? "—" : customers.length}
-            </p>
-            <Link
-              href="/dashboard/customers"
-              className="text-xs text-amber-600 hover:text-amber-500"
-            >
-              View all →
-            </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex-row items-center gap-3 space-y-0">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-              <PackageIcon className="size-5" aria-hidden="true" />
-            </span>
-            <CardTitle className="text-base">Total Products</CardTitle>
-          </CardHeader>
-          <CardContent className="-mt-2">
-            <p className="text-3xl font-bold tabular-nums">
-              {productError ? "—" : products.length}
-            </p>
-            <Link
-              href="/dashboard/products"
-              className="text-xs text-amber-600 hover:text-amber-500"
-            >
-              View all →
-            </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex-row items-center gap-3 space-y-0">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-              <WalletIcon className="size-5" aria-hidden="true" />
-            </span>
-            <CardTitle className="text-base">Stock Value</CardTitle>
-          </CardHeader>
-          <CardContent className="-mt-2">
-            <p className="text-3xl font-bold tabular-nums">
-              {productError
-                ? "—"
-                : `₹${stockValue.toLocaleString("en-IN")}`}
-            </p>
-            <Link
-              href="/dashboard/reports"
-              className="text-xs text-amber-600 hover:text-amber-500"
-            >
-              View reports →
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
+      <DashboardStats
+        stats={[
+          {
+            name: "Total Customers",
+            value: customerError ? "—" : String(customers.length),
+            description: "Details submitted from the store website form.",
+            href: "/dashboard/customers",
+            linkLabel: "View all",
+            icon: UsersIcon,
+          },
+          {
+            name: "Total Products",
+            value: productError ? "—" : String(products.length),
+            description: "Items live in your pricelist.",
+            href: "/dashboard/products",
+            linkLabel: "View all",
+            icon: PackageIcon,
+          },
+          {
+            name: "Stock Value",
+            value: productError
+              ? "—"
+              : `₹${stockValue.toLocaleString("en-IN")}`,
+            description: "Our rate × stock across products.",
+            href: "/dashboard/reports",
+            linkLabel: "View reports",
+            icon: WalletIcon,
+          },
+        ]}
+      />
 
       <Card>
         <CardHeader>

@@ -20,6 +20,7 @@ import {
   DashboardLoading,
   DashboardShell,
 } from "@/components/dashboard-shell";
+import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { requireUser } from "@/lib/require-user";
 import type { Customer, Product } from "@/lib/store-data";
@@ -66,56 +67,34 @@ async function ReportsData() {
         />
       ) : (
         <>
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <Card>
-              <CardHeader className="flex-row items-center gap-3 space-y-0">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-                  <UsersIcon className="size-5" aria-hidden="true" />
-                </span>
-                <CardTitle className="text-base">Total Enquiries</CardTitle>
-              </CardHeader>
-              <CardContent className="-mt-2">
-                <p className="text-3xl font-bold tabular-nums">
-                  {customers.length}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Customer form submissions
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex-row items-center gap-3 space-y-0">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-                  <PackageIcon className="size-5" aria-hidden="true" />
-                </span>
-                <CardTitle className="text-base">Products Live</CardTitle>
-              </CardHeader>
-              <CardContent className="-mt-2">
-                <p className="text-3xl font-bold tabular-nums">
-                  {products.length}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {lowStock.length} low on stock (≤ 10)
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex-row items-center gap-3 space-y-0">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-                  <WalletIcon className="size-5" aria-hidden="true" />
-                </span>
-                <CardTitle className="text-base">Stock Value</CardTitle>
-              </CardHeader>
-              <CardContent className="-mt-2">
-                <p className="text-3xl font-bold tabular-nums">
-                  ₹{stockValue.toLocaleString("en-IN")}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Price × stock across products
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <DashboardStats
+            stats={[
+              {
+                name: "Total Enquiries",
+                value: String(customers.length),
+                description: "Customer form submissions",
+                href: "/dashboard/customers",
+                linkLabel: "View all",
+                icon: UsersIcon,
+              },
+              {
+                name: "Products Live",
+                value: String(products.length),
+                description: `${lowStock.length} low on stock (≤ 10)`,
+                href: "/dashboard/products",
+                linkLabel: "View all",
+                icon: PackageIcon,
+              },
+              {
+                name: "Stock Value",
+                value: `₹${stockValue.toLocaleString("en-IN")}`,
+                description: "Price × stock across products",
+                href: "/dashboard/products",
+                linkLabel: "View products",
+                icon: WalletIcon,
+              },
+            ]}
+          />
 
           <Card>
             <CardHeader>

@@ -74,13 +74,14 @@ async function ProductsData() {
                     <TableHead>Packing</TableHead>
                     <TableHead className="text-right">MRP (₹)</TableHead>
                     <TableHead className="text-right">Our Rate (₹)</TableHead>
+                    <TableHead className="text-right">Stock</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {products.length === 0 ? (
                     <TableRow>
                       <TableCell
-                        colSpan={6}
+                        colSpan={7}
                         className="h-24 text-center text-sm text-muted-foreground"
                       >
                         No products yet — run supabase/seed.sql to load the
@@ -103,6 +104,9 @@ async function ProductsData() {
                         </TableCell>
                         <TableCell className="text-right font-semibold tabular-nums text-amber-600">
                           {Number(p.special_rate).toLocaleString("en-IN")}
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {Number(p.stock).toLocaleString("en-IN")}
                         </TableCell>
                       </TableRow>
                     ))
