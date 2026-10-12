@@ -55,13 +55,13 @@ export default async function Page() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(245,158,11,0.35),transparent),radial-gradient(ellipse_40%_35%_at_85%_110%,rgba(234,88,12,0.25),transparent),radial-gradient(ellipse_40%_35%_at_10%_110%,rgba(245,158,11,0.15),transparent)]"
         />
-        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-16 text-center sm:py-24">
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 py-10 text-center sm:py-24">
           <Image
             src="/logo.png"
             alt="Golden Spark logo"
             width={240}
             height={240}
-            className="h-60 w-60 object-contain"
+            className="h-44 w-44 object-contain sm:h-60 sm:w-60"
             priority
           />
           <h1 className="google-sans mt-8 text-4xl font-bold tracking-tight sm:text-6xl">
@@ -101,24 +101,24 @@ export default async function Page() {
       </section>
 
       {/* ── Trust highlights (stats-01 block) ────────── */}
-      <section className="mx-auto w-full max-w-6xl px-4 py-10">
+      <section className="mx-auto w-full max-w-6xl px-3 py-8 sm:px-4 sm:py-10">
         <Stats01 />
       </section>
 
       <Separator className="mx-auto max-w-6xl" />
 
       {/* ── Customer form ────────────────────────────── */}
-      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
+      <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
         <CustomerForm />
       </section>
 
       {/* ── Pricelist with add to cart ─────────────── */}
-      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
+      <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
         <PricelistTable products={products} />
       </section>
 
       {/* ── Visit us / company card ──────────────────── */}
-      <section id="visit" className="mx-auto w-full max-w-6xl px-4 py-10">
+      <section id="visit" className="mx-auto w-full max-w-6xl px-3 py-8 sm:px-4 sm:py-10">
         <div className="text-center">
           <Badge
             variant="secondary"

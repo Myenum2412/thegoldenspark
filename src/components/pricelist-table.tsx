@@ -177,7 +177,7 @@ export default function PricelistTable({
         </div>
       </div>
 
-      <Card>
+      <Card className="hidden sm:block">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
@@ -275,6 +275,77 @@ export default function PricelistTable({
           </div>
         </CardContent>
       </Card>
+
+      {/* ── Mobile: full-width stacked cards ─────────── */}
+      <div className="flex flex-col gap-2 sm:hidden">
+        {filtered.length === 0 ? (
+          <Card>
+            <CardContent className="py-8 text-center text-sm text-muted-foreground">
+              No products match your search.
+            </CardContent>
+          </Card>
+        ) : (
+          filtered.map((p) => {
+            const qty = cart[String(p.id)] ?? 0;
+            return (
+              <Card key={p.id} className="gap-0 py-0">
+                <CardContent className="flex items-center gap-3 p-3">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums">
+                    {p.item_no}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium">{p.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {p.packing} ·{" "}
+                      <span className="line-through">
+                        ₹{Number(p.mrp).toLocaleString("en-IN")}
+                      </span>{" "}
+                      <span className="font-semibold text-amber-600">
+                        ₹{Number(p.special_rate).toLocaleString("en-IN")}
+                      </span>
+                    </p>
+                  </div>
+                  {qty === 0 ? (
+                    <Button
+                      size="icon"
+                      className="shrink-0 bg-amber-500 text-black hover:bg-amber-400"
+                      onClick={() => setQty(p.id, 1)}
+                      aria-label={`Add ${p.name} to cart`}
+                    >
+                      <ShoppingCartIcon
+                        className="size-4"
+                        aria-hidden="true"
+                      />
+                    </Button>
+                  ) : (
+                    <div className="flex shrink-0 items-center gap-1">
+                      <Button
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => setQty(p.id, qty - 1)}
+                        aria-label={`Remove one ${p.name}`}
+                      >
+                        <MinusIcon className="size-3.5" aria-hidden="true" />
+                      </Button>
+                      <span className="w-6 text-center text-sm font-semibold tabular-nums">
+                        {qty}
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => setQty(p.id, qty + 1)}
+                        aria-label={`Add one more ${p.name}`}
+                      >
+                        <PlusIcon className="size-3.5" aria-hidden="true" />
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })
+        )}
+      </div>
 
       {count > 0 && (
         <Card className="sticky bottom-4 border-amber-500/40 shadow-lg">
