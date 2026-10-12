@@ -13,8 +13,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "gsh",
-  description: "gsh app",
+  title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+  description:
+    "Golden Spark Pvt Ltd — premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story. Call +91 99629 70062.",
+  keywords: [
+    "Golden Spark",
+    "Sivakasi crackers",
+    "fireworks",
+    "wholesale crackers",
+    "buy crackers online",
+    "Sivakasi fireworks",
+  ],
+  openGraph: {
+    title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+    description:
+      "Premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story.",
+    type: "website",
+    images: [{ url: "/logo.png", width: 375, height: 666 }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+    description:
+      "Premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story.",
+    images: ["/logo.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
