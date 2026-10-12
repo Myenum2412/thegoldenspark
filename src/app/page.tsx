@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import TableBlock from "@/components/blocks/table-1";
+import { BusinessCard } from "@/components/business-card";
 
 type Todo = {
   id: string | number;
@@ -44,6 +45,14 @@ async function Todos() {
 export default function Page() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-10">
+      <section className="mb-8 flex justify-center">
+        <BusinessCard
+          name="Your Business Name"
+          address="123 Main Street, Your City, Your State"
+          pincode="000000"
+          phone="+91 00000 00000"
+        />
+      </section>
       <section className="mb-8 rounded-xl border border-border bg-card p-6">
         <h2 className="text-lg font-semibold tracking-tight">
           Todos from Supabase
