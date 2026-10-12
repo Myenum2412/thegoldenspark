@@ -85,16 +85,12 @@ async function CustomersData() {
             name: "Total Customers",
             value: error ? "—" : String(customers.length),
             description: "Details submitted from the store website.",
-            href: "/dashboard/customers",
-            linkLabel: "View all",
             icon: UsersIcon,
           },
           {
             name: "Customers with Orders",
             value: error ? "—" : String(statsByCustomer.size),
             description: "Placed at least one order.",
-            href: "/dashboard/orders",
-            linkLabel: "View orders",
             icon: ClipboardListIcon,
           },
           {
@@ -113,8 +109,6 @@ async function CustomersData() {
                   }).length
                 ),
             description: "Joined in the current month.",
-            href: "/dashboard/customers",
-            linkLabel: "View all",
             icon: CalendarIcon,
           },
         ]}

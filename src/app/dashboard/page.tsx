@@ -78,16 +78,12 @@ async function DashboardData() {
             name: "Total Customers",
             value: customerError ? "—" : String(customers.length),
             description: "Details submitted from the store website form.",
-            href: "/dashboard/customers",
-            linkLabel: "View all",
             icon: UsersIcon,
           },
           {
             name: "Total Products",
             value: productError ? "—" : String(products.length),
             description: "Items live in your pricelist.",
-            href: "/dashboard/products",
-            linkLabel: "View all",
             icon: PackageIcon,
           },
           {
@@ -96,8 +92,6 @@ async function DashboardData() {
               ? "—"
               : `₹${stockValue.toLocaleString("en-IN")}`,
             description: "Our rate × stock across products.",
-            href: "/dashboard/reports",
-            linkLabel: "View reports",
             icon: WalletIcon,
           },
         ]}

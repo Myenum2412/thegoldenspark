@@ -65,6 +65,15 @@ async function OrdersData() {
     .select("id, order_id, item_no, name, qty, rate, amount")
     .limit(2000);
 
+  const { data: addressData } = await supabase
+    .from("customers")
+    .select("id, address");
+  const addressByCustomer = new Map(
+    ((addressData ?? []) as { id: string | number; address: string }[]).map(
+      (c) => [String(c.id), c.address]
+    )
+  );
+
   const error = orderError ?? itemError;
   const orders = (orderData ?? []) as Order[];
   const itemsByOrder = new Map<string, OrderItem[]>();
@@ -87,24 +96,18 @@ async function OrdersData() {
             name: "Total Orders",
             value: error ? "—" : String(orders.length),
             description: "Checkouts from the homepage pricelist.",
-            href: "/dashboard/orders",
-            linkLabel: "View all",
             icon: ClipboardListIcon,
           },
           {
             name: "Order Value",
             value: error ? "—" : `₹${orderValue.toLocaleString("en-IN")}`,
             description: "Sum of all order totals.",
-            href: "/dashboard/orders",
-            linkLabel: "View all",
             icon: WalletIcon,
           },
           {
             name: "Items Sold",
             value: error ? "—" : String(itemsSold),
             description: "Total quantity across orders.",
-            href: "/dashboard/orders",
-            linkLabel: "View all",
             icon: PackageIcon,
           },
         ]}
@@ -181,7 +184,17 @@ async function OrdersData() {
                         </TableCell>
                         <TableCell>
                           <div className="flex justify-end">
-                            <OrderView order={o} items={items} />
+                            <OrderView
+                              order={o}
+                              items={items}
+                              address={
+                                o.customer_id != null
+                                  ? addressByCustomer.get(
+                                      String(o.customer_id)
+                                    )
+                                  : undefined
+                              }
+                            />
                           </div>
                         </TableCell>
                       </TableRow>

@@ -45,9 +45,11 @@ export type OrderItem = {
 export default function OrderView({
   order,
   items,
+  address,
 }: {
   order: Order;
   items: OrderItem[];
+  address?: string;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -74,6 +76,12 @@ export default function OrderView({
               : ""}
           </DialogDescription>
         </DialogHeader>
+        {address && (
+          <p className="rounded-lg bg-muted/50 px-3 py-2 text-sm">
+            <span className="font-medium">Full Address: </span>
+            {address}
+          </p>
+        )}
         <div className="overflow-x-auto rounded-lg border">
           <Table>
             <TableHeader>

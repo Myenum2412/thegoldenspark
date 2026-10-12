@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -6,8 +5,6 @@ export type DashboardStat = {
   name: string;
   value: string;
   description: string;
-  href: string;
-  linkLabel: string;
   icon: LucideIcon;
 };
 
@@ -41,12 +38,6 @@ export default function DashboardStats({
             <p className="text-sm text-muted-foreground">
               {stat.description}
             </p>
-            <Link
-              href={stat.href}
-              className="text-xs font-medium text-amber-600 hover:text-amber-500"
-            >
-              {stat.linkLabel} →
-            </Link>
           </CardContent>
         </Card>
       ))}
