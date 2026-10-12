@@ -108,81 +108,103 @@ export default function PricelistTable({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* ── Customer details (used at checkout) ────── */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Your Details</CardTitle>
-          <CardDescription>
-            Fill once here — these go with your order at checkout.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-3 sm:grid-cols-2">
-          <div className="grid gap-1.5">
-            <label htmlFor="top-name" className="text-sm font-medium">
-              Full Name *
-            </label>
-            <Input
-              id="top-name"
-              placeholder="e.g. Karthik Raja"
-              value={customer.name}
-              onChange={(e) =>
-                setCustomer((c) => ({ ...c, name: e.target.value }))
-              }
-              maxLength={80}
-            />
+      {/* ── Heading + customer details panel ───────── */}
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-neutral-950 text-white">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_15%_0%,rgba(245,158,11,0.25),transparent),radial-gradient(ellipse_40%_50%_at_90%_100%,rgba(234,88,12,0.2),transparent)]"
+        />
+        <div className="relative grid gap-6 p-6 sm:grid-cols-2 sm:p-8">
+          <div className="flex flex-col justify-center">
+            <p className="flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-400 uppercase">
+              <ShoppingCartIcon className="size-4" aria-hidden="true" />
+              Shop
+            </p>
+            <h2 className="google-sans mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              Our Products
+            </h2>
+            <p className="mt-2 max-w-sm text-sm text-neutral-400">
+              2026 pricelist at 80% off MRP — fill your details, add to
+              cart, and order in one go.
+            </p>
           </div>
-          <div className="grid gap-1.5">
-            <label htmlFor="top-phone" className="text-sm font-medium">
-              Mobile Number *
-            </label>
-            <Input
-              id="top-phone"
-              inputMode="numeric"
-              placeholder="10-digit mobile"
-              value={customer.phone}
-              onChange={(e) =>
-                setCustomer((c) => ({
-                  ...c,
-                  phone: e.target.value.replace(/[^0-9+ ]/g, ""),
-                }))
-              }
-              maxLength={14}
-            />
+          <div className="grid content-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 sm:p-5">
+            <p className="text-xs font-semibold tracking-widest text-amber-400 uppercase">
+              Your Details
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-1.5">
+                <label htmlFor="top-name" className="text-xs font-medium text-neutral-300">
+                  Full Name *
+                </label>
+                <Input
+                  id="top-name"
+                  placeholder="e.g. Karthik Raja"
+                  value={customer.name}
+                  onChange={(e) =>
+                    setCustomer((c) => ({ ...c, name: e.target.value }))
+                  }
+                  maxLength={80}
+                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <label htmlFor="top-phone" className="text-xs font-medium text-neutral-300">
+                  Mobile Number *
+                </label>
+                <Input
+                  id="top-phone"
+                  inputMode="numeric"
+                  placeholder="10-digit mobile"
+                  value={customer.phone}
+                  onChange={(e) =>
+                    setCustomer((c) => ({
+                      ...c,
+                      phone: e.target.value.replace(/[^0-9+ ]/g, ""),
+                    }))
+                  }
+                  maxLength={14}
+                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                />
+              </div>
+              <div className="grid gap-1.5 sm:col-span-2">
+                <label htmlFor="top-address" className="text-xs font-medium text-neutral-300">
+                  Full Address *
+                </label>
+                <Input
+                  id="top-address"
+                  placeholder="Door no, street, area, city"
+                  value={customer.address}
+                  onChange={(e) =>
+                    setCustomer((c) => ({ ...c, address: e.target.value }))
+                  }
+                  maxLength={300}
+                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <label htmlFor="top-pincode" className="text-xs font-medium text-neutral-300">
+                  Pincode *
+                </label>
+                <Input
+                  id="top-pincode"
+                  inputMode="numeric"
+                  placeholder="e.g. 636005"
+                  value={customer.pincode}
+                  onChange={(e) =>
+                    setCustomer((c) => ({
+                      ...c,
+                      pincode: e.target.value.replace(/\D/g, ""),
+                    }))
+                  }
+                  maxLength={6}
+                  className="border-white/10 bg-white/5 text-white placeholder:text-neutral-500"
+                />
+              </div>
+            </div>
           </div>
-          <div className="grid gap-1.5 sm:col-span-2">
-            <label htmlFor="top-address" className="text-sm font-medium">
-              Full Address *
-            </label>
-            <Input
-              id="top-address"
-              placeholder="Door no, street, area, city"
-              value={customer.address}
-              onChange={(e) =>
-                setCustomer((c) => ({ ...c, address: e.target.value }))
-              }
-              maxLength={300}
-            />
-          </div>
-          <div className="grid gap-1.5">
-            <label htmlFor="top-pincode" className="text-sm font-medium">
-              Pincode *
-            </label>
-            <Input
-              id="top-pincode"
-              inputMode="numeric"
-              placeholder="e.g. 636005"
-              value={customer.pincode}
-              onChange={(e) =>
-                setCustomer((c) => ({
-                  ...c,
-                  pincode: e.target.value.replace(/\D/g, ""),
-                }))
-              }
-              maxLength={6}
-            />
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
       <Card>
         <CardContent className="flex flex-col items-center gap-2 p-4">
           <div className="flex w-full flex-col items-center gap-2">
