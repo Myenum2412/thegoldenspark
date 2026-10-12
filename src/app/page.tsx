@@ -1,13 +1,10 @@
 import Image from "next/image";
 import {
-  BadgeCheck,
   MapPin,
-  MessageCircle,
-  Package,
   Phone,
-  ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,29 +16,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
+import Stats01 from "@/components/stats-01";
 import CustomerForm from "@/components/customer-form";
 
 const PHONE_DISPLAY = "+91 99629 70062";
 const PHONE_TEL = "tel:+919962970062";
 const WHATSAPP = "https://wa.me/919962970062";
-
-const highlights = [
-  {
-    icon: BadgeCheck,
-    title: "Genuine Quality",
-    text: "Handpicked crackers sourced directly from Sivakasi makers.",
-  },
-  {
-    icon: Package,
-    title: "Retail & Bulk",
-    text: "From single family packs to full wholesale orders.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Safe & Certified",
-    text: "Quality-checked products with clear safety instructions.",
-  },
-];
 
 export default function Page() {
   return (
@@ -95,7 +75,7 @@ export default function Page() {
               className="border-neutral-700 bg-transparent text-white hover:bg-neutral-800 hover:text-white"
               render={
                 <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle aria-hidden="true" />
+                  <WhatsappIcon className="size-4" aria-hidden="true" />
                   WhatsApp Us
                 </a>
               }
@@ -104,21 +84,9 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Trust highlights ─────────────────────────── */}
-      <section className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-10 sm:grid-cols-3">
-        {highlights.map((h) => (
-          <Card key={h.title} className="border-border/60">
-            <CardHeader className="flex-row items-center gap-3 space-y-0">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
-                <h.icon className="size-5" aria-hidden="true" />
-              </span>
-              <CardTitle className="text-base">{h.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="-mt-2 text-sm text-muted-foreground">
-              {h.text}
-            </CardContent>
-          </Card>
-        ))}
+      {/* ── Trust highlights (stats block) ───────────── */}
+      <section className="mx-auto w-full max-w-6xl px-4 py-10">
+        <Stats01 />
       </section>
 
       <Separator className="mx-auto max-w-6xl" />
@@ -202,7 +170,7 @@ export default function Page() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <MessageCircle aria-hidden="true" />
+                      <WhatsappIcon className="size-4" aria-hidden="true" />
                       Chat on WhatsApp
                     </a>
                   }
