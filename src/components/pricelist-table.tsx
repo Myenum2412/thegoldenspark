@@ -171,7 +171,7 @@ export default function PricelistTable({
                 </label>
                 <Input
                   id="top-name"
-                  placeholder="e.g. Karthik Raja"
+                  placeholder="Enter your name"
                   value={customer.name}
                   onChange={(e) =>
                     setCustomer((c) => ({ ...c, name: e.target.value }))

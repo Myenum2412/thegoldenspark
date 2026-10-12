@@ -229,7 +229,7 @@ export default function CheckoutDialog({
             <FieldLabel htmlFor="order-name">Full Name *</FieldLabel>
             <Input
               id="order-name"
-              placeholder="e.g. Karthik Raja"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={80}
