@@ -17,13 +17,36 @@ import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import CustomerForm from "@/components/customer-form";
 import Stats01 from "@/components/stats-01";
-import TableBlock from "@/components/blocks/table-1";
+import PricelistTable from "@/components/pricelist-table";
+import type { Product } from "@/lib/store-data";
 
 const PHONE_DISPLAY = "+91 8248601417";
 const PHONE_TEL = "tel:+918248601417";
 const WHATSAPP = "https://wa.me/918248601417";
 
-export default function Page() {
+async function getProducts(): Promise<Product[]> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+  try {
+    const res = await fetch(
+      `${url}/rest/v1/products?select=id,item_no,name,category,packing,mrp,special_rate,stock&order=item_no`,
+      {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
+        next: { revalidate: 60 },
+      }
+    );
+    if (!res.ok) return [];
+    return (await res.json()) as Product[];
+  } catch {
+    return [];
+  }
+}
+
+export default async function Page() {
+  const products = await getProducts();
   return (
     <main className="min-h-screen bg-background">
       {/* ── Premium hero ─────────────────────────────── */}
@@ -178,9 +201,9 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Members table ────────────────────────────── */}
+      {/* ── Pricelist with add to cart ─────────────── */}
       <section className="mx-auto w-full max-w-6xl px-4 pb-10">
-        <TableBlock />
+        <PricelistTable products={products} />
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
