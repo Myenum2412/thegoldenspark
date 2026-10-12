@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
-import CustomerForm from "@/components/customer-form";
 import Stats01 from "@/components/stats-01";
 import PricelistTable from "@/components/pricelist-table";
 import type { Product } from "@/lib/store-data";
@@ -107,11 +106,6 @@ export default async function Page() {
       </section>
 
       <Separator className="mx-auto max-w-6xl" />
-
-      {/* ── Customer form ────────────────────────────── */}
-      <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
-        <CustomerForm />
-      </section>
 
       {/* ── Pricelist with add to cart ─────────────── */}
       <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
