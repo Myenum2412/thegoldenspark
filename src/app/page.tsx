@@ -17,7 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import CustomerForm from "@/components/customer-form";
-import HighlightsTable from "@/components/highlights-table";
+import Stats01 from "@/components/stats-01";
 import TableBlock from "@/components/blocks/table-1";
 
 const PHONE_DISPLAY = "+91 8248601417";
@@ -85,9 +85,9 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Trust highlights table ───────────────────── */}
+      {/* ── Trust highlights (stats-01 block) ────────── */}
       <section className="mx-auto w-full max-w-6xl px-4 py-10">
-        <HighlightsTable />
+        <Stats01 />
       </section>
 
       <Separator className="mx-auto max-w-6xl" />
