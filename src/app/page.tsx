@@ -2,6 +2,7 @@ import Image from "next/image";
 import {
   MapPin,
   Phone,
+  ShoppingCartIcon,
 } from "lucide-react";
 import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { Badge } from "@/components/ui/badge";
@@ -114,6 +115,22 @@ export default async function Page() {
 
       {/* ── Pricelist with add to cart ─────────────── */}
       <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
+        <div className="mb-6 text-center">
+          <Badge
+            variant="secondary"
+            className="border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300"
+          >
+            <ShoppingCartIcon className="size-3.5" aria-hidden="true" />
+            Shop
+          </Badge>
+          <h2 className="google-sans mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            Our Products
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+            Browse the 2026 pricelist at 80% off MRP — fill your details,
+            add to cart, and order in one go.
+          </p>
+        </div>
         <PricelistTable products={products} />
       </section>
 

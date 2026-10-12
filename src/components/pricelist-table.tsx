@@ -184,20 +184,7 @@ export default function PricelistTable({
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
-          <div className="flex items-center gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
-              <ShoppingCartIcon className="size-5" aria-hidden="true" />
-            </span>
-            <div className="text-left">
-              <h2 className="google-sans text-xl font-bold tracking-tight sm:text-2xl">
-                Pricelist 2026
-              </h2>
-              <p className="text-xs text-muted-foreground">
-                80% off MRP — add items and order on WhatsApp.
-              </p>
-            </div>
-          </div>
+        <CardContent className="flex flex-col items-center gap-2 p-4">
           <div className="flex w-full flex-col items-center gap-2">
             <Input
               type="search"
