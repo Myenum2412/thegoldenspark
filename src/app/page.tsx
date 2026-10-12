@@ -125,58 +125,92 @@ export default function Page() {
 
       {/* ── Visit us / company card ──────────────────── */}
       <section id="visit" className="mx-auto w-full max-w-6xl px-4 py-10">
-        <Card className="overflow-hidden">
-          <div className="bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-transparent">
-            <CardHeader>
-              <CardTitle className="google-sans text-2xl">
-                Visit Our Store
-              </CardTitle>
-              <CardDescription>
-                Golden Spark Pvt Ltd — walk in or reach out, we love talking
-                fireworks.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-2">
-              <div className="flex items-start gap-3 rounded-lg border border-border bg-background/60 p-4">
-                <MapPin
-                  className="mt-0.5 size-5 shrink-0 text-amber-500"
-                  aria-hidden="true"
-                />
-                <div>
-                  <p className="text-sm font-semibold">Our Address</p>
-                  <address className="mt-1 text-sm leading-relaxed text-muted-foreground not-italic">
-                    Golden Spark Pvt Ltd, No. 2, Mullai Nagar First Street,
-                    N.R.K.R. Nagar (Near N.R.K.R. Marriage Hall), Sivakasi –
-                    626123.
-                  </address>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 rounded-lg border border-border bg-background/60 p-4">
-                <Phone
-                  className="mt-0.5 size-5 shrink-0 text-amber-500"
-                  aria-hidden="true"
-                />
-                <div>
-                  <p className="text-sm font-semibold">Call or WhatsApp</p>
+        <div className="text-center">
+          <Badge
+            variant="secondary"
+            className="border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300"
+          >
+            <MapPin className="size-3.5" aria-hidden="true" />
+            Find Us
+          </Badge>
+          <h2 className="google-sans mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            Visit Our Store
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+            Golden Spark Pvt Ltd — walk in or reach out, we love talking
+            fireworks.
+          </p>
+        </div>
+        <div className="relative mt-8 overflow-hidden rounded-2xl border border-border bg-neutral-950 text-white">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_15%_0%,rgba(245,158,11,0.25),transparent),radial-gradient(ellipse_40%_50%_at_90%_100%,rgba(234,88,12,0.2),transparent)]"
+          />
+          <div className="relative grid gap-6 p-6 sm:grid-cols-5 sm:p-10">
+            <div className="sm:col-span-3">
+              <p className="flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-400 uppercase">
+                <MapPin className="size-4" aria-hidden="true" />
+                Our Address
+              </p>
+              <address className="google-sans mt-3 text-xl leading-relaxed font-medium text-white not-italic sm:text-2xl">
+                Golden Spark Pvt Ltd, No. 2, Mullai Nagar First Street,
+                N.R.K.R. Nagar (Near N.R.K.R. Marriage Hall), Sivakasi –
+                626123.
+              </address>
+              <Button
+                size="lg"
+                className="mt-6 bg-amber-500 text-black hover:bg-amber-400"
+                render={
                   <a
-                    href={PHONE_TEL}
-                    className="mt-1 block text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    {PHONE_DISPLAY}
-                  </a>
-                  <a
-                    href={WHATSAPP}
+                    href="https://www.google.com/maps/search/?api=1&query=Golden+Spark+Mullai+Nagar+First+Street+Sivakasi+626123"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-1 block text-sm text-amber-600 hover:text-amber-500"
                   >
-                    Chat on WhatsApp →
+                    <MapPin aria-hidden="true" />
+                    Get Directions
                   </a>
-                </div>
+                }
+              />
+            </div>
+            <div className="flex flex-col justify-center gap-3 rounded-xl border border-white/10 bg-white/5 p-6 sm:col-span-2">
+              <p className="flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-400 uppercase">
+                <Phone className="size-4" aria-hidden="true" />
+                Call or WhatsApp
+              </p>
+              <a
+                href={PHONE_TEL}
+                className="google-sans text-2xl font-bold text-white hover:text-amber-300"
+              >
+                {PHONE_DISPLAY}
+              </a>
+              <div className="mt-2 flex flex-col gap-2">
+                <Button
+                  className="w-full bg-amber-500 text-black hover:bg-amber-400"
+                  render={
+                    <a href={PHONE_TEL}>
+                      <Phone aria-hidden="true" />
+                      Call Now
+                    </a>
+                  }
+                />
+                <Button
+                  variant="outline"
+                  className="w-full border-neutral-700 bg-transparent text-white hover:bg-neutral-800 hover:text-white"
+                  render={
+                    <a
+                      href={WHATSAPP}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageCircle aria-hidden="true" />
+                      Chat on WhatsApp
+                    </a>
+                  }
+                />
               </div>
-            </CardContent>
+            </div>
           </div>
-        </Card>
+        </div>
       </section>
 
       {/* ── Customer form ────────────────────────────── */}
