@@ -125,23 +125,28 @@ async function ReportsData() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {customers.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  No enquiries yet.
-                </p>
-              ) : (
-                <div className="overflow-x-auto rounded-lg border">
-                  <Table>
-                    <TableHeader>
+              <div className="overflow-x-auto rounded-lg border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Phone</TableHead>
+                      <TableHead>Pincode</TableHead>
+                      <TableHead>Submitted</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {customers.length === 0 ? (
                       <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Phone</TableHead>
-                        <TableHead>Pincode</TableHead>
-                        <TableHead>Submitted</TableHead>
+                        <TableCell
+                          colSpan={4}
+                          className="h-24 text-center text-sm text-muted-foreground"
+                        >
+                          No enquiries yet.
+                        </TableCell>
                       </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {customers.slice(0, 10).map((c) => (
+                    ) : (
+                      customers.slice(0, 10).map((c) => (
                         <TableRow key={c.id}>
                           <TableCell className="font-medium">
                             {c.name}
@@ -158,11 +163,11 @@ async function ReportsData() {
                               : "—"}
                           </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              )}
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </>

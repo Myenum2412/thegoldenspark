@@ -135,10 +135,6 @@ async function DashboardData() {
               message={loadError.message}
               table={customerError ? "customers" : "products"}
             />
-          ) : customers.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No customer submissions yet — new form entries will appear here.
-            </p>
           ) : (
             <div className="overflow-x-auto rounded-lg border">
               <Table>
@@ -150,15 +146,28 @@ async function DashboardData() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {customers.slice(0, 5).map((c) => (
-                    <TableRow key={c.id}>
-                      <TableCell className="font-medium">{c.name}</TableCell>
-                      <TableCell className="tabular-nums">{c.phone}</TableCell>
-                      <TableCell className="tabular-nums">
-                        {c.pincode}
+                  {customers.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={3}
+                        className="h-24 text-center text-sm text-muted-foreground"
+                      >
+                        No customer submissions yet.
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : (
+                    customers.slice(0, 5).map((c) => (
+                      <TableRow key={c.id}>
+                        <TableCell className="font-medium">{c.name}</TableCell>
+                        <TableCell className="tabular-nums">
+                          {c.phone}
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {c.pincode}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </div>

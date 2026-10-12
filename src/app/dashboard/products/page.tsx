@@ -63,10 +63,6 @@ async function ProductsData() {
         <CardContent>
           {error ? (
             <SetupNotice message={error.message} table="products" />
-          ) : products.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No products yet — add your first one above.
-            </p>
           ) : (
             <div className="overflow-x-auto rounded-lg border">
               <Table>
@@ -79,18 +75,29 @@ async function ProductsData() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {products.map((p) => (
-                    <TableRow key={p.id}>
-                      <TableCell className="font-medium">{p.name}</TableCell>
-                      <TableCell>{p.category}</TableCell>
-                      <TableCell className="text-right tabular-nums">
-                        {Number(p.price).toLocaleString("en-IN")}
-                      </TableCell>
-                      <TableCell className="text-right tabular-nums">
-                        {p.stock}
+                  {products.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={4}
+                        className="h-24 text-center text-sm text-muted-foreground"
+                      >
+                        No products yet — add your first one above.
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : (
+                    products.map((p) => (
+                      <TableRow key={p.id}>
+                        <TableCell className="font-medium">{p.name}</TableCell>
+                        <TableCell>{p.category}</TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {Number(p.price).toLocaleString("en-IN")}
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {p.stock}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </div>

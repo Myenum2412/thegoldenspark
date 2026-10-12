@@ -64,11 +64,6 @@ async function CustomersData() {
         <CardContent>
           {error ? (
             <SetupNotice message={error.message} table="customers" />
-          ) : customers.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No customer submissions yet — new form entries will appear here
-              automatically.
-            </p>
           ) : (
             <div className="overflow-x-auto rounded-lg border">
               <Table>
@@ -82,23 +77,37 @@ async function CustomersData() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {customers.map((c) => (
-                    <TableRow key={c.id}>
-                      <TableCell className="font-medium">{c.name}</TableCell>
-                      <TableCell className="max-w-xs">
-                        {c.address}
-                      </TableCell>
-                      <TableCell className="tabular-nums">
-                        {c.pincode}
-                      </TableCell>
-                      <TableCell className="tabular-nums">{c.phone}</TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {c.created_at
-                          ? new Date(c.created_at).toLocaleString("en-IN")
-                          : "—"}
+                  {customers.length === 0 ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        className="h-24 text-center text-sm text-muted-foreground"
+                      >
+                        No customer submissions yet — new form entries will
+                        appear here automatically.
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : (
+                    customers.map((c) => (
+                      <TableRow key={c.id}>
+                        <TableCell className="font-medium">{c.name}</TableCell>
+                        <TableCell className="max-w-xs">
+                          {c.address}
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {c.pincode}
+                        </TableCell>
+                        <TableCell className="tabular-nums">
+                          {c.phone}
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {c.created_at
+                            ? new Date(c.created_at).toLocaleString("en-IN")
+                            : "—"}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </div>
