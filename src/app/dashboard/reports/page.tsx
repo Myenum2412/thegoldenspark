@@ -45,7 +45,7 @@ async function ReportsData() {
 
   const { data: customerData, error: customerError } = await supabase
     .from("customers")
-    .select("id, name, phone, pincode, created_at")
+    .select("id, name, address, phone, pincode, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
 

@@ -146,6 +146,7 @@ export default function RecentCustomers({
                 />
               </TableHead>
               <TableHead>Name</TableHead>
+              <TableHead>Address</TableHead>
               <TableHead>Phone</TableHead>
               <TableHead>Pincode</TableHead>
               {showSubmitted && <TableHead>Submitted</TableHead>}
@@ -167,6 +168,7 @@ export default function RecentCustomers({
                     />
                   </TableCell>
                   <TableCell className="font-medium">{c.name}</TableCell>
+                  <TableCell className="max-w-xs">{c.address}</TableCell>
                   <TableCell className="tabular-nums">{c.phone}</TableCell>
                   <TableCell className="tabular-nums">{c.pincode}</TableCell>
                   {showSubmitted && (
