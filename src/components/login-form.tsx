@@ -11,7 +11,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { GalleryVerticalEndIcon } from "lucide-react"
+import Image from "next/image"
 
 export function LoginForm({
   className,
@@ -23,16 +23,23 @@ export function LoginForm({
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
-              href="#"
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
-              <div className="flex size-8 items-center justify-center rounded-md">
-                <GalleryVerticalEndIcon className="size-6" />
-              </div>
-              <span className="sr-only">Acme Inc.</span>
+              <Image
+                src="/logo.png"
+                alt="Golden Spark logo"
+                width={56}
+                height={56}
+                className="size-14 rounded-xl border border-border bg-black object-cover"
+              />
+              <span className="sr-only">Golden Spark Pvt Ltd</span>
             </a>
-            <h1 className="text-xl font-bold">Welcome to Acme Inc.</h1>
+            <h1 className="google-sans text-xl font-bold">
+              Welcome to Golden Spark
+            </h1>
             <FieldDescription>
+              Every Spark has a Story — login to manage your orders.
               Don&apos;t have an account? <a href="#">Sign up</a>
             </FieldDescription>
           </div>
