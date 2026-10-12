@@ -8,12 +8,6 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,25 +40,6 @@ const highlights = [
     icon: ShieldCheck,
     title: "Safe & Certified",
     text: "Quality-checked products with clear safety instructions.",
-  },
-];
-
-const faqs = [
-  {
-    q: "How do I place an order?",
-    a: "Call us, message us on WhatsApp, or submit the customer form below and we will contact you to confirm your order.",
-  },
-  {
-    q: "Do you take bulk or wholesale orders?",
-    a: "Yes. We handle retail, bulk and wholesale orders for families, events and resellers. Reach out for special pricing.",
-  },
-  {
-    q: "Do you offer delivery?",
-    a: "Delivery options depend on your location and order size. Contact us with your pincode and we will arrange the best option.",
-  },
-  {
-    q: "Are your fireworks safe to use?",
-    a: "All products carry printed safety instructions. Always use them in open spaces with adult supervision and keep water nearby.",
   },
 ];
 
@@ -207,23 +182,6 @@ export default function Page() {
       {/* ── Customer form ────────────────────────────── */}
       <section className="mx-auto w-full max-w-2xl px-4 pb-10">
         <CustomerForm />
-      </section>
-
-      {/* ── FAQ ──────────────────────────────────────── */}
-      <section className="mx-auto w-full max-w-2xl px-4 pb-14">
-        <h2 className="google-sans text-center text-2xl font-bold tracking-tight">
-          Frequently Asked Questions
-        </h2>
-        <Accordion className="mt-4">
-          {faqs.map((f, i) => (
-            <AccordionItem key={f.q} value={`faq-${i}`}>
-              <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
-                {f.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
