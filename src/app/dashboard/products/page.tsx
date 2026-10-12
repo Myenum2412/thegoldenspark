@@ -9,16 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import AddProductForm from "@/components/add-product-form";
-import ProductActions from "@/components/product-actions";
+import ProductsTable from "@/components/products-table";
 import {
   DashboardLoading,
   DashboardShell,
@@ -106,60 +98,7 @@ async function ProductsData() {
           {error ? (
             <SetupNotice message={error.message} table="products" />
           ) : (
-            <div className="overflow-x-auto rounded-lg border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-16">Item</TableHead>
-                    <TableHead>Variety / Description</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Packing</TableHead>
-                    <TableHead className="text-right">MRP (₹)</TableHead>
-                    <TableHead className="text-right">Our Rate (₹)</TableHead>
-                    <TableHead className="text-right">Stock</TableHead>
-                    <TableHead className="w-24 text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {products.length === 0 ? (
-                    <TableRow>
-                      <TableCell
-                        colSpan={8}
-                        className="h-24 text-center text-sm text-muted-foreground"
-                      >
-                        No products yet — run supabase/seed.sql to load the
-                        pricelist, or add one above.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    products.map((p) => (
-                      <TableRow key={p.id}>
-                        <TableCell className="tabular-nums">
-                          {p.item_no}
-                        </TableCell>
-                        <TableCell className="font-medium">{p.name}</TableCell>
-                        <TableCell className="text-muted-foreground">
-                          {p.category}
-                        </TableCell>
-                        <TableCell>{p.packing}</TableCell>
-                        <TableCell className="text-right tabular-nums text-muted-foreground">
-                          {Number(p.mrp).toLocaleString("en-IN")}
-                        </TableCell>
-                        <TableCell className="text-right font-semibold tabular-nums text-amber-600">
-                          {Number(p.special_rate).toLocaleString("en-IN")}
-                        </TableCell>
-                        <TableCell className="text-right tabular-nums">
-                          {Number(p.stock).toLocaleString("en-IN")}
-                        </TableCell>
-                        <TableCell>
-                          <ProductActions product={p} />
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </div>
+            <ProductsTable products={products} />
           )}
         </CardContent>
       </Card>

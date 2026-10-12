@@ -35,6 +35,10 @@ drop policy if exists "public insert customers" on customers;
 create policy "public insert customers" on customers
   for insert with check (true);
 
+drop policy if exists "public delete customers" on customers;
+create policy "public delete customers" on customers
+  for delete using (true);
+
 drop policy if exists "public read products" on products;
 create policy "public read products" on products
   for select using (true);

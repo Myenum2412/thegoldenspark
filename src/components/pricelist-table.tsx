@@ -8,6 +8,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -46,6 +47,7 @@ export default function PricelistTable({
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState("All");
   const [cart, setCart] = React.useState<Record<string, number>>(loadCart);
+  const [pick, setPick] = React.useState<Set<string>>(new Set());
   const [checkoutOpen, setCheckoutOpen] = React.useState(false);
   const [customer, setCustomer] = React.useState({
     name: "",
@@ -102,6 +104,36 @@ export default function PricelistTable({
       }
       return { ...prev, [key]: qty };
     });
+  }
+
+  const pickIds = filtered.map((p) => String(p.id));
+  const allPicked =
+    pickIds.length > 0 && pickIds.every((id) => pick.has(id));
+  const somePicked = pick.size > 0 && !allPicked;
+
+  function togglePickAll() {
+    setPick(allPicked ? new Set() : new Set(pickIds));
+  }
+
+  function togglePick(id: string | number) {
+    const key = String(id);
+    setPick((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
+
+  function addPickedToCart() {
+    setCart((prev) => {
+      const next = { ...prev };
+      for (const id of pick) {
+        next[id] = (next[id] ?? 0) + 1;
+      }
+      return next;
+    });
+    setPick(new Set());
   }
 
   const listEmpty = products.length === 0;
@@ -232,6 +264,31 @@ export default function PricelistTable({
         </CardContent>
       </Card>
 
+      {pick.size > 0 && (
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/40 px-4 py-2.5">
+          <span className="text-sm font-medium tabular-nums">
+            {pick.size} selected
+          </span>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPick(new Set())}
+            >
+              Clear
+            </Button>
+            <Button
+              size="sm"
+              className="bg-amber-500 text-black hover:bg-amber-400"
+              onClick={addPickedToCart}
+            >
+              <ShoppingCartIcon className="size-4" aria-hidden="true" />
+              Add to cart
+            </Button>
+          </div>
+        </div>
+      )}
+
       {listEmpty ? (
         <Card>
           <CardHeader>
@@ -250,6 +307,14 @@ export default function PricelistTable({
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-10">
+                    <Checkbox
+                      checked={allPicked}
+                      indeterminate={somePicked}
+                      onCheckedChange={togglePickAll}
+                      aria-label="Select all products"
+                    />
+                  </TableHead>
                   <TableHead className="w-14">Item</TableHead>
                   <TableHead>Product</TableHead>
                   <TableHead className="text-right">MRP (₹)</TableHead>
@@ -261,7 +326,7 @@ export default function PricelistTable({
                 {filtered.length === 0 ? (
                   <TableRow>
                     <TableCell
-                      colSpan={5}
+                      colSpan={6}
                       className="h-24 text-center text-sm text-muted-foreground"
                     >
                       No products match your search.
@@ -270,8 +335,19 @@ export default function PricelistTable({
                 ) : (
                   filtered.map((p) => {
                     const qty = cart[String(p.id)] ?? 0;
+                    const picked = pick.has(String(p.id));
                     return (
-                      <TableRow key={p.id}>
+                      <TableRow
+                        key={p.id}
+                        data-state={picked ? "selected" : undefined}
+                      >
+                        <TableCell>
+                          <Checkbox
+                            checked={picked}
+                            onCheckedChange={() => togglePick(p.id)}
+                            aria-label={`Select ${p.name}`}
+                          />
+                        </TableCell>
                         <TableCell className="tabular-nums text-muted-foreground">
                           {p.item_no}
                         </TableCell>
@@ -354,9 +430,16 @@ export default function PricelistTable({
         ) : (
           filtered.map((p) => {
             const qty = cart[String(p.id)] ?? 0;
+            const picked = pick.has(String(p.id));
             return (
               <Card key={p.id} className="gap-0 py-0">
                 <CardContent className="flex items-center gap-3 p-3">
+                  <Checkbox
+                    checked={picked}
+                    onCheckedChange={() => togglePick(p.id)}
+                    aria-label={`Select ${p.name}`}
+                    className="shrink-0"
+                  />
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums">
                     {p.item_no}
                   </span>

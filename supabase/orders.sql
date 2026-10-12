@@ -34,6 +34,10 @@ drop policy if exists "public read orders" on orders;
 create policy "public read orders" on orders
   for select using (true);
 
+drop policy if exists "public delete orders" on orders;
+create policy "public delete orders" on orders
+  for delete using (true);
+
 drop policy if exists "public insert order_items" on order_items;
 create policy "public insert order_items" on order_items
   for insert with check (true);
@@ -41,3 +45,7 @@ create policy "public insert order_items" on order_items
 drop policy if exists "public read order_items" on order_items;
 create policy "public read order_items" on order_items
   for select using (true);
+
+drop policy if exists "public delete order_items" on order_items;
+create policy "public delete order_items" on order_items
+  for delete using (true);

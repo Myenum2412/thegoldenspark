@@ -9,14 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import RecentCustomers from "@/components/recent-customers";
 import {
   DashboardLoading,
   DashboardShell,
@@ -110,49 +103,11 @@ async function ReportsData() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto rounded-lg border">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Pincode</TableHead>
-                      <TableHead>Submitted</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {customers.length === 0 ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={4}
-                          className="h-24 text-center text-sm text-muted-foreground"
-                        >
-                          No enquiries yet.
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      customers.slice(0, 10).map((c) => (
-                        <TableRow key={c.id}>
-                          <TableCell className="font-medium">
-                            {c.name}
-                          </TableCell>
-                          <TableCell className="tabular-nums">
-                            {c.phone}
-                          </TableCell>
-                          <TableCell className="tabular-nums">
-                            {c.pincode}
-                          </TableCell>
-                          <TableCell className="text-muted-foreground">
-                            {c.created_at
-                              ? new Date(c.created_at).toLocaleString("en-IN")
-                              : "—"}
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
+              <RecentCustomers
+                customers={customers.slice(0, 10)}
+                showSubmitted
+                emptyText="No enquiries yet."
+              />
             </CardContent>
           </Card>
         </>
