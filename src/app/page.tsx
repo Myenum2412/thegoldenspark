@@ -112,6 +112,11 @@ export default async function Page() {
         <CustomerForm />
       </section>
 
+      {/* ── Pricelist with add to cart ─────────────── */}
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
+        <PricelistTable products={products} />
+      </section>
+
       {/* ── Visit us / company card ──────────────────── */}
       <section id="visit" className="mx-auto w-full max-w-6xl px-4 py-10">
         <div className="text-center">
@@ -199,11 +204,6 @@ export default async function Page() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ── Pricelist with add to cart ─────────────── */}
-      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
-        <PricelistTable products={products} />
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
