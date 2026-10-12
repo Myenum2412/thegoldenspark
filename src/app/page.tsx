@@ -36,9 +36,9 @@ export default function Page() {
           <Image
             src="/logo.png"
             alt="Golden Spark logo"
-            width={160}
-            height={160}
-            className="h-36 w-36 object-contain"
+            width={240}
+            height={240}
+            className="h-60 w-60 object-contain"
             priority
           />
           <h1 className="google-sans mt-8 text-4xl font-bold tracking-tight sm:text-6xl">
