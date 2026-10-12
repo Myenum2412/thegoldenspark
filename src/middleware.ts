@@ -1,11 +1,21 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
   const { supabase, supabaseResponse } = createClient(request);
 
   // Refresh session if expired - required for Server Components
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Protect dashboard routes at request time (redirects don't work
+  // reliably from inside a Suspense boundary during prerendering)
+  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    return NextResponse.redirect(loginUrl);
+  }
 
   return supabaseResponse;
 }
