@@ -17,6 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
 import CustomerForm from "@/components/customer-form";
+import TableBlock from "@/components/blocks/table-1";
 
 const PHONE_DISPLAY = "+91 99629 70062";
 const PHONE_TEL = "tel:+919962970062";
@@ -178,6 +179,11 @@ export default function Page() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── Members table ────────────────────────────── */}
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10">
+        <TableBlock />
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
