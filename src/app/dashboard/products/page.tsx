@@ -39,8 +39,8 @@ async function ProductsData() {
 
   const { data, error } = await supabase
     .from("products")
-    .select("id, name, category, price, stock, created_at")
-    .order("created_at", { ascending: false })
+    .select("id, item_no, name, category, packing, mrp, special_rate, stock")
+    .order("item_no", { ascending: true })
     .limit(200);
 
   const products = (data ?? []) as Product[];
@@ -68,32 +68,41 @@ async function ProductsData() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
+                    <TableHead className="w-16">Item</TableHead>
+                    <TableHead>Variety / Description</TableHead>
                     <TableHead>Category</TableHead>
-                    <TableHead className="text-right">Price (₹)</TableHead>
-                    <TableHead className="text-right">Stock</TableHead>
+                    <TableHead>Packing</TableHead>
+                    <TableHead className="text-right">MRP (₹)</TableHead>
+                    <TableHead className="text-right">Our Rate (₹)</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {products.length === 0 ? (
                     <TableRow>
                       <TableCell
-                        colSpan={4}
+                        colSpan={6}
                         className="h-24 text-center text-sm text-muted-foreground"
                       >
-                        No products yet — add your first one above.
+                        No products yet — run supabase/seed.sql to load the
+                        pricelist, or add one above.
                       </TableCell>
                     </TableRow>
                   ) : (
                     products.map((p) => (
                       <TableRow key={p.id}>
-                        <TableCell className="font-medium">{p.name}</TableCell>
-                        <TableCell>{p.category}</TableCell>
-                        <TableCell className="text-right tabular-nums">
-                          {Number(p.price).toLocaleString("en-IN")}
+                        <TableCell className="tabular-nums">
+                          {p.item_no}
                         </TableCell>
-                        <TableCell className="text-right tabular-nums">
-                          {p.stock}
+                        <TableCell className="font-medium">{p.name}</TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {p.category}
+                        </TableCell>
+                        <TableCell>{p.packing}</TableCell>
+                        <TableCell className="text-right tabular-nums text-muted-foreground">
+                          {Number(p.mrp).toLocaleString("en-IN")}
+                        </TableCell>
+                        <TableCell className="text-right font-semibold tabular-nums text-amber-600">
+                          {Number(p.special_rate).toLocaleString("en-IN")}
                         </TableCell>
                       </TableRow>
                     ))

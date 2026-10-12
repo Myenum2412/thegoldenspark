@@ -1,46 +1,9 @@
-export const SETUP_SQL = `-- Run this in Supabase → SQL Editor, then press Run.
--- It creates the app tables and allows the website to read + save data.
-
-create table if not exists customers (
-  id bigint generated always as identity primary key,
-  name text not null,
-  address text not null,
-  pincode text not null,
-  phone text not null,
-  created_at timestamptz default now()
-);
-
-create table if not exists products (
-  id bigint generated always as identity primary key,
-  name text not null,
-  category text not null default 'General',
-  price numeric not null default 0,
-  stock integer not null default 0,
-  created_at timestamptz default now()
-);
-
-alter table customers enable row level security;
-alter table products enable row level security;
-
-drop policy if exists "public read customers" on customers;
-create policy "public read customers" on customers
-  for select using (true);
-
-drop policy if exists "public insert customers" on customers;
-create policy "public insert customers" on customers
-  for insert with check (true);
-
-drop policy if exists "public read products" on products;
-create policy "public read products" on products
-  for select using (true);
-
-drop policy if exists "public insert products" on products;
-create policy "public insert products" on products
-  for insert with check (true);
-
-drop policy if exists "public update products" on products;
-create policy "public update products" on products
-  for update using (true);`;
+export const SETUP_SQL = `-- Tables are missing, so no data is being stored yet.
+-- Run the full seed script in Supabase → SQL Editor → paste → Run:
+--   1. Open the file supabase/seed.sql in this repo (GitHub)
+--   2. Copy its entire contents, paste into SQL Editor, press Run.
+-- It creates the customers + products tables, permissions,
+-- and loads the full 90-item pricelist.`;
 
 export type Customer = {
   id: string | number;
@@ -53,9 +16,12 @@ export type Customer = {
 
 export type Product = {
   id: string | number;
+  item_no: number;
   name: string;
   category: string;
-  price: number;
+  packing: string;
+  mrp: number;
+  special_rate: number;
   stock: number;
   created_at?: string;
 };

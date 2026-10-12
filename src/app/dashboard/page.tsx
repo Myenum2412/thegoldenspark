@@ -46,15 +46,15 @@ async function DashboardData() {
 
   const { data: productData, error: productError } = await supabase
     .from("products")
-    .select("id, name, category, price, stock, created_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
+    .select("id, item_no, name, category, packing, mrp, special_rate, stock")
+    .order("item_no", { ascending: true })
+    .limit(200);
 
   const customers = (customerData ?? []) as Customer[];
   const products = (productData ?? []) as Product[];
   const loadError = customerError ?? productError;
   const stockValue = products.reduce(
-    (sum, p) => sum + Number(p.price) * Number(p.stock),
+    (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
     0
   );
 

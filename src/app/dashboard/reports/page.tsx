@@ -45,14 +45,14 @@ async function ReportsData() {
 
   const { data: productData, error: productError } = await supabase
     .from("products")
-    .select("id, name, category, price, stock")
+    .select("id, item_no, name, category, packing, mrp, special_rate, stock")
     .limit(500);
 
   const customers = (customerData ?? []) as Customer[];
   const products = (productData ?? []) as Product[];
   const loadError = customerError ?? productError;
   const stockValue = products.reduce(
-    (sum, p) => sum + Number(p.price) * Number(p.stock),
+    (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
     0
   );
   const lowStock = products.filter((p) => Number(p.stock) <= 10);

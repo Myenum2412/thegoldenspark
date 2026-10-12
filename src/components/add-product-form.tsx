@@ -17,10 +17,12 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function AddProductForm() {
   const router = useRouter();
+  const [itemNo, setItemNo] = React.useState("");
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [stock, setStock] = React.useState("");
+  const [packing, setPacking] = React.useState("Box");
+  const [mrp, setMrp] = React.useState("");
+  const [rate, setRate] = React.useState("");
   const [saving, setSaving] = React.useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -28,10 +30,12 @@ export default function AddProductForm() {
     setSaving(true);
     const supabase = createClient();
     const { error } = await supabase.from("products").insert({
+      item_no: Number(itemNo) || 0,
       name: name.trim(),
       category: category.trim() || "General",
-      price: Number(price) || 0,
-      stock: Number(stock) || 0,
+      packing: packing.trim() || "Box",
+      mrp: Number(mrp) || 0,
+      special_rate: Number(rate) || 0,
     });
     setSaving(false);
 
@@ -41,10 +45,12 @@ export default function AddProductForm() {
     }
 
     toast.success("Product added");
+    setItemNo("");
     setName("");
     setCategory("");
-    setPrice("");
-    setStock("");
+    setPacking("Box");
+    setMrp("");
+    setRate("");
     router.refresh();
   }
 
@@ -55,12 +61,23 @@ export default function AddProductForm() {
         <CardDescription>Saved directly to Supabase.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+        <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-3">
           <Field>
-            <FieldLabel htmlFor="product-name">Name</FieldLabel>
+            <FieldLabel htmlFor="product-item">Item No.</FieldLabel>
+            <Input
+              id="product-item"
+              inputMode="numeric"
+              placeholder="91"
+              value={itemNo}
+              onChange={(e) => setItemNo(e.target.value.replace(/\D/g, ""))}
+              required
+            />
+          </Field>
+          <Field className="sm:col-span-2">
+            <FieldLabel htmlFor="product-name">Variety / Description</FieldLabel>
             <Input
               id="product-name"
-              placeholder="e.g. Flower Pot Big"
+              placeholder="e.g. R24-FLOWER POTS BIG"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -71,37 +88,45 @@ export default function AddProductForm() {
             <FieldLabel htmlFor="product-category">Category</FieldLabel>
             <Input
               id="product-category"
-              placeholder="e.g. Fancy"
+              placeholder="e.g. Flower Pots"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               maxLength={50}
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor="product-price">Price (₹)</FieldLabel>
+            <FieldLabel htmlFor="product-packing">Packing</FieldLabel>
             <Input
-              id="product-price"
+              id="product-packing"
+              placeholder="Box"
+              value={packing}
+              onChange={(e) => setPacking(e.target.value)}
+              maxLength={20}
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="product-mrp">MRP (₹)</FieldLabel>
+            <Input
+              id="product-mrp"
               inputMode="decimal"
               placeholder="0"
-              value={price}
-              onChange={(e) =>
-                setPrice(e.target.value.replace(/[^0-9.]/g, ""))
-              }
+              value={mrp}
+              onChange={(e) => setMrp(e.target.value.replace(/[^0-9.]/g, ""))}
               required
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor="product-stock">Stock</FieldLabel>
+            <FieldLabel htmlFor="product-rate">Our Rate (₹)</FieldLabel>
             <Input
-              id="product-stock"
-              inputMode="numeric"
+              id="product-rate"
+              inputMode="decimal"
               placeholder="0"
-              value={stock}
-              onChange={(e) => setStock(e.target.value.replace(/\D/g, ""))}
+              value={rate}
+              onChange={(e) => setRate(e.target.value.replace(/[^0-9.]/g, ""))}
               required
             />
           </Field>
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-3">
             <Button type="submit" disabled={saving}>
               {saving ? "Adding…" : "Add product"}
             </Button>
