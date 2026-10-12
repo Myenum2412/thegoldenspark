@@ -76,98 +76,97 @@ insert into products (item_no, name, category, packing, mrp, special_rate) value
 (18, 'S19-30 CM GREEN SPARKLERS', 'Electric & Colour Sparklers', 'Box', 480, 96),
 (19, 'S22-50 CM ELECTRIC SPARKLERS(TUBE)', 'Electric & Colour Sparklers', 'TUBE', 960, 192),
 (20, 'S24-50 CM COLOUR SPARKLERS(TUBE)', 'Electric & Colour Sparklers', 'TUBE', 990, 198),
-(21, 'SP25-75 CM ELECTRIC SPARKLERS', 'Electric & Colour Sparklers', 'TUBE', 990, 198),
-(22, 'SP26-10 CM RAINBOW SPARKLERS 4 IN 1', 'Electric & Colour Sparklers', 'Box', 1000, 200);
+(59, 'SP25-75 CM ELECTRIC SPARKLERS', 'Electric & Colour Sparklers', 'TUBE', 990, 198),
+(61, 'SP26-10 CM RAINBOW SPARKLERS 4 IN 1', 'Electric & Colour Sparklers', 'Box', 1000, 200);
 
 -- GROUND CHAKKARS & TWINKLING STARS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(22, 'R11-GROUND CHAKKAR ASHOKA', 'Ground Chakkars & Twinkling Stars', 'Box', 670, 134),
-(23, 'R12-GROUND CHAKKAR DELUXE', 'Ground Chakkars & Twinkling Stars', 'Box', 1170, 234),
-(24, 'R10-GROUND CHAKKAR BIG', 'Ground Chakkars & Twinkling Stars', 'Box', 350, 70),
-(25, 'R15-2''TWINKLING STAR', 'Ground Chakkars & Twinkling Stars', 'Box', 570, 114),
-(26, 'R16-4''TWINKLING STAR', 'Ground Chakkars & Twinkling Stars', 'Box', 1020, 204);
+(21, 'R11-GROUND CHAKKAR ASHOKA', 'Ground Chakkars & Twinkling Stars', 'Box', 670, 134),
+(22, 'R12-GROUND CHAKKAR DELUXE', 'Ground Chakkars & Twinkling Stars', 'Box', 1170, 234),
+(23, 'R10-GROUND CHAKKAR BIG', 'Ground Chakkars & Twinkling Stars', 'Box', 350, 70),
+(24, 'R15-2''TWINKLING STAR', 'Ground Chakkars & Twinkling Stars', 'Box', 570, 114),
+(25, 'R16-4''TWINKLING STAR', 'Ground Chakkars & Twinkling Stars', 'Box', 1020, 204);
 
 -- FLOWER POTS & COLOUR POTS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(27, 'R24-FLOWER POTS BIG', 'Flower Pots & Colour Pots', 'Box', 820, 164),
-(28, 'R25-FLOWER POTS SPECIAL', 'Flower Pots & Colour Pots', 'Box', 1170, 234),
-(29, 'R26-FLOWER POTS SUPER', 'Flower Pots & Colour Pots', 'Box', 1530, 306),
-(30, 'R27-FLOWER POTS GIANT', 'Flower Pots & Colour Pots', 'Box', 1660, 332),
-(31, 'R30-FLOWER POTS 2 IN 1 SPECIAL', 'Flower Pots & Colour Pots', 'Box', 1230, 246),
-(32, 'R29-FLOWER POTS MAHA', 'Flower Pots & Colour Pots', 'Box', 1000, 200),
-(33, 'R33-COLOUR KOTI', 'Flower Pots & Colour Pots', 'Box', 1870, 374),
-(34, 'R27A-FLOWER POT MEGA GIANT', 'Flower Pots & Colour Pots', 'Box', 2000, 400);
+(26, 'R24-FLOWER POTS BIG', 'Flower Pots & Colour Pots', 'Box', 820, 164),
+(27, 'R25-FLOWER POTS SPECIAL', 'Flower Pots & Colour Pots', 'Box', 1170, 234),
+(28, 'R26-FLOWER POTS SUPER', 'Flower Pots & Colour Pots', 'Box', 1530, 306),
+(29, 'R27-FLOWER POTS GIANT', 'Flower Pots & Colour Pots', 'Box', 1660, 332),
+(30, 'R30-FLOWER POTS 2 IN 1 SPECIAL', 'Flower Pots & Colour Pots', 'Box', 1230, 246),
+(31, 'R31-THREE COLOUR POTS GIANT', 'Flower Pots & Colour Pots', 'Box', 1180, 236),
+(32, 'R32-RED COLOUR POTS DELUXE', 'Flower Pots & Colour Pots', 'Box', 1520, 304),
+(33, 'R29-FLOWER POTS MAHA', 'Flower Pots & Colour Pots', 'Box', 1000, 200),
+(34, 'R33-COLOUR KOTI', 'Flower Pots & Colour Pots', 'Box', 1870, 374),
+(58, 'R27A-FLOWER POT MEGA GIANT', 'Flower Pots & Colour Pots', 'Box', 2000, 400);
 
 -- BIJILI, BOMBS & OTHER CRACKERS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(35, 'R35-RECTANGULAR BOMB GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 500, 100),
-(36, 'R56-RED BIJILI CRACKERS', 'Bijili, Bombs & Other Crackers', 'BAGS', 325, 65),
-(37, 'R58-STRIPPED BIJILI CRACKERS', 'Bijili, Bombs & Other Crackers', 'BAGS', 350, 70),
-(38, 'R59-CHIT PUT', 'Bijili, Bombs & Other Crackers', 'Box', 420, 84),
-(39, 'R31-THREE COLOUR POTS GIANT', 'Bijili, Bombs & Other Crackers', 'Box', 1180, 236),
-(40, 'R32-RED COLOUR POTS DELUXE', 'Bijili, Bombs & Other Crackers', 'Box', 1520, 304),
-(41, 'R38-KING OF KANGO GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 1000, 200),
-(42, 'R48-56 ANGERY BIRD', 'Bijili, Bombs & Other Crackers', 'PKTS', 430, 86),
-(43, 'R36-VIKRANTH GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 570, 114);
+(35, 'R38-KING OF KANGO GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 1000, 200),
+(36, 'R35-RECTANGULAR BOMB GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 500, 100),
+(37, 'R56-RED BIJILI CRACKERS', 'Bijili, Bombs & Other Crackers', 'BAGS', 325, 65),
+(38, 'R58-STRIPPED BIJILI CRACKERS', 'Bijili, Bombs & Other Crackers', 'BAGS', 350, 70),
+(39, 'R59-CHIT PUT', 'Bijili, Bombs & Other Crackers', 'Box', 420, 84),
+(55, 'R47-28 ANGRY BIRD', 'Bijili, Bombs & Other Crackers', 'PKTS', 220, 44),
+(56, 'R48-56 ANGERY BIRD', 'Bijili, Bombs & Other Crackers', 'PKTS', 430, 86),
+(57, 'R49-100 ANGRY BIRD', 'Bijili, Bombs & Other Crackers', 'PKTS', 750, 150),
+(62, 'R36-VIKRANTH GREEN', 'Bijili, Bombs & Other Crackers', 'Box', 570, 114);
 
 -- FANCY ITEMS, SHOTS & WHEELS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(44, 'F158-1" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 560, 112),
-(45, 'F161-3" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 2400, 480),
-(46, 'F161A-4" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 2640, 528),
-(47, 'F163-1.5" FANCY 3 PCS MIX', 'Fancy Items, Shots & Wheels', 'Box', 2420, 484),
-(48, 'F166-12 SHOTS MIX', 'Fancy Items, Shots & Wheels', 'PCS', 1580, 316),
-(49, 'F167-FOUNTAIN MIX', 'Fancy Items, Shots & Wheels', 'PCS', 700, 140),
-(50, 'F132-WETWO''S 7 SHOT', 'Fancy Items, Shots & Wheels', 'Box', 1165, 233),
-(51, 'F133-CHINNA CHOTTA FANCY', 'Fancy Items, Shots & Wheels', 'PACK', 1370, 274),
-(52, 'F168-ARC', 'Fancy Items, Shots & Wheels', 'Box', 1260, 252),
-(53, 'F169-BOW MIX', 'Fancy Items, Shots & Wheels', 'Box', 1260, 252),
-(54, 'F124 CLASIC HITS FIVE IN ONE', 'Fancy Items, Shots & Wheels', 'PACK', 1600, 320),
-(55, 'F203-WETWOS WHEEL', 'Fancy Items, Shots & Wheels', 'Box', 2000, 400),
-(56, 'N30-Wetwo''s Sword', 'Fancy Items, Shots & Wheels', 'Box', 2000, 400),
-(57, 'F201-WETWOS THOGAI', 'Fancy Items, Shots & Wheels', 'Box', 2500, 500);
-
--- AERIAL SHOTS & SKY FIREWORKS
-insert into products (item_no, name, category, packing, mrp, special_rate) values
-(58, 'W11-60 SHOTS', 'Aerial Shots & Sky Fireworks', 'Box', 10700, 2140),
-(59, 'F121A-SKY WAR 120 SHOTS', 'Aerial Shots & Sky Fireworks', 'PCS', 18600, 3720),
-(60, 'F122-COLORFULL SKY 240 SHOTS', 'Aerial Shots & Sky Fireworks', 'PCS', 33350, 6670),
-(61, 'N17-VERA LEVEL BRO 10 X 10', 'Aerial Shots & Sky Fireworks', 'Box', 26150, 5230),
-(62, 'W09C-30SHOTS FIRE STORM(UV)', 'Aerial Shots & Sky Fireworks', 'Box', 5060, 1012),
-(63, 'W09A-30SHOTS (SQUARE)', 'Aerial Shots & Sky Fireworks', 'Box', 4025, 805),
-(64, 'W09B-30SHOTS ELITE(UV)', 'Aerial Shots & Sky Fireworks', 'Box', 5060, 1012);
-
--- KIDS ITEMS & SPECIAL AERIAL FIREWORKS
-insert into products (item_no, name, category, packing, mrp, special_rate) values
-(65, 'R47-28 ANGRY BIRD', 'Kids Items & Special Aerial Fireworks', 'PKTS', 220, 44),
-(66, 'R49-100 ANGRY BIRD', 'Kids Items & Special Aerial Fireworks', 'PKTS', 750, 150),
-(67, 'W01-MINI', 'Kids Items & Special Aerial Fireworks', 'Box', 420, 84),
-(68, 'W02-NANO', 'Kids Items & Special Aerial Fireworks', 'Box', 1210, 242),
-(69, 'W04-TOY', 'Kids Items & Special Aerial Fireworks', 'Box', 2140, 428),
-(70, 'W05-MARVEL', 'Kids Items & Special Aerial Fireworks', 'Box', 3100, 620),
-(71, 'W07-MONSTER', 'Kids Items & Special Aerial Fireworks', 'Box', 6270, 1254),
-(72, 'F202-WETWOS 25 RIDER', 'Kids Items & Special Aerial Fireworks', 'PCS', 3000, 600),
-(73, 'W08-VIP', 'Kids Items & Special Aerial Fireworks', 'Box', 15200, 3040),
-(74, 'W08A-5K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 12000, 2400),
-(75, 'W09-10K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 24000, 4800),
-(76, 'W03-2K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 4000, 800),
-(77, 'W06-MARVEL YELLOW', 'Kids Items & Special Aerial Fireworks', 'Box', 2700, 540);
+(40, 'F158-1" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 560, 112),
+(41, 'F161-3" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 2400, 480),
+(42, 'F161A-4" FANCY MIX', 'Fancy Items, Shots & Wheels', 'PCS', 2640, 528),
+(43, 'F163-1.5" FANCY 3 PCS MIX', 'Fancy Items, Shots & Wheels', 'Box', 2420, 484),
+(44, 'F166-12 SHOTS MIX', 'Fancy Items, Shots & Wheels', 'PCS', 1580, 316),
+(45, 'F167-FOUNTAIN MIX', 'Fancy Items, Shots & Wheels', 'PCS', 700, 140),
+(46, 'F132-WETWO''S 7 SHOT', 'Fancy Items, Shots & Wheels', 'Box', 1165, 233),
+(47, 'F133-CHINNA CHOTTA FANCY', 'Fancy Items, Shots & Wheels', 'PACK', 1370, 274),
+(48, 'F168-ARC', 'Fancy Items, Shots & Wheels', 'Box', 1260, 252),
+(49, 'F169-BOW MIX', 'Fancy Items, Shots & Wheels', 'Box', 1260, 252),
+(60, 'F124 CLASIC HITS FIVE IN ONE', 'Fancy Items, Shots & Wheels', 'PACK', 1600, 320),
+(68, 'F202-WETWOS 25 RIDER', 'Fancy Items, Shots & Wheels', 'PCS', 3000, 600),
+(70, 'F203-WETWOS WHEEL', 'Fancy Items, Shots & Wheels', 'Box', 2000, 400),
+(71, 'N30-Wetwo''s Sword', 'Fancy Items, Shots & Wheels', 'Box', 2000, 400),
+(81, 'F201-WETWOS THOGAI', 'Fancy Items, Shots & Wheels', 'Box', 2500, 500);
 
 -- GIFT BOXES & GIFT BAGS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(78, 'G09-GIFT BOX - KURINJI (A)', 'Gift Boxes & Gift Bags', 'Box', 3210, 642),
-(79, 'G10-GIFT BOX - MULLAI (B)', 'Gift Boxes & Gift Bags', 'Box', 3900, 780),
-(80, 'G11-GIFT BOX - MARUTHAM (C)', 'Gift Boxes & Gift Bags', 'Box', 4590, 918),
-(81, 'G12-GIFT BOX - NEITHAL (D)', 'Gift Boxes & Gift Bags', 'Box', 6925, 1385),
-(82, 'G12-GIFT BOX - PALAI (E)', 'Gift Boxes & Gift Bags', 'Box', 7610, 1522),
-(83, 'G100-TRAVEL GIFT BAG', 'Gift Boxes & Gift Bags', 'BAGS', 22500, 4500);
+(50, 'G09-GIFT BOX - KURINJI (A)', 'Gift Boxes & Gift Bags', 'Box', 3210, 642),
+(51, 'G10-GIFT BOX - MULLAI (B)', 'Gift Boxes & Gift Bags', 'Box', 3900, 780),
+(52, 'G11-GIFT BOX - MARUTHAM (C)', 'Gift Boxes & Gift Bags', 'Box', 4590, 918),
+(53, 'G12-GIFT BOX - NEITHAL (D)', 'Gift Boxes & Gift Bags', 'Box', 6925, 1385),
+(54, 'G12-GIFT BOX - PALAI (E)', 'Gift Boxes & Gift Bags', 'Box', 7610, 1522),
+(88, 'G100-TRAVEL GIFT BAG', 'Gift Boxes & Gift Bags', 'BAGS', 22500, 4500);
+
+-- KIDS ITEMS & SPECIAL AERIAL FIREWORKS
+insert into products (item_no, name, category, packing, mrp, special_rate) values
+(63, 'W01-MINI', 'Kids Items & Special Aerial Fireworks', 'Box', 420, 84),
+(64, 'W02-NAΑΝΟ', 'Kids Items & Special Aerial Fireworks', 'Box', 1210, 242),
+(65, 'W04-ΤΟΥ', 'Kids Items & Special Aerial Fireworks', 'Box', 2140, 428),
+(66, 'W05-MARVEL', 'Kids Items & Special Aerial Fireworks', 'Box', 3100, 620),
+(67, 'W07-MONSTER', 'Kids Items & Special Aerial Fireworks', 'Box', 6270, 1254),
+(75, 'W08-VIP', 'Kids Items & Special Aerial Fireworks', 'Box', 15200, 3040),
+(76, 'W08A-5K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 12000, 2400),
+(77, 'W09-10K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 24000, 4800),
+(82, 'W03-2K LIKES', 'Kids Items & Special Aerial Fireworks', 'Box', 4000, 800),
+(84, 'W06-MARVEL YELLOW', 'Kids Items & Special Aerial Fireworks', 'Box', 2700, 540);
+
+-- AERIAL SHOTS & SKY FIREWORKS
+insert into products (item_no, name, category, packing, mrp, special_rate) values
+(69, 'W11-60 SHOTS', 'Aerial Shots & Sky Fireworks', 'Box', 10700, 2140),
+(78, 'F121A-SKY WAR 120 SHOTS', 'Aerial Shots & Sky Fireworks', 'PCS', 18600, 3720),
+(79, 'F122-COLORFULL SKY 240 SHOTS', 'Aerial Shots & Sky Fireworks', 'PCS', 33350, 6670),
+(80, 'N17-VERA LEVEL BRO 10 X 10', 'Aerial Shots & Sky Fireworks', 'Box', 26150, 5230),
+(86, 'W09C-30SHOTS FIRE STORM(UV)', 'Aerial Shots & Sky Fireworks', 'Box', 5060, 1012),
+(87, 'W09A-30SHOTS (SQUARE)', 'Aerial Shots & Sky Fireworks', 'Box', 4025, 805),
+(90, 'W09B-30SHOTS ELITE(UV)', 'Aerial Shots & Sky Fireworks', 'Box', 5060, 1012);
 
 -- SMOKE EFFECTS, TINS & SPECIAL ITEMS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
-(84, 'F183-Mystic Burst Tin', 'Smoke Effects, Tins & Special Items', 'PCS', 1500, 300),
-(85, 'F208-METEOR SHOWER', 'Smoke Effects, Tins & Special Items', 'Box', 1600, 320),
-(86, 'F209-TRI COLOUR SMOKE', 'Smoke Effects, Tins & Special Items', 'Box', 1500, 300),
-(87, 'F184-Gliter Stream Tin', 'Smoke Effects, Tins & Special Items', 'PCS', 1750, 350),
-(88, 'F185-Colour Smoke Candle', 'Smoke Effects, Tins & Special Items', 'Box', 1500, 300),
-(89, 'F180-SILVER BLAZE TIN', 'Smoke Effects, Tins & Special Items', 'PCS', 750, 150),
-(90, 'F180-SILVER BLAZE TIN', 'Smoke Effects, Tins & Special Items', 'PCS', 750, 150);
+(72, 'F183-Mystic Burst Tin', 'Smoke Effects, Tins & Special Items', 'PCS', 1500, 300),
+(73, 'F208-METEOR SHOWER', 'Smoke Effects, Tins & Special Items', 'Box', 1600, 320),
+(74, 'F209-TRI COLOUR SMOKE', 'Smoke Effects, Tins & Special Items', 'Box', 1500, 300),
+(83, 'F184-Gliter Stream Tin', 'Smoke Effects, Tins & Special Items', 'PCS', 1750, 350),
+(85, 'F185-Colour Smoke Candle', 'Smoke Effects, Tins & Special Items', 'Box', 1500, 300),
+(89, 'F180-SILVER BLAZE TIN', 'Smoke Effects, Tins & Special Items', 'PCS', 750, 150);
