@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import {
   ChartColumnIcon,
   LayoutDashboardIcon,
@@ -10,14 +11,18 @@ import {
   UsersIcon,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 
@@ -72,13 +77,36 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & {
   user: { name: string; email: string; avatar: string }
 }) {
+  const pathname = usePathname()
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navMain} />
+        <SidebarGroup>
+          <SidebarGroupLabel>Store</SidebarGroupLabel>
+          <SidebarMenu>
+            {navMain.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  isActive={
+                    item.url === "/dashboard"
+                      ? pathname === "/dashboard"
+                      : pathname.startsWith(item.url)
+                  }
+                  render={
+                    <a href={item.url}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </a>
+                  }
+                />
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />
