@@ -16,8 +16,11 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { createClient } from "@/utils/supabase/client";
 import type { Product } from "@/lib/store-data";
+
+const WHATSAPP = "https://wa.me/918248601417";
 
 export type OrderLine = { product: Product; qty: number };
 
@@ -84,13 +87,8 @@ export default function CheckoutDialog({
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const { errors: errs, phone: cleanPhone } = validateOrder({
-      name,
-      phone,
-      address,
-      pincode,
-      lines,
-    });
+    const input = { name, phone, address, pincode, lines };
+    const { errors: errs, phone: cleanPhone } = validateOrder(input);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
@@ -170,6 +168,42 @@ export default function CheckoutDialog({
     onOpenChange(false);
     onSaved();
     router.refresh();
+  }
+
+  // WhatsApp ordering also requires valid details first —
+  // the message carries the customer's info with the items.
+  function handleWhatsAppOrder() {
+    const { errors: errs, phone: cleanPhone } = validateOrder({
+      name,
+      phone,
+      address,
+      pincode,
+      lines,
+    });
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    const orderLines = lines.map(
+      (l) =>
+        `${l.qty} x ${l.product.name} - ₹${(
+          Number(l.product.special_rate) * l.qty
+        ).toLocaleString("en-IN")}`
+    );
+    const text = [
+      "Vanakkam Golden Spark! New order:",
+      "",
+      `Name: ${name.trim()}`,
+      `Phone: ${cleanPhone}`,
+      `Address: ${address.trim()}, ${pincode.trim()}`,
+      "",
+      ...orderLines,
+      "",
+      `Total: ₹${total.toLocaleString("en-IN")}`,
+    ].join("\n");
+    window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
+    toast.success("Order sent on WhatsApp!");
+    onOpenChange(false);
+    onSaved();
   }
 
   return (
@@ -289,6 +323,15 @@ export default function CheckoutDialog({
                 </Button>
               }
             />
+            <Button
+              type="button"
+              variant="outline"
+              disabled={saving}
+              onClick={handleWhatsAppOrder}
+            >
+              <WhatsappIcon className="size-4" aria-hidden="true" />
+              WhatsApp Order
+            </Button>
             <Button
               type="submit"
               disabled={saving}

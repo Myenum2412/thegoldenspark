@@ -24,11 +24,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import CheckoutDialog from "@/components/checkout-dialog";
 import type { Product } from "@/lib/store-data";
 
-const WHATSAPP = "https://wa.me/918248601417";
 const CART_KEY = "gsh-cart";
 
 function loadCart(): Record<string, number> {
@@ -98,26 +96,6 @@ export default function PricelistTable({
       }
       return { ...prev, [key]: qty };
     });
-  }
-
-  function orderOnWhatsApp() {
-    const orderLines = lines.map(
-      (l) =>
-        `${l.qty} x ${l.product.name} - ₹${(
-          Number(l.product.special_rate) * l.qty
-        ).toLocaleString("en-IN")}`
-    );
-    const text = [
-      "Vanakkam Golden Spark! I want to order:",
-      "",
-      ...orderLines,
-      "",
-      `Total: ₹${total.toLocaleString("en-IN")}`,
-      "",
-      "Name:",
-      "Address:",
-    ].join("\n");
-    window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
   }
 
   if (products.length === 0) {
@@ -372,14 +350,6 @@ export default function PricelistTable({
               >
                 <Trash2Icon className="size-4" aria-hidden="true" />
                 Clear
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={orderOnWhatsApp}
-              >
-                <WhatsappIcon className="size-4" aria-hidden="true" />
-                WhatsApp
               </Button>
               <Button
                 size="sm"
