@@ -53,6 +53,23 @@ export function LoginForm({
             />
           </Field>
           <Field>
+            <div className="flex items-center justify-between">
+              <FieldLabel htmlFor="password">Password</FieldLabel>
+              <a
+                href="#"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Forgot password?
+              </a>
+            </div>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              required
+            />
+          </Field>
+          <Field>
             <Button type="submit">Login</Button>
           </Field>
           <FieldSeparator>Or</FieldSeparator>
