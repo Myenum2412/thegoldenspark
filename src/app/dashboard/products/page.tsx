@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import AddProductForm from "@/components/add-product-form";
+import ProductActions from "@/components/product-actions";
 import {
   DashboardLoading,
   DashboardShell,
@@ -86,13 +87,14 @@ async function ProductsData() {
                     <TableHead className="text-right">MRP (₹)</TableHead>
                     <TableHead className="text-right">Our Rate (₹)</TableHead>
                     <TableHead className="text-right">Stock</TableHead>
+                    <TableHead className="w-24 text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {products.length === 0 ? (
                     <TableRow>
                       <TableCell
-                        colSpan={7}
+                        colSpan={8}
                         className="h-24 text-center text-sm text-muted-foreground"
                       >
                         No products yet — run supabase/seed.sql to load the
@@ -118,6 +120,9 @@ async function ProductsData() {
                         </TableCell>
                         <TableCell className="text-right tabular-nums">
                           {Number(p.stock).toLocaleString("en-IN")}
+                        </TableCell>
+                        <TableCell>
+                          <ProductActions product={p} />
                         </TableCell>
                       </TableRow>
                     ))

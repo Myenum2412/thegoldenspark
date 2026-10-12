@@ -47,6 +47,10 @@ drop policy if exists "public update products" on products;
 create policy "public update products" on products
   for update using (true);
 
+drop policy if exists "public delete products" on products;
+create policy "public delete products" on products
+  for delete using (true);
+
 -- LAKSHMI & WETWO CRACKERS
 insert into products (item_no, name, category, packing, mrp, special_rate) values
 (1, 'R03-3.5" LAKSHMI CRACKERS', 'Lakshmi & Wetwo Crackers', 'PKTS', 140, 28),
