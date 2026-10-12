@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import {
   Card,
   CardContent,
@@ -20,21 +21,32 @@ import {
   DashboardShell,
 } from "@/components/dashboard-shell";
 import SetupNotice from "@/components/setup-notice";
-import { requireUser } from "@/lib/require-user";
+import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
+import { createClient } from "@/utils/supabase/server";
 import type { Customer } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <Suspense fallback={<DashboardLoading />}>
-        <CustomersData />
-      </Suspense>
+      <DashboardShell
+        title="Customers"
+        userSlot={
+          <Suspense fallback={<SidebarUserFallback />}>
+            <SidebarUser />
+          </Suspense>
+        }
+      >
+        <Suspense fallback={<DashboardLoading />}>
+          <CustomersData />
+        </Suspense>
+      </DashboardShell>
     </SidebarProvider>
   );
 }
 
 async function CustomersData() {
-  const { supabase, user } = await requireUser();
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
     .from("customers")
@@ -45,11 +57,10 @@ async function CustomersData() {
   const customers = (data ?? []) as Customer[];
 
   return (
-    <DashboardShell email={user.email ?? ""} title="Customers">
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Customers{" "}
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          Customers{" "}
             {!error && (
               <span className="text-muted-foreground">
                 ({customers.length})
@@ -113,7 +124,6 @@ async function CustomersData() {
             </div>
           )}
         </CardContent>
-      </Card>
-    </DashboardShell>
+    </Card>
   );
 }

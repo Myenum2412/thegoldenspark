@@ -10,23 +10,17 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 export function DashboardShell({
-  email,
   title,
+  userSlot,
   children,
 }: {
-  email: string;
   title: string;
+  userSlot?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <>
-      <AppSidebar
-        user={{
-          name: email.split("@")[0] || "Admin",
-          email,
-          avatar: "",
-        }}
-      />
+      <AppSidebar userSlot={userSlot} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">

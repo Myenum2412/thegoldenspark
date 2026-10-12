@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import {
   Card,
   CardContent,
@@ -21,21 +22,33 @@ import {
   DashboardShell,
 } from "@/components/dashboard-shell";
 import SetupNotice from "@/components/setup-notice";
-import { requireUser } from "@/lib/require-user";
+import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
+import { createClient } from "@/utils/supabase/server";
 import type { Product } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <Suspense fallback={<DashboardLoading />}>
-        <ProductsData />
-      </Suspense>
+      <DashboardShell
+        title="Products"
+        userSlot={
+          <Suspense fallback={<SidebarUserFallback />}>
+            <SidebarUser />
+          </Suspense>
+        }
+      >
+        <AddProductForm />
+        <Suspense fallback={<DashboardLoading />}>
+          <ProductsData />
+        </Suspense>
+      </DashboardShell>
     </SidebarProvider>
   );
 }
 
 async function ProductsData() {
-  const { supabase, user } = await requireUser();
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
     .from("products")
@@ -46,12 +59,10 @@ async function ProductsData() {
   const products = (data ?? []) as Product[];
 
   return (
-    <DashboardShell email={user.email ?? ""} title="Products">
-      <AddProductForm />
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Products{" "}
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          Products{" "}
             {!error && (
               <span className="text-muted-foreground">({products.length})</span>
             )}
@@ -116,7 +127,6 @@ async function ProductsData() {
             </div>
           )}
         </CardContent>
-      </Card>
-    </DashboardShell>
+    </Card>
   );
 }

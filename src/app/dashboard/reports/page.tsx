@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import { PackageIcon, UsersIcon, WalletIcon } from "lucide-react";
 import {
   Card,
@@ -22,21 +23,32 @@ import {
 } from "@/components/dashboard-shell";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
-import { requireUser } from "@/lib/require-user";
+import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
+import { createClient } from "@/utils/supabase/server";
 import type { Customer, Product } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <Suspense fallback={<DashboardLoading />}>
-        <ReportsData />
-      </Suspense>
+      <DashboardShell
+        title="Reports"
+        userSlot={
+          <Suspense fallback={<SidebarUserFallback />}>
+            <SidebarUser />
+          </Suspense>
+        }
+      >
+        <Suspense fallback={<DashboardLoading />}>
+          <ReportsData />
+        </Suspense>
+      </DashboardShell>
     </SidebarProvider>
   );
 }
 
 async function ReportsData() {
-  const { supabase, user } = await requireUser();
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
   const { data: customerData, error: customerError } = await supabase
     .from("customers")
@@ -59,7 +71,7 @@ async function ReportsData() {
   const lowStock = products.filter((p) => Number(p.stock) <= 10);
 
   return (
-    <DashboardShell email={user.email ?? ""} title="Reports">
+    <>
       {loadError ? (
         <SetupNotice
           message={loadError.message}
@@ -151,6 +163,6 @@ async function ReportsData() {
           </Card>
         </>
       )}
-    </DashboardShell>
+    </>
   );
 }
