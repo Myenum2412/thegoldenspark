@@ -20,9 +20,9 @@ import CustomerForm from "@/components/customer-form";
 import HighlightsTable from "@/components/highlights-table";
 import TableBlock from "@/components/blocks/table-1";
 
-const PHONE_DISPLAY = "+91 99629 70062";
-const PHONE_TEL = "tel:+919962970062";
-const WHATSAPP = "https://wa.me/919962970062";
+const PHONE_DISPLAY = "+91 8248601417";
+const PHONE_TEL = "tel:+918248601417";
+const WHATSAPP = "https://wa.me/918248601417";
 
 export default function Page() {
   return (
@@ -39,7 +39,7 @@ export default function Page() {
             className="border-amber-500/30 bg-amber-500/10 text-amber-300"
           >
             <Sparkles className="size-3.5" aria-hidden="true" />
-            Premium Fireworks • Sivakasi
+            Premium Fireworks • Direct Sivakasi Factory Rates
           </Badge>
           <Image
             src="/logo.png"
@@ -127,16 +127,15 @@ export default function Page() {
                 Our Address
               </p>
               <address className="google-sans mt-3 text-xl leading-relaxed font-medium text-white not-italic sm:text-2xl">
-                Golden Spark Pvt Ltd, No. 2, Mullai Nagar First Street,
-                N.R.K.R. Nagar (Near N.R.K.R. Marriage Hall), Sivakasi –
-                626123.
+                Golden Spark Pvt Ltd, Opp. To Agarwal Eye Hospital, 5 Roads,
+                Salem, Tamil Nadu.
               </address>
               <Button
                 size="lg"
                 className="mt-6 bg-amber-500 text-black hover:bg-amber-400"
                 render={
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Golden+Spark+Mullai+Nagar+First+Street+Sivakasi+626123"
+                    href="https://www.google.com/maps/search/?api=1&query=Golden+Spark+Opp+Agarwal+Eye+Hospital+5+Roads+Salem+Tamil+Nadu"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -211,7 +210,7 @@ export default function Page() {
             </div>
           </div>
           <p className="text-xs">
-            Sivakasi – 626123 • {PHONE_DISPLAY} • © 2026 Golden Spark Pvt Ltd
+            Salem, Tamil Nadu • {PHONE_DISPLAY} • © 2026 Golden Spark Pvt Ltd
           </p>
         </div>
       </footer>

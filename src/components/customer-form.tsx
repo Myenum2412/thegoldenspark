@@ -154,7 +154,7 @@ export default function CustomerForm() {
             <Input
               id="customer-pincode"
               inputMode="numeric"
-              placeholder="626123"
+              placeholder="Enter pincode"
               value={pincode}
               onChange={(e) =>
                 setPincode(e.target.value.replace(/\D/g, "").slice(0, 6))

@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+  title: "Golden Spark Pvt Ltd – Premium Fireworks in Salem",
   description:
-    "Golden Spark Pvt Ltd — premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story. Call +91 99629 70062.",
+    "Golden Spark Pvt Ltd — premium Sivakasi crackers for retail, bulk & wholesale at direct factory rates. Every Spark has a Story. Call +91 8248601417.",
   keywords: [
     "Golden Spark",
     "Sivakasi crackers",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "Sivakasi fireworks",
   ],
   openGraph: {
-    title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+    title: "Golden Spark Pvt Ltd – Premium Fireworks in Salem",
     description:
       "Premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story.",
     type: "website",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Golden Spark Pvt Ltd – Premium Fireworks in Sivakasi",
+    title: "Golden Spark Pvt Ltd – Premium Fireworks in Salem",
     description:
       "Premium Sivakasi crackers for retail, bulk & wholesale. Every Spark has a Story.",
     images: ["/logo.png"],
