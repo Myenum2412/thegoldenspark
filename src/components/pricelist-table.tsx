@@ -135,12 +135,12 @@ export default function PricelistTable({
   return (
     <div className="flex flex-col gap-4">
       <Card>
-        <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
           <div className="flex items-center gap-3">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600">
               <ShoppingCartIcon className="size-5" aria-hidden="true" />
             </span>
-            <div>
+            <div className="text-left">
               <h2 className="google-sans text-xl font-bold tracking-tight sm:text-2xl">
                 Pricelist 2026
               </h2>
@@ -149,24 +149,24 @@ export default function PricelistTable({
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="flex w-full flex-col items-center gap-2">
             <Input
               type="search"
               placeholder="Search crackers…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               aria-label="Search products"
-              className="sm:w-52"
+              className="w-full max-w-md text-center"
             />
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               aria-label="Filter by category"
-              className="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
+              className="h-9 w-full max-w-md rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
             >
               {categories.map((c) => (
                 <option key={c} value={c}>
-                  {c === "All" ? "All categories" : c}
+                  {c === "All" ? "All items" : c}
                 </option>
               ))}
             </select>
