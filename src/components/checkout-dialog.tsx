@@ -207,8 +207,34 @@ export default function CheckoutDialog({
       "",
       `Total: ₹${total.toLocaleString("en-IN")}`,
     ].join("\n");
-    window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
-    toast.success(`Order #${orderId} saved & sent on WhatsApp!`);
+
+    // Try automatic send via the wa-sender service; fall back to
+    // opening WhatsApp manually when it is offline/unconfigured.
+    let autoSent = false;
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
+      const sendRes = await fetch("/api/wa-send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      const body = (await sendRes.json()) as { sent?: boolean };
+      autoSent = body.sent === true;
+    } catch {
+      autoSent = false;
+    }
+
+    if (autoSent) {
+      toast.success(`Order #${orderId} saved & WhatsApp sent automatically!`);
+    } else {
+      window.open(`${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank");
+      toast.success(`Order #${orderId} saved!`, {
+        description: "WhatsApp opened — press send to confirm.",
+      });
+    }
     onOpenChange(false);
     onSaved();
     router.refresh();
