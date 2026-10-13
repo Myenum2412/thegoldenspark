@@ -28,8 +28,24 @@ export function LoginForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setLoading(true)
+    // Never spin forever: if Appwrite Cloud doesn't answer within 20s
+    // the request is blocked on this network (ad-blocker, firewall,
+    // ISP, VPN) — surface that instead of hanging.
+    const login = account.createEmailPasswordSession(email.trim(), password)
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(
+        () =>
+          reject(
+            new DOMException(
+              "Login timed out — sfo.cloud.appwrite.io seems unreachable from your network. Disable any ad-blocker/VPN for this site, or try another network.",
+              "AbortError"
+            )
+          ),
+        20000
+      )
+    )
     try {
-      await account.createEmailPasswordSession(email.trim(), password)
+      await Promise.race([login, timeout])
     } catch (err) {
       setLoading(false)
       const message =
