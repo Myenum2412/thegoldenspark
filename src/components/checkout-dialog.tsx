@@ -213,7 +213,7 @@ export default function CheckoutDialog({
     let autoSent = false;
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
+      const timeout = setTimeout(() => controller.abort(), 35000);
       const sendRes = await fetch("/api/wa-send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

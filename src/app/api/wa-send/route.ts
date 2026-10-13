@@ -85,7 +85,7 @@ export async function POST(req: Request) {
     const to = storeNumber;
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    const timeout = setTimeout(() => controller.abort(), 30000);
     let sendRes: Response;
     try {
       sendRes = await fetch(`${senderUrl}/send`, {
