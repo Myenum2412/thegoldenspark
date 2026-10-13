@@ -1,9 +1,11 @@
-export const SETUP_SQL = `-- Appwrite backend is not configured yet, so no data is loading.
--- Create the database + collections once in the Appwrite console:
---   1. Follow docs/appwrite-schema.md (database, 4 collections, permissions).
---   2. Create a login user under Auth → Users.
---   3. Put the Database ID + Collection IDs in .env.local, restart the app.
--- Seed the 90-item pricelist from docs/pricelist-seed.json (see the doc).`;
+export const SETUP_SQL = `-- The Appwrite "Billing" database is the backend (TablesDB).
+-- Configuration lives in .env.local locally, or in the host's env vars:
+--   1. NEXT_PUBLIC_APPWRITE_DATABASE_ID      (default: billing_db)
+--   2. NEXT_PUBLIC_APPWRITE_TABLE_PRODUCTS   (default: products)
+--      NEXT_PUBLIC_APPWRITE_TABLE_CLIENTS    (default: clients)
+--      NEXT_PUBLIC_APPWRITE_TABLE_SALES      (default: sales)
+--   3. APPWRITE_API_KEY — server-only key with databases.read + tables.read/write
+-- The login user lives under Auth → Users in the Appwrite console.`;
 
 export type Customer = {
   id: string | number;

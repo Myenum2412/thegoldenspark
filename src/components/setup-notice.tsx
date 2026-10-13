@@ -14,8 +14,7 @@ export default function SetupNotice({
       </p>
       <p className="mt-1 text-muted-foreground">{message}</p>
       <p className="mt-2 text-muted-foreground">
-        Create the database + collections once in the Appwrite console — see
-        docs/appwrite-schema.md — then set the IDs in .env.local:
+        Check the Appwrite configuration (Billing database + server API key):
       </p>
       <pre className="mt-2 max-h-64 overflow-auto rounded bg-muted p-3 text-xs">
         {SETUP_SQL}
