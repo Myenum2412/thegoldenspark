@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { account } from "@/lib/appwrite"
 
 import {
   Avatar,
@@ -46,7 +45,8 @@ export function NavUser({
 
   async function handleLogout() {
     try {
-      await account.deleteSession("current")
+      const res = await fetch("/api/auth/logout", { method: "POST" })
+      if (!res.ok) throw new Error(`Logout failed (${res.status})`)
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Could not log out."

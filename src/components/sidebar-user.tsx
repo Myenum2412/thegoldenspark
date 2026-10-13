@@ -2,26 +2,27 @@
 
 import * as React from "react";
 import { NavUser } from "@/components/nav-user";
-import { account } from "@/lib/appwrite";
 
-// Client component: resolves the logged-in Appwrite user for the
-// sidebar footer. Renders a skeleton until the session resolves.
+// Client component: resolves the logged-in user from the app session cookie
+// via /api/auth/me for the sidebar footer. Renders a skeleton until done.
 export function SidebarUser() {
   const [email, setEmail] = React.useState<string | null>(null);
   const [done, setDone] = React.useState(false);
 
   React.useEffect(() => {
     let live = true;
-    account
-      .get()
-      .then((user) => {
-        if (live) setEmail(user.email);
+    fetch("/api/auth/me")
+      .then(async (res) => {
+        if (!res.ok) return "";
+        const body = (await res.json()) as { user?: { email?: string } };
+        return body.user?.email ?? "";
       })
-      .catch(() => {
-        if (live) setEmail("");
-      })
-      .finally(() => {
-        if (live) setDone(true);
+      .catch(() => "")
+      .then((value) => {
+        if (live) {
+          setEmail(value);
+          setDone(true);
+        }
       });
     return () => {
       live = false;

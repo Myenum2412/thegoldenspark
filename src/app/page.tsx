@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import {
   MapPin,
   Phone,
@@ -6,17 +7,10 @@ import {
 import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import Stats01 from "@/components/stats-01";
 import PricelistTable from "@/components/pricelist-table";
-import { listProducts } from "@/lib/store";
+import { listProducts } from "@/lib/store.server";
 import type { Product } from "@/lib/store-data";
 
 const PHONE_DISPLAY = "+91 8248601417";
@@ -31,8 +25,14 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
-export default async function Page() {
+// Streamed inside Suspense so the uncached Appwrite read (Cache Components
+// enabled) doesn't block prerendering of the shell.
+async function PricelistSection() {
   const products = await getProducts();
+  return <PricelistTable products={products} />;
+}
+
+export default function Page() {
   return (
     <main className="min-h-screen bg-background">
       {/* ── Premium hero ─────────────────────────────── */}
@@ -93,7 +93,13 @@ export default async function Page() {
 
       {/* ── Pricelist with add to cart ─────────────── */}
       <section className="mx-auto w-full max-w-6xl px-3 pb-8 sm:px-4 sm:pb-10">
-        <PricelistTable products={products} />
+        <Suspense
+          fallback={
+            <div className="h-64 animate-pulse rounded-xl border border-border bg-muted/40" />
+          }
+        >
+          <PricelistSection />
+        </Suspense>
       </section>
 
       {/* ── Visit us / company card ──────────────────── */}

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { toast } from "sonner"
 import { cn } from "cn"
 
@@ -13,7 +14,6 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { account } from "@/lib/appwrite"
 import Image from "next/image"
 
 export function LoginForm({
@@ -28,30 +28,40 @@ export function LoginForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setLoading(true)
-    // Never spin forever: if Appwrite Cloud doesn't answer within 20s
-    // the request is blocked on this network (ad-blocker, firewall,
-    // ISP, VPN) — surface that instead of hanging.
-    const login = account.createEmailPasswordSession(email.trim(), password)
-    const timeout = new Promise<never>((_, reject) =>
-      setTimeout(
-        () =>
-          reject(
-            new DOMException(
-              "Login timed out — sfo.cloud.appwrite.io seems unreachable from your network. Disable any ad-blocker/VPN for this site, or try another network.",
-              "AbortError"
-            )
-          ),
-        20000
-      )
-    )
+    // Never spin forever: if the server (or Appwrite behind it) doesn't
+    // answer within 20s the request is blocked on this network
+    // (ad-blocker, firewall, ISP, VPN) — surface that instead of hanging.
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 20000)
     try {
-      await Promise.race([login, timeout])
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password }),
+        signal: controller.signal,
+      })
+      if (!res.ok) {
+        let message = "Could not log in."
+        try {
+          const body = (await res.json()) as { error?: string }
+          if (body.error) message = body.error
+        } catch {
+          // non-JSON error body
+        }
+        throw new Error(message)
+      }
     } catch (err) {
       setLoading(false)
       const message =
-        err instanceof Error ? err.message : "Could not log in."
+        err instanceof DOMException && err.name === "AbortError"
+          ? "Login timed out — the server or Appwrite seems unreachable from your network. Disable any ad-blocker/VPN for this site, or try another network."
+          : err instanceof Error
+            ? err.message
+            : "Could not log in."
       toast.error("Login failed", { description: message })
       return
+    } finally {
+      clearTimeout(timeout)
     }
     setLoading(false)
 
@@ -65,7 +75,7 @@ export function LoginForm({
       <form onSubmit={handleSubmit}>
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
-            <a
+            <Link
               href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
@@ -77,7 +87,7 @@ export function LoginForm({
                 className="size-14 rounded-xl border border-border bg-black object-cover"
               />
               <span className="sr-only">Golden Spark Pvt Ltd</span>
-            </a>
+            </Link>
             <h1 className="google-sans text-xl font-bold">
               Welcome to Golden Spark
             </h1>

@@ -3,7 +3,7 @@ import {
   APPWRITE_DATABASE_ID,
   APPWRITE_ENDPOINT,
   APPWRITE_PROJECT_ID,
-  COLLECTIONS,
+  TABLES,
   client,
   isAppwriteConfigured,
 } from "@/lib/appwrite";
@@ -22,7 +22,7 @@ async function ConnectionStatus() {
       {`Endpoint: ${APPWRITE_ENDPOINT}
 Project: ${APPWRITE_PROJECT_ID}
 Database: ${APPWRITE_DATABASE_ID}
-Collections: ${Object.values(COLLECTIONS).join(", ")}
+Tables: ${Object.values(TABLES).join(", ")}
 
 Ping: ${ping}
 Backend: ${

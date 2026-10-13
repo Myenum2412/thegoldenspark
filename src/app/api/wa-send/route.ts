@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getOrderDetails } from "@/lib/store";
+import { getOrderDetails } from "@/lib/store.server";
 
 // Called after a checkout succeeds. Reads the saved order and asks the
 // persistent wa-sender service (whatsapp-web.js) to message the customer.
