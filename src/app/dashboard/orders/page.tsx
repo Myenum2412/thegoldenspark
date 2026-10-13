@@ -18,6 +18,7 @@ import {
   type OrderItem,
 } from "@/components/order-view";
 import OrdersTable from "@/components/orders-table";
+import WaStatus from "@/components/wa-status";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
@@ -106,11 +107,12 @@ async function OrdersData() {
       />
       <Card>
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="flex items-center gap-2">
           Orders{" "}
           {!error && (
             <span className="text-muted-foreground">({orders.length})</span>
           )}
+          <WaStatus />
         </CardTitle>
         <CardDescription>
           Every checkout from the homepage pricelist, stored in Supabase.
