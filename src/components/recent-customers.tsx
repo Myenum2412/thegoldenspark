@@ -26,6 +26,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { createClient } from "@/utils/supabase/client";
+import { deleteCustomersWithOrders } from "@/lib/customer-delete";
 import type { Customer } from "@/lib/store-data";
 
 export default function RecentCustomers({
@@ -62,17 +63,14 @@ export default function RecentCustomers({
   async function handleDeleteSelected() {
     setDeleting(true);
     const supabase = createClient();
-    const { data: deleted, error } = await supabase
-      .from("customers")
-      .delete()
-      .in("id", Array.from(selected))
-      .select("id");
+    const deleteError = await deleteCustomersWithOrders(
+      supabase,
+      Array.from(selected)
+    );
     setDeleting(false);
-    if (error || !deleted || deleted.length === 0) {
+    if (deleteError) {
       toast.error("Could not delete customers", {
-        description:
-          error?.message ??
-          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
+        description: deleteError.message,
       });
       return;
     }
