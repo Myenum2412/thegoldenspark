@@ -144,6 +144,7 @@ export default function ProductsTable({
                 />
               </TableHead>
               <TableHead className="w-16">Item</TableHead>
+              <TableHead className="w-28">Barcode</TableHead>
               <TableHead>Variety / Description</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Packing</TableHead>
@@ -169,6 +170,9 @@ export default function ProductsTable({
                     />
                   </TableCell>
                   <TableCell className="tabular-nums">{p.item_no}</TableCell>
+                  <TableCell className="font-mono text-muted-foreground">
+                    {p.barcode || "—"}
+                  </TableCell>
                   <TableCell className="font-medium">{p.name}</TableCell>
                   <TableCell className="text-muted-foreground">
                     {p.category}

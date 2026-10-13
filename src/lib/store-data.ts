@@ -20,6 +20,7 @@ export type Customer = {
 export type Product = {
   id: string | number;
   item_no: number;
+  barcode: string;
   name: string;
   category: string;
   packing: string;

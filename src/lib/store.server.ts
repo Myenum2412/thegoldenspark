@@ -42,6 +42,7 @@ function toProduct(row: Row): Product {
   return {
     id: row.$id,
     item_no: itemNoFromBarcode(row.barcode),
+    barcode: String(row.barcode ?? ""),
     name: String(row.name ?? ""),
     // Billing has no category/packing columns.
     category: "General",
