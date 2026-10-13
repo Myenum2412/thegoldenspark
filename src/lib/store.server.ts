@@ -41,13 +41,14 @@ function toProduct(row: Row): Product {
   const price = Number(row.price ?? 0);
   return {
     id: row.$id,
+    ordr: Number(row.ordr ?? 0),
     item_no: itemNoFromBarcode(row.barcode),
     barcode: String(row.barcode ?? ""),
     name: String(row.name ?? ""),
-    // Billing has no category/packing columns.
+    // Billing has no category column.
     category: "General",
-    packing: "Box",
-    mrp: price,
+    packing: String(row.packing ?? ""),
+    mrp: Number(row.mrp ?? price),
     special_rate: price,
     stock: Number(row.stock ?? 0),
     created_at: row.$createdAt,
@@ -101,7 +102,11 @@ export async function listProducts(): Promise<Product[]> {
   });
   return (res.rows as Row[])
     .map(toProduct)
-    .sort((a, b) => a.item_no - b.item_no || a.name.localeCompare(b.name));
+    .sort(
+      (a, b) =>
+        (a.ordr || Number.MAX_SAFE_INTEGER) - (b.ordr || Number.MAX_SAFE_INTEGER) ||
+        a.name.localeCompare(b.name)
+    );
 }
 
 export async function createProduct(data: {
@@ -124,6 +129,8 @@ export async function createProduct(data: {
       barcode: String(data.item_no),
       price,
       stock: data.stock,
+      packing: data.packing || "",
+      mrp: data.mrp || 0,
     },
   });
 }
@@ -147,6 +154,8 @@ export async function updateProduct(
       name: data.name,
       price: data.special_rate || data.mrp || 0,
       stock: data.stock,
+      packing: data.packing || "",
+      mrp: data.mrp || 0,
     },
   });
 }

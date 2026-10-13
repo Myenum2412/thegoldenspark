@@ -252,8 +252,10 @@ export default function PricelistTable({
                 <TableRow>
                   <TableHead className="w-16">S.No</TableHead>
                   <TableHead>Product</TableHead>
+                  <TableHead>Packing</TableHead>
                   <TableHead className="text-right">MRP (₹)</TableHead>
-                  <TableHead className="text-right">Our Price (₹)</TableHead>
+                  <TableHead className="text-right">80% Disc Rate (₹)</TableHead>
+                  <TableHead className="text-right">Our Special Rate (₹)</TableHead>
                   <TableHead className="w-36 text-right">Add to Cart</TableHead>
                 </TableRow>
               </TableHeader>
@@ -261,7 +263,7 @@ export default function PricelistTable({
                 {filtered.length === 0 ? (
                   <TableRow>
                     <TableCell
-                      colSpan={5}
+                      colSpan={7}
                       className="h-24 text-center text-sm text-muted-foreground"
                     >
                       No products match your search.
@@ -278,8 +280,14 @@ export default function PricelistTable({
                         <TableCell>
                           <p className="font-medium">{p.name}</p>
                         </TableCell>
+                        <TableCell>{p.packing}</TableCell>
                         <TableCell className="text-right tabular-nums text-muted-foreground line-through">
                           {Number(p.mrp).toLocaleString("en-IN")}
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {Math.round(Number(p.mrp) * 0.2).toLocaleString(
+                            "en-IN"
+                          )}
                         </TableCell>
                         <TableCell className="text-right font-semibold tabular-nums text-amber-600">
                           {Number(p.special_rate).toLocaleString("en-IN")}
@@ -360,6 +368,9 @@ export default function PricelistTable({
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{p.name}</p>
                     <p className="text-xs text-muted-foreground">
+                      {p.packing && (
+                        <span className="mr-2">{p.packing}</span>
+                      )}
                       <span className="line-through">
                         ₹{Number(p.mrp).toLocaleString("en-IN")}
                       </span>{" "}

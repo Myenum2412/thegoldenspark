@@ -144,13 +144,11 @@ export default function ProductsTable({
                 />
               </TableHead>
               <TableHead className="w-16">S.No</TableHead>
-              <TableHead className="w-28">Barcode</TableHead>
-              <TableHead>Variety / Description</TableHead>
-              <TableHead>Category</TableHead>
+              <TableHead className="min-w-40">Variety / Description</TableHead>
               <TableHead>Packing</TableHead>
-              <TableHead className="text-right">MRP (₹)</TableHead>
-              <TableHead className="text-right">Our Rate (₹)</TableHead>
-              <TableHead className="text-right">Stock</TableHead>
+              <TableHead className="text-right">2026 MRP (₹)</TableHead>
+              <TableHead className="text-right">80% Disc Rate (₹)</TableHead>
+              <TableHead className="text-right">Our Special Rate (₹)</TableHead>
               <TableHead className="w-24 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -172,22 +170,16 @@ export default function ProductsTable({
                   <TableCell className="tabular-nums text-muted-foreground">
                     {index + 1}
                   </TableCell>
-                  <TableCell className="font-mono text-muted-foreground">
-                    {p.barcode || "—"}
-                  </TableCell>
                   <TableCell className="font-medium">{p.name}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {p.category}
-                  </TableCell>
                   <TableCell>{p.packing}</TableCell>
                   <TableCell className="text-right tabular-nums text-muted-foreground">
                     {Number(p.mrp).toLocaleString("en-IN")}
                   </TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {Math.round(Number(p.mrp) * 0.2).toLocaleString("en-IN")}
+                  </TableCell>
                   <TableCell className="text-right font-semibold tabular-nums text-amber-600">
                     {Number(p.special_rate).toLocaleString("en-IN")}
-                  </TableCell>
-                  <TableCell className="text-right tabular-nums">
-                    {Number(p.stock).toLocaleString("en-IN")}
                   </TableCell>
                   <TableCell>
                     <ProductActions product={p} onChanged={onChanged} />
