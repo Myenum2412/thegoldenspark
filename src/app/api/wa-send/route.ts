@@ -27,12 +27,13 @@ export async function POST(req: Request) {
     };
 
     const orderRes = await fetch(
-      `${supabaseUrl}/rest/v1/orders?select=id,customer_name,phone,total&id=eq.${orderId}&limit=1`,
+      `${supabaseUrl}/rest/v1/orders?select=id,customer_id,customer_name,phone,total&id=eq.${orderId}&limit=1`,
       { headers, cache: "no-store" }
     );
     if (!orderRes.ok) return NextResponse.json({ sent: false });
     const orders = (await orderRes.json()) as {
       id: number;
+      customer_id: number | null;
       customer_name: string;
       phone: string;
       total: number;
@@ -48,21 +49,40 @@ export async function POST(req: Request) {
       itemsRes.ok ? await itemsRes.json() : []
     ) as { name: string; qty: number; amount: number }[];
 
+    const addrRes = await fetch(
+      `${supabaseUrl}/rest/v1/customers?select=address,pincode&id=eq.${order.customer_id}&limit=1`,
+      { headers, cache: "no-store" }
+    );
+    const addrRows = (
+      addrRes.ok ? await addrRes.json() : []
+    ) as { address: string; pincode: string }[];
+    const customerAddr = addrRows[0];
+
     const lines = items.map(
       (l) =>
         `${l.qty} x ${l.name} - ₹${Number(l.amount).toLocaleString("en-IN")}`
     );
     const message = [
-      `Vanakkam ${order.customer_name}! Golden Spark order #${order.id} confirmed:`,
+      `New order #${order.id} — Golden Spark website:`,
+      "",
+      `Name: ${order.customer_name}`,
+      `Phone: ${order.phone}`,
+      customerAddr
+        ? `Address: ${customerAddr.address}, ${customerAddr.pincode}`
+        : "",
       "",
       ...lines,
       "",
       `Total: ₹${Number(order.total).toLocaleString("en-IN")}`,
-      "We will call you back shortly. Thank you!",
-    ].join("\n");
+    ]
+      .filter((l) => l !== "")
+      .join("\n");
 
-    const digits = String(order.phone).replace(/\D/g, "");
-    const to = digits.length === 10 ? `91${digits}` : digits;
+    // Orders go to the store number so the owner gets every order.
+    const storeNumber = (
+      process.env.STORE_WHATSAPP_NUMBER ?? "918248601417"
+    ).replace(/\D/g, "");
+    const to = storeNumber;
 
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
