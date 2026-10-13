@@ -1,14 +1,16 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { APPWRITE_SESSION_COOKIE } from "@/lib/appwrite";
 
 export async function middleware(request: NextRequest) {
-  // Appwrite web SDK persists the session in a cookie after login.
-  // Protect dashboard routes at request time (redirects don't work
-  // reliably from inside a Suspense boundary during prerendering).
-  if (
-    !request.cookies.has(APPWRITE_SESSION_COOKIE) &&
-    request.nextUrl.pathname.startsWith("/dashboard")
-  ) {
+  // Appwrite web SDK persists the session in a cookie after login
+  // (a_session_<projectId>, plus a _legacy variant). Its presence
+  // means the user signed in. Protect dashboard routes at request
+  // time (redirects don't work reliably from inside a Suspense
+  // boundary during prerendering).
+  const hasSession = request
+    .cookies
+    .getAll()
+    .some((c) => c.name.startsWith("a_session_"));
+  if (!hasSession && request.nextUrl.pathname.startsWith("/dashboard")) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     return NextResponse.redirect(loginUrl);
