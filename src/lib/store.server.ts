@@ -410,3 +410,101 @@ export async function getOrderDetails(orderId: string): Promise<{
     address,
   };
 }
+
+export type BillItem = {
+  item_no: number;
+  name: string;
+  qty: number;
+  rate: number;
+  amount: number;
+};
+
+export type ShopDetails = {
+  name: string;
+  addressLine1: string;
+  addressLine2: string;
+  phoneNumber: string;
+  upiId: string;
+  footerText: string;
+};
+
+// Read-only storefront config from the one-row "shop" table.
+export async function getShopDetails(): Promise<ShopDetails> {
+  const res = await tables().listRows({
+    databaseId: APPWRITE_DATABASE_ID,
+    tableId: TABLES.shop,
+    queries: [Query.limit(1)],
+  });
+  const row = (res.rows as Row[])[0];
+  return {
+    name: row ? String(row.name ?? "") : "Golden Sparks",
+    addressLine1: row ? String(row.addressLine1 ?? "") : "",
+    addressLine2: row ? String(row.addressLine2 ?? "") : "",
+    phoneNumber: row ? String(row.phoneNumber ?? "") : "",
+    upiId: row ? String(row.upiId ?? "") : "",
+    footerText: row
+      ? String(row.footerText ?? "")
+      : "Thank you, Visit again!!!",
+  };
+}
+
+// Everything the printable bill needs for one sale. Bills are derived from a
+// sale automatically, so every order has one without any extra setup.
+export async function getBill(orderId: string): Promise<{
+  order: {
+    id: string;
+    invoiceNo: string;
+    customer_name: string;
+    phone: string;
+    total: number;
+    createdAt: string;
+  };
+  items: BillItem[];
+  shop: ShopDetails;
+} | null> {
+  let sale: Row;
+  try {
+    sale = (await tables().getRow({
+      databaseId: APPWRITE_DATABASE_ID,
+      tableId: TABLES.sales,
+      rowId: orderId,
+    })) as Row;
+  } catch {
+    return null;
+  }
+
+  let phone = "";
+  if (sale.clientId) {
+    try {
+      const client = (await tables().getRow({
+        databaseId: APPWRITE_DATABASE_ID,
+        tableId: TABLES.clients,
+        rowId: String(sale.clientId),
+      })) as Row;
+      phone = String(client.phone ?? "");
+    } catch {
+      // client row missing — leave empty
+    }
+  }
+
+  const items = parseItems(sale.itemsJson).map((it, index) => ({
+    item_no: index + 1,
+    name: String(it.name ?? ""),
+    qty: Number(it.quantity ?? 0),
+    rate: Number(it.price ?? 0),
+    amount: Number(it.total ?? 0),
+  }));
+
+  return {
+    order: {
+      id: sale.$id,
+      invoiceNo: String(sale.invoiceNo ?? `INV-${sale.$id}`),
+      customer_name: String(sale.clientName ?? ""),
+      phone,
+      total: Number(sale.total ?? 0),
+      createdAt: String(sale.createdAt ?? sale.$createdAt ?? ""),
+    },
+    items,
+    shop: await getShopDetails(),
+  };
+}

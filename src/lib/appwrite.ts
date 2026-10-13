@@ -45,6 +45,7 @@ export const TABLES = {
   products: envOr(process.env.NEXT_PUBLIC_APPWRITE_TABLE_PRODUCTS, "products"),
   clients: envOr(process.env.NEXT_PUBLIC_APPWRITE_TABLE_CLIENTS, "clients"),
   sales: envOr(process.env.NEXT_PUBLIC_APPWRITE_TABLE_SALES, "sales"),
+  shop: envOr(process.env.NEXT_PUBLIC_APPWRITE_TABLE_SHOP, "shop"),
 } as const;
 
 // HttpOnly cookie set by /api/auth/login on the app's own domain. The proxy

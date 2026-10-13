@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { EyeIcon } from "lucide-react";
+import { EyeIcon, PrinterIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -121,6 +121,16 @@ export default function OrderView({
           </span>
         </p>
         <DialogFooter>
+          <a
+            href={`/dashboard/bills/${String(order.id)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline">
+              <PrinterIcon className="size-4" aria-hidden="true" />
+              Print Bill
+            </Button>
+          </a>
           <DialogClose render={<Button variant="outline">Close</Button>} />
         </DialogFooter>
       </DialogContent>

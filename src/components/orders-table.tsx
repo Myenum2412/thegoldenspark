@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { toast } from "sonner";
-import { Trash2Icon } from "lucide-react";
+import { PrinterIcon, Trash2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -168,7 +168,7 @@ export default function OrdersTable({
               <TableHead className="text-right">Total (₹)</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Placed</TableHead>
-              <TableHead className="w-16 text-right">View</TableHead>
+              <TableHead className="w-28 text-right">View / Bill</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -213,7 +213,7 @@ export default function OrdersTable({
                       : "—"}
                   </TableCell>
                   <TableCell>
-                    <div className="flex justify-end">
+                    <div className="flex items-center justify-end gap-1">
                       <OrderView
                         order={o}
                         items={orderItems}
@@ -223,6 +223,17 @@ export default function OrdersTable({
                             : undefined
                         }
                       />
+                      <a
+                        href={`/dashboard/bills/${String(o.id)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open bill for order ${o.id}`}
+                        title="Open bill (preview / print as PDF)"
+                      >
+                        <Button variant="ghost" size="icon-sm">
+                          <PrinterIcon className="size-4" aria-hidden="true" />
+                        </Button>
+                      </a>
                     </div>
                   </TableCell>
                 </TableRow>
