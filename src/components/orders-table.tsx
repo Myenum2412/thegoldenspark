@@ -78,20 +78,24 @@ export default function OrdersTable({
     setDeleting(true);
     const supabase = createClient();
     const ids = Array.from(selected);
-    const { error: itemsError } = await supabase
+    const { data: deletedItems, error: itemsError } = await supabase
       .from("order_items")
       .delete()
-      .in("order_id", ids);
-    const { error: ordersError } = itemsError
-      ? { error: itemsError }
-      : await supabase.from("orders").delete().in("id", ids);
+      .in("order_id", ids)
+      .select("id");
+    const { data: deletedOrders, error: ordersError } = itemsError
+      ? { data: null, error: itemsError }
+      : await supabase.from("orders").delete().in("id", ids).select("id");
     setDeleting(false);
-    if (ordersError) {
+    if (ordersError || !deletedOrders || deletedOrders.length === 0) {
       toast.error("Could not delete orders", {
-        description: ordersError.message,
+        description:
+          ordersError?.message ??
+          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
       });
       return;
     }
+    void deletedItems;
     toast.success(`${ids.length} order(s) deleted`);
     setSelected(new Set());
     router.refresh();

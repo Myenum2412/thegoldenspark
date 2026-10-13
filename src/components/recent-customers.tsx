@@ -62,14 +62,17 @@ export default function RecentCustomers({
   async function handleDeleteSelected() {
     setDeleting(true);
     const supabase = createClient();
-    const { error } = await supabase
+    const { data: deleted, error } = await supabase
       .from("customers")
       .delete()
-      .in("id", Array.from(selected));
+      .in("id", Array.from(selected))
+      .select("id");
     setDeleting(false);
-    if (error) {
+    if (error || !deleted || deleted.length === 0) {
       toast.error("Could not delete customers", {
-        description: error.message,
+        description:
+          error?.message ??
+          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
       });
       return;
     }

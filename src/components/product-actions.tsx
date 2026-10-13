@@ -83,14 +83,19 @@ export default function ProductActions({ product }: { product: Product }) {
   async function handleDelete() {
     setDeleting(true);
     const supabase = createClient();
-    const { error } = await supabase
+    const { data: deleted, error } = await supabase
       .from("products")
       .delete()
-      .eq("id", product.id);
+      .eq("id", product.id)
+      .select("id");
     setDeleting(false);
 
-    if (error) {
-      toast.error("Could not delete product", { description: error.message });
+    if (error || !deleted || deleted.length === 0) {
+      toast.error("Could not delete product", {
+        description:
+          error?.message ??
+          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
+      });
       return;
     }
     toast.success("Product deleted");
