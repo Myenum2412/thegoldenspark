@@ -11,7 +11,7 @@ export type DashboardStat = {
 // Dashboard stat grid in the @blocks-so/stats-01 pattern:
 // single bordered grid with gap-px dividers, flat Cards inside,
 // name row + big value + description + link. Values are passed
-// in as props so dashboard / reports stay live from Supabase.
+// in as props so dashboard / reports stay live from Appwrite.
 export default function DashboardStats({
   stats,
 }: {

@@ -1,23 +1,20 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/middleware";
+import { APPWRITE_SESSION_COOKIE } from "@/lib/appwrite";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, supabaseResponse } = createClient(request);
-
-  // Refresh session if expired - required for Server Components
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  // Appwrite web SDK persists the session in a cookie after login.
   // Protect dashboard routes at request time (redirects don't work
-  // reliably from inside a Suspense boundary during prerendering)
-  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
+  // reliably from inside a Suspense boundary during prerendering).
+  if (
+    !request.cookies.has(APPWRITE_SESSION_COOKIE) &&
+    request.nextUrl.pathname.startsWith("/dashboard")
+  ) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     return NextResponse.redirect(loginUrl);
   }
 
-  return supabaseResponse;
+  return NextResponse.next();
 }
 
 export const config = {

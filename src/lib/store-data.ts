@@ -1,9 +1,9 @@
-export const SETUP_SQL = `-- Tables are missing, so no data is being stored yet.
--- Run the full seed script in Supabase → SQL Editor → paste → Run:
---   1. Open the file supabase/seed.sql in this repo (GitHub)
---   2. Copy its entire contents, paste into SQL Editor, press Run.
--- It creates the customers + products tables, permissions,
--- and loads the full 90-item pricelist.`;
+export const SETUP_SQL = `-- Appwrite backend is not configured yet, so no data is loading.
+-- Create the database + collections once in the Appwrite console:
+--   1. Follow docs/appwrite-schema.md (database, 4 collections, permissions).
+--   2. Create a login user under Auth → Users.
+--   3. Put the Database ID + Collection IDs in .env.local, restart the app.
+-- Seed the 90-item pricelist from docs/pricelist-seed.json (see the doc).`;
 
 export type Customer = {
   id: string | number;

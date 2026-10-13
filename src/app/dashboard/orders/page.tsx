@@ -1,5 +1,6 @@
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+"use client";
+
+import * as React from "react";
 import { ClipboardListIcon, PackageIcon, WalletIcon } from "lucide-react";
 import {
   Card,
@@ -21,56 +22,51 @@ import OrdersTable from "@/components/orders-table";
 import WaStatus from "@/components/wa-status";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
-import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
-import { createClient } from "@/utils/supabase/server";
+import { SidebarUser } from "@/components/sidebar-user";
+import { listCustomers, listOrderItems, listOrders } from "@/lib/store";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <DashboardShell
-        title="Orders"
-        userSlot={
-          <Suspense fallback={<SidebarUserFallback />}>
-            <SidebarUser />
-          </Suspense>
-        }
-      >
-        <Suspense fallback={<DashboardLoading />}>
-          <OrdersData />
-        </Suspense>
+      <DashboardShell title="Orders" userSlot={<SidebarUser />}>
+        <OrdersData />
       </DashboardShell>
     </SidebarProvider>
   );
 }
 
-async function OrdersData() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+function OrdersData() {
+  const [orders, setOrders] = React.useState<Order[] | null>(null);
+  const [items, setItems] = React.useState<OrderItem[] | null>(null);
+  const [addresses, setAddresses] = React.useState<Record<string, string> | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = React.useState(0);
 
-  const { data: orderData, error: orderError } = await supabase
-    .from("orders")
-    .select("id, customer_id, customer_name, phone, total, status, created_at")
-    .order("created_at", { ascending: false })
-    .limit(200);
+  React.useEffect(() => {
+    let live = true;
+    setError(null);
+    Promise.all([listOrders(), listOrderItems(), listCustomers()])
+      .then(([orderRows, itemRows, customerRows]) => {
+        if (!live) return;
+        setOrders(orderRows);
+        setItems(itemRows);
+        setAddresses(
+          Object.fromEntries(customerRows.map((c) => [String(c.id), c.address]))
+        );
+      })
+      .catch((err: unknown) => {
+        if (live) setError(err instanceof Error ? err.message : "Failed to load data.");
+      });
+    return () => {
+      live = false;
+    };
+  }, [refreshKey]);
 
-  const { data: itemData, error: itemError } = await supabase
-    .from("order_items")
-    .select("id, order_id, item_no, name, qty, rate, amount")
-    .limit(2000);
+  if (error) return <SetupNotice message={error} table="orders" />;
+  if (!orders || !items || !addresses) return <DashboardLoading />;
 
-  const { data: addressData } = await supabase
-    .from("customers")
-    .select("id, address");
-  const addressByCustomer = new Map(
-    ((addressData ?? []) as { id: string | number; address: string }[]).map(
-      (c) => [String(c.id), c.address]
-    )
-  );
-
-  const error = orderError ?? itemError;
-  const orders = (orderData ?? []) as Order[];
   const itemsByOrder = new Map<string, OrderItem[]>();
-  for (const it of (itemData ?? []) as OrderItem[]) {
+  for (const it of items) {
     const key = String(it.order_id);
     const list = itemsByOrder.get(key) ?? [];
     list.push(it);
@@ -87,19 +83,19 @@ async function OrdersData() {
         stats={[
           {
             name: "Total Orders",
-            value: error ? "—" : String(orders.length),
+            value: String(orders.length),
             description: "Checkouts from the homepage pricelist.",
             icon: ClipboardListIcon,
           },
           {
             name: "Order Value",
-            value: error ? "—" : `₹${orderValue.toLocaleString("en-IN")}`,
+            value: `₹${orderValue.toLocaleString("en-IN")}`,
             description: "Sum of all order totals.",
             icon: WalletIcon,
           },
           {
             name: "Items Sold",
-            value: error ? "—" : String(itemsSold),
+            value: String(itemsSold),
             description: "Total quantity across orders.",
             icon: PackageIcon,
           },
@@ -109,26 +105,26 @@ async function OrdersData() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           Orders{" "}
-          {!error && (
-            <span className="text-muted-foreground">({orders.length})</span>
-          )}
+          <span className="text-muted-foreground">({orders.length})</span>
           <WaStatus />
         </CardTitle>
         <CardDescription>
-          Every checkout from the homepage pricelist, stored in Supabase.
+          Every checkout from the homepage pricelist, stored in Appwrite.
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        {error ? (
-          <SetupNotice message={error.message} table="orders" />
-        ) : (
+        <CardContent>
           <OrdersTable
             orders={orders}
-            items={(itemData ?? []) as OrderItem[]}
-            addresses={Object.fromEntries(addressByCustomer)}
+            items={items}
+            addresses={addresses}
+            onChanged={() => {
+              setOrders(null);
+              setItems(null);
+              setAddresses(null);
+              setRefreshKey((k) => k + 1);
+            }}
           />
-        )}
-      </CardContent>
+        </CardContent>
       </Card>
     </>
   );

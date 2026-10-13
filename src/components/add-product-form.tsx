@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/utils/supabase/client";
+import { createProduct } from "@/lib/store";
 
 export default function AddProductForm({
   onAdded,
@@ -22,7 +21,6 @@ export default function AddProductForm({
   onAdded?: () => void;
   plain?: boolean;
 }) {
-  const router = useRouter();
   const [itemNo, setItemNo] = React.useState("");
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("");
@@ -35,22 +33,24 @@ export default function AddProductForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
-    const supabase = createClient();
-    const { error } = await supabase.from("products").insert({
-      item_no: Number(itemNo) || 0,
-      name: name.trim(),
-      category: category.trim() || "General",
-      packing: packing.trim() || "Box",
-      mrp: Number(mrp) || 0,
-      special_rate: Number(rate) || 0,
-      stock: Number(stock) || 0,
-    });
-    setSaving(false);
-
-    if (error) {
-      toast.error("Could not add product", { description: error.message });
+    try {
+      await createProduct({
+        item_no: Number(itemNo) || 0,
+        name: name.trim(),
+        category: category.trim() || "General",
+        packing: packing.trim() || "Box",
+        mrp: Number(mrp) || 0,
+        special_rate: Number(rate) || 0,
+        stock: Number(stock) || 0,
+      });
+    } catch (err) {
+      setSaving(false);
+      toast.error("Could not add product", {
+        description: err instanceof Error ? err.message : "Save failed.",
+      });
       return;
     }
+    setSaving(false);
 
     toast.success("Product added");
     setItemNo("");
@@ -60,7 +60,6 @@ export default function AddProductForm({
     setMrp("");
     setRate("");
     setStock("");
-    router.refresh();
     onAdded?.();
   }
 
@@ -93,7 +92,7 @@ export default function AddProductForm({
     <Card>
       <CardHeader>
         <CardTitle>Add Product</CardTitle>
-        <CardDescription>Saved directly to Supabase.</CardDescription>
+        <CardDescription>Saved directly to Appwrite.</CardDescription>
       </CardHeader>
       <CardContent>{fields}</CardContent>
     </Card>

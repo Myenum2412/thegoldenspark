@@ -1,5 +1,6 @@
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+"use client";
+
+import * as React from "react";
 import { PackageIcon, UsersIcon, WalletIcon } from "lucide-react";
 import {
   Card,
@@ -16,48 +17,47 @@ import {
 } from "@/components/dashboard-shell";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
-import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
-import { createClient } from "@/utils/supabase/server";
+import { SidebarUser } from "@/components/sidebar-user";
+import { listCustomers, listProducts } from "@/lib/store";
 import type { Customer, Product } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <DashboardShell
-        title="Dashboard"
-        userSlot={
-          <Suspense fallback={<SidebarUserFallback />}>
-            <SidebarUser />
-          </Suspense>
-        }
-      >
-        <Suspense fallback={<DashboardLoading />}>
-          <DashboardData />
-        </Suspense>
+      <DashboardShell title="Dashboard" userSlot={<SidebarUser />}>
+        <DashboardData />
       </DashboardShell>
     </SidebarProvider>
   );
 }
 
-async function DashboardData() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+function DashboardData() {
+  const [customers, setCustomers] = React.useState<Customer[] | null>(null);
+  const [products, setProducts] = React.useState<Product[] | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = React.useState(0);
 
-  const { data: customerData, error: customerError } = await supabase
-    .from("customers")
-    .select("id, name, address, pincode, phone, created_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
+  React.useEffect(() => {
+    let live = true;
+    setError(null);
+    Promise.all([listCustomers(), listProducts()])
+      .then(([c, p]) => {
+        if (live) {
+          setCustomers(c);
+          setProducts(p);
+        }
+      })
+      .catch((err: unknown) => {
+        if (live) setError(err instanceof Error ? err.message : "Failed to load data.");
+      });
+    return () => {
+      live = false;
+    };
+  }, [refreshKey]);
 
-  const { data: productData, error: productError } = await supabase
-    .from("products")
-    .select("id, item_no, name, category, packing, mrp, special_rate, stock")
-    .order("item_no", { ascending: true })
-    .limit(200);
+  if (error) return <SetupNotice message={error} table="customers" />;
+  if (!customers || !products) return <DashboardLoading />;
 
-  const customers = (customerData ?? []) as Customer[];
-  const products = (productData ?? []) as Product[];
-  const loadError = customerError ?? productError;
   const stockValue = products.reduce(
     (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
     0
@@ -69,21 +69,19 @@ async function DashboardData() {
         stats={[
           {
             name: "Total Customers",
-            value: customerError ? "—" : String(customers.length),
+            value: String(customers.length),
             description: "Details submitted from the store website form.",
             icon: UsersIcon,
           },
           {
             name: "Total Products",
-            value: productError ? "—" : String(products.length),
+            value: String(products.length),
             description: "Items live in your pricelist.",
             icon: PackageIcon,
           },
           {
             name: "Stock Value",
-            value: productError
-              ? "—"
-              : `₹${stockValue.toLocaleString("en-IN")}`,
+            value: `₹${stockValue.toLocaleString("en-IN")}`,
             description: "Our rate × stock across products.",
             icon: WalletIcon,
           },
@@ -98,17 +96,14 @@ async function DashboardData() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {loadError ? (
-            <SetupNotice
-              message={loadError.message}
-              table={customerError ? "customers" : "products"}
-            />
-          ) : (
-            <RecentCustomers
-              customers={customers.slice(0, 5)}
-              emptyText="No customer submissions yet."
-            />
-          )}
+          <RecentCustomers
+            customers={customers.slice(0, 5)}
+            emptyText="No customer submissions yet."
+            onChanged={() => {
+              setCustomers(null);
+              setRefreshKey((k) => k + 1);
+            }}
+          />
         </CardContent>
       </Card>
     </>

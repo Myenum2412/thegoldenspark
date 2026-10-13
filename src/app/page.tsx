@@ -16,6 +16,7 @@ import {
 import { Toaster } from "@/components/ui/sonner";
 import Stats01 from "@/components/stats-01";
 import PricelistTable from "@/components/pricelist-table";
+import { listProducts } from "@/lib/store";
 import type { Product } from "@/lib/store-data";
 
 const PHONE_DISPLAY = "+91 8248601417";
@@ -23,21 +24,8 @@ const PHONE_TEL = "tel:+918248601417";
 const WHATSAPP = "https://wa.me/918248601417";
 
 async function getProducts(): Promise<Product[]> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return [];
   try {
-    const res = await fetch(
-      `${url}/rest/v1/products?select=id,item_no,name,category,packing,mrp,special_rate,stock&order=item_no`,
-      {
-        headers: { apikey: key, Authorization: `Bearer ${key}` },
-        next: { revalidate: 60 },
-      }
-    );
-    if (!res.ok) return [];
-    return (await res.json()) as Product[];
+    return await listProducts();
   } catch {
     return [];
   }

@@ -24,7 +24,7 @@ import {
 
 export type Order = {
   id: string | number;
-  customer_id: number | null;
+  customer_id: string | number | null;
   customer_name: string;
   phone: string;
   total: number;

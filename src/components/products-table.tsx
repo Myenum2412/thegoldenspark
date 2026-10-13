@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,11 +25,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import ProductActions from "@/components/product-actions";
-import { createClient } from "@/utils/supabase/client";
+import { deleteProducts } from "@/lib/store";
 import type { Product } from "@/lib/store-data";
 
-export default function ProductsTable({ products }: { products: Product[] }) {
-  const router = useRouter();
+export default function ProductsTable({
+  products,
+  onChanged,
+}: {
+  products: Product[];
+  onChanged?: () => void;
+}) {
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [deleting, setDeleting] = React.useState(false);
 
@@ -54,24 +58,19 @@ export default function ProductsTable({ products }: { products: Product[] }) {
 
   async function handleDeleteSelected() {
     setDeleting(true);
-    const supabase = createClient();
-    const { data: deleted, error } = await supabase
-      .from("products")
-      .delete()
-      .in("id", Array.from(selected))
-      .select("id");
-    setDeleting(false);
-    if (error || !deleted || deleted.length === 0) {
+    try {
+      await deleteProducts(Array.from(selected));
+    } catch (err) {
+      setDeleting(false);
       toast.error("Could not delete products", {
-        description:
-          error?.message ??
-          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
+        description: err instanceof Error ? err.message : "Delete failed.",
       });
       return;
     }
+    setDeleting(false);
     toast.success(`${selected.size} product(s) deleted`);
     setSelected(new Set());
-    router.refresh();
+    onChanged?.();
   }
 
   if (products.length === 0) {
@@ -81,8 +80,9 @@ export default function ProductsTable({ products }: { products: Product[] }) {
           <TableBody>
             <TableRow>
               <TableCell className="h-24 text-center text-sm text-muted-foreground">
-                No products yet — run supabase/seed.sql to load the pricelist,
-                or add one above.
+                No products yet — create the Appwrite collections (see
+                docs/appwrite-schema.md), import the pricelist, or add one
+                above.
               </TableCell>
             </TableRow>
           </TableBody>
@@ -184,7 +184,7 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                     {Number(p.stock).toLocaleString("en-IN")}
                   </TableCell>
                   <TableCell>
-                    <ProductActions product={p} />
+                    <ProductActions product={p} onChanged={onChanged} />
                   </TableCell>
                 </TableRow>
               );

@@ -17,7 +17,11 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { WhatsappIcon } from "@/components/ui/svgs/whatsappIcon";
-import { createClient } from "@/utils/supabase/client";
+import {
+  createCustomer,
+  createOrder,
+  createOrderItems,
+} from "@/lib/store";
 import type { Product } from "@/lib/store-data";
 
 const WHATSAPP = "https://wa.me/918248601417";
@@ -102,76 +106,63 @@ export default function CheckoutDialog({
   // Saves customer + order + items. Returns the order id, or null
   // when only the customer details could be saved.
   async function persistOrder(cleanPhone: string) {
-    const supabase = createClient();
-
-    const { data: customer, error: customerError } = await supabase
-      .from("customers")
-      .insert({
+    let customerId: string;
+    try {
+      const customer = await createCustomer({
         name: name.trim(),
         phone: cleanPhone,
         address: address.trim(),
         pincode: pincode.trim(),
-      })
-      .select("id")
-      .single();
-
-    if (customerError || !customer) {
+      });
+      customerId = customer.id;
+    } catch (err) {
       toast.error("Could not save details", {
-        description: customerError?.message,
+        description: err instanceof Error ? err.message : "Save failed.",
       });
       return null;
     }
 
-    const { data: order, error: orderError } = await supabase
-      .from("orders")
-      .insert({
-        customer_id: customer.id,
+    let orderId: string;
+    try {
+      const order = await createOrder({
+        customer_id: customerId,
         customer_name: name.trim(),
         phone: cleanPhone,
         total,
-      })
-      .select("id")
-      .single();
-
-    if (orderError || !order) {
-      const missing =
-        orderError?.message?.includes("orders") ||
-        orderError?.code === "42P01";
-      toast.error(
-        missing ? "Orders setup pending" : "Could not save order",
-        {
-          description: missing
-            ? "Run supabase/orders.sql in Supabase SQL Editor once, then order again. Your details were saved."
-            : orderError?.message,
-        }
-      );
+      });
+      orderId = order.id;
+    } catch (err) {
+      toast.error("Could not save order", {
+        description:
+          err instanceof Error ? err.message : "Order save failed.",
+      });
       router.refresh();
       return null;
     }
 
-    const { error: itemsError } = await supabase.from("order_items").insert(
-      lines.map((l) => ({
-        order_id: order.id,
-        product_id: l.product.id,
-        item_no: l.product.item_no,
-        name: l.product.name,
-        qty: l.qty,
-        rate: Number(l.product.special_rate),
-        amount: Number(l.product.special_rate) * l.qty,
-      }))
-    );
-
-    if (itemsError) {
+    try {
+      await createOrderItems(
+        lines.map((l) => ({
+          order_id: orderId,
+          product_id: String(l.product.id),
+          item_no: l.product.item_no,
+          name: l.product.name,
+          qty: l.qty,
+          rate: Number(l.product.special_rate),
+          amount: Number(l.product.special_rate) * l.qty,
+        }))
+      );
+    } catch (err) {
       toast.error("Order saved, items failed", {
-        description: itemsError.message,
+        description: err instanceof Error ? err.message : "Items save failed.",
       });
       return null;
     }
 
-    return order.id;
+    return orderId;
   }
 
-  // Single common action: validate → save to Supabase → open
+  // Single common action: validate → save to Appwrite → open
   // WhatsApp with the saved order automatically.
   async function handlePlaceOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

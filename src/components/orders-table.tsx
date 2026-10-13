@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Trash2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -30,18 +29,19 @@ import OrderView, {
   type Order,
   type OrderItem,
 } from "@/components/order-view";
-import { createClient } from "@/utils/supabase/client";
+import { deleteOrdersWithItems } from "@/lib/store";
 
 export default function OrdersTable({
   orders,
   items,
   addresses,
+  onChanged,
 }: {
   orders: Order[];
   items: OrderItem[];
   addresses: Record<string, string>;
+  onChanged?: () => void;
 }) {
-  const router = useRouter();
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [deleting, setDeleting] = React.useState(false);
 
@@ -76,29 +76,20 @@ export default function OrdersTable({
 
   async function handleDeleteSelected() {
     setDeleting(true);
-    const supabase = createClient();
     const ids = Array.from(selected);
-    const { data: deletedItems, error: itemsError } = await supabase
-      .from("order_items")
-      .delete()
-      .in("order_id", ids)
-      .select("id");
-    const { data: deletedOrders, error: ordersError } = itemsError
-      ? { data: null, error: itemsError }
-      : await supabase.from("orders").delete().in("id", ids).select("id");
-    setDeleting(false);
-    if (ordersError || !deletedOrders || deletedOrders.length === 0) {
+    try {
+      await deleteOrdersWithItems(ids);
+    } catch (err) {
+      setDeleting(false);
       toast.error("Could not delete orders", {
-        description:
-          ordersError?.message ??
-          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
+        description: err instanceof Error ? err.message : "Delete failed.",
       });
       return;
     }
-    void deletedItems;
+    setDeleting(false);
     toast.success(`${ids.length} order(s) deleted`);
     setSelected(new Set());
-    router.refresh();
+    onChanged?.();
   }
 
   if (orders.length === 0) {

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { createClient } from "@/utils/supabase/client"
+import { account } from "@/lib/appwrite"
 
 import {
   Avatar,
@@ -45,10 +45,12 @@ export function NavUser({
     .join("")
 
   async function handleLogout() {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      toast.error("Logout failed", { description: error.message })
+    try {
+      await account.deleteSession("current")
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Could not log out."
+      toast.error("Logout failed", { description: message })
       return
     }
     router.push("/login")

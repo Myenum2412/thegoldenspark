@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { EyeIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,11 +27,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/utils/supabase/client";
+import { deleteProducts, updateProduct } from "@/lib/store";
 import type { Product } from "@/lib/store-data";
 
-export default function ProductActions({ product }: { product: Product }) {
-  const router = useRouter();
+export default function ProductActions({
+  product,
+  onChanged,
+}: {
+  product: Product;
+  onChanged?: () => void;
+}) {
   const [viewOpen, setViewOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -57,49 +61,44 @@ export default function ProductActions({ product }: { product: Product }) {
   async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from("products")
-      .update({
+    try {
+      await updateProduct(String(product.id), {
         name: name.trim(),
         category: category.trim() || "General",
         packing: packing.trim() || "Box",
         mrp: Number(mrp) || 0,
         special_rate: Number(rate) || 0,
         stock: Number(stock) || 0,
-      })
-      .eq("id", product.id);
-    setSaving(false);
-
-    if (error) {
-      toast.error("Could not update product", { description: error.message });
+      });
+    } catch (err) {
+      setSaving(false);
+      toast.error("Could not update product", {
+        description: err instanceof Error ? err.message : "Update failed.",
+      });
       return;
     }
+    setSaving(false);
+
     toast.success("Product updated");
     setEditOpen(false);
-    router.refresh();
+    onChanged?.();
   }
 
   async function handleDelete() {
     setDeleting(true);
-    const supabase = createClient();
-    const { data: deleted, error } = await supabase
-      .from("products")
-      .delete()
-      .eq("id", product.id)
-      .select("id");
-    setDeleting(false);
-
-    if (error || !deleted || deleted.length === 0) {
+    try {
+      await deleteProducts([String(product.id)]);
+    } catch (err) {
+      setDeleting(false);
       toast.error("Could not delete product", {
-        description:
-          error?.message ??
-          "Delete blocked by database permissions — run the delete-policy SQL in Supabase SQL Editor.",
+        description: err instanceof Error ? err.message : "Delete failed.",
       });
       return;
     }
+    setDeleting(false);
+
     toast.success("Product deleted");
-    router.refresh();
+    onChanged?.();
   }
 
   return (
@@ -189,7 +188,7 @@ export default function ProductActions({ product }: { product: Product }) {
           <DialogHeader>
             <DialogTitle>Edit #{product.item_no}</DialogTitle>
             <DialogDescription>
-              Changes save directly to Supabase.
+              Changes save directly to Appwrite.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleUpdate} className="grid gap-4 sm:grid-cols-2">

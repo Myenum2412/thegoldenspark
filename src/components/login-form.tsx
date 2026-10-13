@@ -13,7 +13,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { createClient } from "@/utils/supabase/client"
+import { account } from "@/lib/appwrite"
 import Image from "next/image"
 
 export function LoginForm({
@@ -28,17 +28,16 @@ export function LoginForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setLoading(true)
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
-      password,
-    })
-    setLoading(false)
-
-    if (error) {
-      toast.error("Login failed", { description: error.message })
+    try {
+      await account.createEmailPasswordSession(email.trim(), password)
+    } catch (err) {
+      setLoading(false)
+      const message =
+        err instanceof Error ? err.message : "Could not log in."
+      toast.error("Login failed", { description: message })
       return
     }
+    setLoading(false)
 
     toast.success("Welcome back!")
     router.push("/dashboard")

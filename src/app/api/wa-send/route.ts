@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getOrderDetails } from "@/lib/store";
 
 // Called after a checkout succeeds. Reads the saved order and asks the
 // persistent wa-sender service (whatsapp-web.js) to message the customer.
@@ -14,49 +15,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ sent: false, reason: "not-configured" });
     }
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey =
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (!supabaseUrl || !supabaseKey) {
+    let details;
+    try {
+      details = await getOrderDetails(String(orderId));
+    } catch {
       return NextResponse.json({ sent: false });
     }
-    const headers = {
-      apikey: supabaseKey,
-      Authorization: `Bearer ${supabaseKey}`,
-    };
-
-    const orderRes = await fetch(
-      `${supabaseUrl}/rest/v1/orders?select=id,customer_id,customer_name,phone,total&id=eq.${orderId}&limit=1`,
-      { headers, cache: "no-store" }
-    );
-    if (!orderRes.ok) return NextResponse.json({ sent: false });
-    const orders = (await orderRes.json()) as {
-      id: number;
-      customer_id: number | null;
-      customer_name: string;
-      phone: string;
-      total: number;
-    }[];
-    const order = orders[0];
-    if (!order) return NextResponse.json({ sent: false });
-
-    const itemsRes = await fetch(
-      `${supabaseUrl}/rest/v1/order_items?select=name,qty,amount&order_id=eq.${order.id}&order=id`,
-      { headers, cache: "no-store" }
-    );
-    const items = (
-      itemsRes.ok ? await itemsRes.json() : []
-    ) as { name: string; qty: number; amount: number }[];
-
-    const addrRes = await fetch(
-      `${supabaseUrl}/rest/v1/customers?select=address,pincode&id=eq.${order.customer_id}&limit=1`,
-      { headers, cache: "no-store" }
-    );
-    const addrRows = (
-      addrRes.ok ? await addrRes.json() : []
-    ) as { address: string; pincode: string }[];
-    const customerAddr = addrRows[0];
+    if (!details) return NextResponse.json({ sent: false });
+    const { order, items, address } = details;
 
     const lines = items.map(
       (l) =>
@@ -67,8 +33,8 @@ export async function POST(req: Request) {
       "",
       `Name: ${order.customer_name}`,
       `Phone: ${order.phone}`,
-      customerAddr
-        ? `Address: ${customerAddr.address}, ${customerAddr.pincode}`
+      address
+        ? `Address: ${address.address}, ${address.pincode}`
         : "",
       "",
       ...lines,

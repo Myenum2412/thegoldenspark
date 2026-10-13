@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Trash2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,18 +24,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { createClient } from "@/utils/supabase/client";
-import { deleteCustomersWithOrders } from "@/lib/customer-delete";
+import { deleteCustomersWithOrders } from "@/lib/store";
 import type { Customer } from "@/lib/store-data";
 
 export default function CustomersTable({
   customers,
   stats,
+  onChanged,
 }: {
   customers: Customer[];
   stats: Record<string, { count: number; total: number }>;
+  onChanged?: () => void;
 }) {
-  const router = useRouter();
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [deleting, setDeleting] = React.useState(false);
 
@@ -60,21 +59,19 @@ export default function CustomersTable({
 
   async function handleDeleteSelected() {
     setDeleting(true);
-    const supabase = createClient();
-    const deleteError = await deleteCustomersWithOrders(
-      supabase,
-      Array.from(selected)
-    );
-    setDeleting(false);
-    if (deleteError) {
+    try {
+      await deleteCustomersWithOrders(Array.from(selected));
+    } catch (err) {
+      setDeleting(false);
       toast.error("Could not delete customers", {
-        description: deleteError.message,
+        description: err instanceof Error ? err.message : "Delete failed.",
       });
       return;
     }
+    setDeleting(false);
     toast.success(`${selected.size} customer(s) deleted`);
     setSelected(new Set());
-    router.refresh();
+    onChanged?.();
   }
 
   if (customers.length === 0) {

@@ -1,15 +1,38 @@
-import { NavUser } from "@/components/nav-user";
-import { requireUser } from "@/lib/require-user";
+"use client";
 
-// Async server component: resolves the logged-in user for the sidebar
-// footer. Rendered inside <Suspense> so the sidebar chrome can
-// prerender/stream instantly without blocking on auth.
-export async function SidebarUser() {
-  const { user } = await requireUser();
-  const email = user.email ?? "";
+import * as React from "react";
+import { NavUser } from "@/components/nav-user";
+import { account } from "@/lib/appwrite";
+
+// Client component: resolves the logged-in Appwrite user for the
+// sidebar footer. Renders a skeleton until the session resolves.
+export function SidebarUser() {
+  const [email, setEmail] = React.useState<string | null>(null);
+  const [done, setDone] = React.useState(false);
+
+  React.useEffect(() => {
+    let live = true;
+    account
+      .get()
+      .then((user) => {
+        if (live) setEmail(user.email);
+      })
+      .catch(() => {
+        if (live) setEmail("");
+      })
+      .finally(() => {
+        if (live) setDone(true);
+      });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  if (!done) return <SidebarUserFallback />;
+  const address = email || "admin";
   return (
     <NavUser
-      user={{ name: email.split("@")[0] || "Admin", email, avatar: "" }}
+      user={{ name: address.split("@")[0] || "Admin", email: address, avatar: "" }}
     />
   );
 }

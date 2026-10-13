@@ -13,7 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import AddProductForm from "@/components/add-product-form";
 
-export default function AddProductDialog() {
+export default function AddProductDialog({
+  onChanged,
+}: {
+  onChanged?: () => void;
+}) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -29,9 +33,15 @@ export default function AddProductDialog() {
       <DialogContent className="max-h-[90svh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Add Product</DialogTitle>
-          <DialogDescription>Saved directly to Supabase.</DialogDescription>
+          <DialogDescription>Saved directly to Appwrite.</DialogDescription>
         </DialogHeader>
-        <AddProductForm plain onAdded={() => setOpen(false)} />
+        <AddProductForm
+          plain
+          onAdded={() => {
+            setOpen(false);
+            onChanged?.();
+          }}
+        />
       </DialogContent>
     </Dialog>
   );

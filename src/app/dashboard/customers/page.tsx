@@ -1,5 +1,6 @@
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+"use client";
+
+import * as React from "react";
 import { CalendarIcon, ClipboardListIcon, UsersIcon } from "lucide-react";
 import {
   Card,
@@ -16,57 +17,54 @@ import {
 } from "@/components/dashboard-shell";
 import SetupNotice from "@/components/setup-notice";
 import DashboardStats from "@/components/dashboard-stats";
-import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
-import { createClient } from "@/utils/supabase/server";
+import { SidebarUser } from "@/components/sidebar-user";
+import { listCustomers, listOrders } from "@/lib/store";
 import type { Customer } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <DashboardShell
-        title="Customers"
-        userSlot={
-          <Suspense fallback={<SidebarUserFallback />}>
-            <SidebarUser />
-          </Suspense>
-        }
-      >
-        <Suspense fallback={<DashboardLoading />}>
-          <CustomersData />
-        </Suspense>
+      <DashboardShell title="Customers" userSlot={<SidebarUser />}>
+        <CustomersData />
       </DashboardShell>
     </SidebarProvider>
   );
 }
 
-async function CustomersData() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+function CustomersData() {
+  const [customers, setCustomers] = React.useState<Customer[] | null>(null);
+  const [stats, setStats] = React.useState<Record<string, { count: number; total: number }> | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = React.useState(0);
 
-  const { data, error } = await supabase
-    .from("customers")
-    .select("id, name, address, pincode, phone, created_at")
-    .order("created_at", { ascending: false })
-    .limit(200);
+  React.useEffect(() => {
+    let live = true;
+    setError(null);
+    Promise.all([listCustomers(), listOrders()])
+      .then(([customerRows, orderRows]) => {
+        if (!live) return;
+        const statsByCustomer = new Map<string, { count: number; total: number }>();
+        for (const o of orderRows) {
+          if (o.customer_id == null) continue;
+          const key = String(o.customer_id);
+          const st = statsByCustomer.get(key) ?? { count: 0, total: 0 };
+          st.count += 1;
+          st.total += Number(o.total);
+          statsByCustomer.set(key, st);
+        }
+        setCustomers(customerRows);
+        setStats(Object.fromEntries(statsByCustomer));
+      })
+      .catch((err: unknown) => {
+        if (live) setError(err instanceof Error ? err.message : "Failed to load data.");
+      });
+    return () => {
+      live = false;
+    };
+  }, [refreshKey]);
 
-  const customers = (data ?? []) as Customer[];
-
-  const { data: orderData } = await supabase
-    .from("orders")
-    .select("id, customer_id, total");
-  const statsByCustomer = new Map<string, { count: number; total: number }>();
-  for (const o of (orderData ?? []) as {
-    customer_id: number | null;
-    total: number;
-  }[]) {
-    if (o.customer_id == null) continue;
-    const key = String(o.customer_id);
-    const st = statsByCustomer.get(key) ?? { count: 0, total: 0 };
-    st.count += 1;
-    st.total += Number(o.total);
-    statsByCustomer.set(key, st);
-  }
-  const stats = Object.fromEntries(statsByCustomer);
+  if (error) return <SetupNotice message={error} table="customers" />;
+  if (!customers || !stats) return <DashboardLoading />;
 
   return (
     <>
@@ -74,31 +72,29 @@ async function CustomersData() {
         stats={[
           {
             name: "Total Customers",
-            value: error ? "—" : String(customers.length),
+            value: String(customers.length),
             description: "Details submitted from the store website.",
             icon: UsersIcon,
           },
           {
             name: "Customers with Orders",
-            value: error ? "—" : String(statsByCustomer.size),
+            value: String(Object.keys(stats).length),
             description: "Placed at least one order.",
             icon: ClipboardListIcon,
           },
           {
             name: "New This Month",
-            value: error
-              ? "—"
-              : String(
-                  customers.filter((c) => {
-                    if (!c.created_at) return false;
-                    const d = new Date(c.created_at);
-                    const now = new Date();
-                    return (
-                      d.getMonth() === now.getMonth() &&
-                      d.getFullYear() === now.getFullYear()
-                    );
-                  }).length
-                ),
+            value: String(
+              customers.filter((c) => {
+                if (!c.created_at) return false;
+                const d = new Date(c.created_at);
+                const now = new Date();
+                return (
+                  d.getMonth() === now.getMonth() &&
+                  d.getFullYear() === now.getFullYear()
+                );
+              }).length
+            ),
             description: "Joined in the current month.",
             icon: CalendarIcon,
           },
@@ -108,23 +104,23 @@ async function CustomersData() {
       <CardHeader>
         <CardTitle>
           Customers{" "}
-            {!error && (
-              <span className="text-muted-foreground">
-                ({customers.length})
-              </span>
-            )}
-          </CardTitle>
+          <span className="text-muted-foreground">({customers.length})</span>
+        </CardTitle>
           <CardDescription>
             Every detail submitted from the store website form, stored in
-            Supabase.
+            Appwrite.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {error ? (
-            <SetupNotice message={error.message} table="customers" />
-          ) : (
-            <CustomersTable customers={customers} stats={stats} />
-          )}
+          <CustomersTable
+            customers={customers}
+            stats={stats}
+            onChanged={() => {
+              setCustomers(null);
+              setStats(null);
+              setRefreshKey((k) => k + 1);
+            }}
+          />
         </CardContent>
       </Card>
     </>

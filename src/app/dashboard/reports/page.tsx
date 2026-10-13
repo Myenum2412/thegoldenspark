@@ -1,5 +1,6 @@
-import { Suspense } from "react";
-import { cookies } from "next/headers";
+"use client";
+
+import * as React from "react";
 import { PackageIcon, UsersIcon, WalletIcon } from "lucide-react";
 import {
   Card,
@@ -16,47 +17,47 @@ import {
 } from "@/components/dashboard-shell";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
-import { SidebarUser, SidebarUserFallback } from "@/components/sidebar-user";
-import { createClient } from "@/utils/supabase/server";
+import { SidebarUser } from "@/components/sidebar-user";
+import { listCustomers, listProducts } from "@/lib/store";
 import type { Customer, Product } from "@/lib/store-data";
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <DashboardShell
-        title="Reports"
-        userSlot={
-          <Suspense fallback={<SidebarUserFallback />}>
-            <SidebarUser />
-          </Suspense>
-        }
-      >
-        <Suspense fallback={<DashboardLoading />}>
-          <ReportsData />
-        </Suspense>
+      <DashboardShell title="Reports" userSlot={<SidebarUser />}>
+        <ReportsData />
       </DashboardShell>
     </SidebarProvider>
   );
 }
 
-async function ReportsData() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+function ReportsData() {
+  const [customers, setCustomers] = React.useState<Customer[] | null>(null);
+  const [products, setProducts] = React.useState<Product[] | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = React.useState(0);
 
-  const { data: customerData, error: customerError } = await supabase
-    .from("customers")
-    .select("id, name, address, phone, pincode, created_at")
-    .order("created_at", { ascending: false })
-    .limit(200);
+  React.useEffect(() => {
+    let live = true;
+    setError(null);
+    Promise.all([listCustomers(), listProducts()])
+      .then(([c, p]) => {
+        if (live) {
+          setCustomers(c);
+          setProducts(p);
+        }
+      })
+      .catch((err: unknown) => {
+        if (live) setError(err instanceof Error ? err.message : "Failed to load data.");
+      });
+    return () => {
+      live = false;
+    };
+  }, [refreshKey]);
 
-  const { data: productData, error: productError } = await supabase
-    .from("products")
-    .select("id, item_no, name, category, packing, mrp, special_rate, stock")
-    .limit(500);
+  if (error) return <SetupNotice message={error} table="customers" />;
+  if (!customers || !products) return <DashboardLoading />;
 
-  const customers = (customerData ?? []) as Customer[];
-  const products = (productData ?? []) as Product[];
-  const loadError = customerError ?? productError;
   const stockValue = products.reduce(
     (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
     0
@@ -65,53 +66,48 @@ async function ReportsData() {
 
   return (
     <>
-      {loadError ? (
-        <SetupNotice
-          message={loadError.message}
-          table={customerError ? "customers" : "products"}
-        />
-      ) : (
-        <>
-          <DashboardStats
-            stats={[
-              {
-                name: "Total Enquiries",
-                value: String(customers.length),
-                description: "Customer form submissions",
-                icon: UsersIcon,
-              },
-              {
-                name: "Products Live",
-                value: String(products.length),
-                description: `${lowStock.length} low on stock (≤ 10)`,
-                icon: PackageIcon,
-              },
-              {
-                name: "Stock Value",
-                value: `₹${stockValue.toLocaleString("en-IN")}`,
-                description: "Price × stock across products",
-                icon: WalletIcon,
-              },
-            ]}
-          />
+      <DashboardStats
+        stats={[
+          {
+            name: "Total Enquiries",
+            value: String(customers.length),
+            description: "Customer form submissions",
+            icon: UsersIcon,
+          },
+          {
+            name: "Products Live",
+            value: String(products.length),
+            description: `${lowStock.length} low on stock (≤ 10)`,
+            icon: PackageIcon,
+          },
+          {
+            name: "Stock Value",
+            value: `₹${stockValue.toLocaleString("en-IN")}`,
+            description: "Price × stock across products",
+            icon: WalletIcon,
+          },
+        ]}
+      />
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Latest Enquiries</CardTitle>
-              <CardDescription>
-                Most recent customer submissions.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RecentCustomers
-                customers={customers.slice(0, 10)}
-                showSubmitted
-                emptyText="No enquiries yet."
-              />
-            </CardContent>
-          </Card>
-        </>
-      )}
+      <Card>
+        <CardHeader>
+          <CardTitle>Latest Enquiries</CardTitle>
+          <CardDescription>
+            Most recent customer submissions.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <RecentCustomers
+            customers={customers.slice(0, 10)}
+            showSubmitted
+            emptyText="No enquiries yet."
+            onChanged={() => {
+              setCustomers(null);
+              setRefreshKey((k) => k + 1);
+            }}
+          />
+        </CardContent>
+      </Card>
     </>
   );
 }
