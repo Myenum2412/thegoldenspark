@@ -45,8 +45,7 @@ function toProduct(row: Row): Product {
     item_no: itemNoFromBarcode(row.barcode),
     barcode: String(row.barcode ?? ""),
     name: String(row.name ?? ""),
-    // Billing has no category column.
-    category: "General",
+    category: String(row.category ?? "General"),
     packing: String(row.packing ?? ""),
     mrp: Number(row.mrp ?? price),
     special_rate: price,
