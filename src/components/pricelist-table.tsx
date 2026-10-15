@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import {
-  ImageOffIcon,
   MinusIcon,
   PlusIcon,
   ShoppingCartIcon,
@@ -18,14 +17,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import CheckoutDialog from "@/components/checkout-dialog";
 import ProductQuickView from "@/components/product-quick-view";
 import { productImageSrc, type Product } from "@/lib/store-data";
@@ -39,44 +30,6 @@ function loadCart(): Record<string, number> {
   } catch {
     return {};
   }
-}
-
-// Small clickable thumbnail; falls back to a muted placeholder when the
-// product has no image assigned yet.
-function ProductThumb({
-  product,
-  size,
-  onOpen,
-}: {
-  product: Product;
-  size: number;
-  onOpen: () => void;
-}) {
-  const src = productImageSrc(product.image);
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      aria-label={`View details for ${product.name}`}
-      style={{ width: size, height: size }}
-      className="group relative shrink-0 overflow-hidden rounded-md border border-border bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-    >
-      {src ? (
-        <Image
-          src={src}
-          alt={product.name}
-          width={size}
-          height={size}
-          sizes={`${size}px`}
-          className="size-full object-contain p-0.5 transition duration-200 group-hover:scale-105"
-        />
-      ) : (
-        <span className="flex size-full items-center justify-center text-muted-foreground">
-          <ImageOffIcon className="size-4" aria-hidden="true" />
-        </span>
-      )}
-    </button>
-  );
 }
 
 export default function PricelistTable({
@@ -285,122 +238,9 @@ export default function PricelistTable({
           </CardHeader>
         </Card>
       ) : (
-        <>
-          <Card className="hidden sm:block">
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-16">S.No</TableHead>
-                  <TableHead>Product</TableHead>
-                  <TableHead>Packing</TableHead>
-                  <TableHead className="text-right">MRP (₹)</TableHead>
-                  <TableHead className="text-right">Our Special Rate (₹)</TableHead>
-                  <TableHead className="w-36 text-right">Add to Cart</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.length === 0 ? (
-                  <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      className="h-24 text-center text-sm text-muted-foreground"
-                    >
-                      No products match your search.
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  filtered.map((p, index) => {
-                    const qty = cart[String(p.id)] ?? 0;
-                    return (
-                      <TableRow key={p.id}>
-                        <TableCell className="tabular-nums text-muted-foreground">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-3">
-                            <ProductThumb
-                              product={p}
-                              size={48}
-                              onOpen={() => setActive(p)}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setActive(p)}
-                              className="text-left font-medium hover:text-amber-600"
-                            >
-                              {p.name}
-                            </button>
-                          </div>
-                        </TableCell>
-                        <TableCell>{p.packing}</TableCell>
-                        <TableCell className="text-right tabular-nums text-muted-foreground line-through">
-                          {Number(p.mrp).toLocaleString("en-IN")}
-                        </TableCell>
-                        <TableCell className="text-right font-semibold tabular-nums text-amber-600">
-                          {Number(p.special_rate).toLocaleString("en-IN")}
-                        </TableCell>
-                        <TableCell>
-                          {qty === 0 ? (
-                            <div className="flex justify-end">
-                              <Button
-                                size="sm"
-                                className="bg-amber-500 text-black hover:bg-amber-400"
-                                onClick={() => setQty(p.id, 1)}
-                                aria-label={`Add ${p.name} to cart`}
-                              >
-                                <ShoppingCartIcon
-                                  className="size-4"
-                                  aria-hidden="true"
-                                />
-                                Add
-                              </Button>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-end gap-1">
-                              <Button
-                                variant="outline"
-                                size="icon-sm"
-                                onClick={() => setQty(p.id, qty - 1)}
-                                aria-label={`Remove one ${p.name}`}
-                              >
-                                <MinusIcon
-                                  className="size-3.5"
-                                  aria-hidden="true"
-                                />
-                              </Button>
-                              <span className="w-8 text-center text-sm font-semibold tabular-nums">
-                                {qty}
-                              </span>
-                              <Button
-                                variant="outline"
-                                size="icon-sm"
-                                onClick={() => setQty(p.id, qty + 1)}
-                                aria-label={`Add one more ${p.name}`}
-                              >
-                                <PlusIcon
-                                  className="size-3.5"
-                                  aria-hidden="true"
-                                />
-                              </Button>
-                            </div>
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* ── Mobile: two-column grid of cards ─────────── */}
-      <div className="grid grid-cols-2 gap-3 sm:hidden">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
         {filtered.length === 0 ? (
-          <Card className="col-span-2">
+          <Card className="col-span-full">
             <CardContent className="py-8 text-center text-sm text-muted-foreground">
               No products match your search.
             </CardContent>
@@ -426,7 +266,7 @@ export default function PricelistTable({
                         src={imgSrc}
                         alt={p.name}
                         fill
-                        sizes="(max-width: 640px) 50vw, 200px"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                         className="object-contain p-2"
                       />
                     ) : (
@@ -497,7 +337,6 @@ export default function PricelistTable({
           })
         )}
       </div>
-        </>
       )}
 
       {count > 0 && (
