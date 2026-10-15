@@ -44,7 +44,7 @@ export default function ProductImageField({
     <Field>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <div className="flex items-center gap-3">
-        <div className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/40">
+        <div className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-white">
           {src ? (
             <Image
               src={src}
@@ -52,7 +52,7 @@ export default function ProductImageField({
               width={48}
               height={48}
               sizes="48px"
-              className="size-full object-cover"
+              className="size-full object-contain p-0.5"
             />
           ) : (
             <ImageOffIcon

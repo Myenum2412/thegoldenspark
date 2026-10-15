@@ -59,7 +59,7 @@ function ProductThumb({
       onClick={onOpen}
       aria-label={`View details for ${product.name}`}
       style={{ width: size, height: size }}
-      className="group relative shrink-0 overflow-hidden rounded-md border border-border bg-muted/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+      className="group relative shrink-0 overflow-hidden rounded-md border border-border bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
     >
       {src ? (
         <Image
@@ -68,7 +68,7 @@ function ProductThumb({
           width={size}
           height={size}
           sizes={`${size}px`}
-          className="size-full object-cover transition duration-200 group-hover:scale-105"
+          className="size-full object-contain p-0.5 transition duration-200 group-hover:scale-105"
         />
       ) : (
         <span className="flex size-full items-center justify-center text-muted-foreground">
@@ -416,7 +416,10 @@ export default function PricelistTable({
                     type="button"
                     onClick={() => setActive(p)}
                     aria-label={`View details for ${p.name}`}
-                    className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                    className={
+                      "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border text-xs font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
+                      (imgSrc ? "bg-white" : "bg-amber-500/10 text-amber-600")
+                    }
                   >
                     {imgSrc ? (
                       <Image
@@ -425,7 +428,7 @@ export default function PricelistTable({
                         width={44}
                         height={44}
                         sizes="44px"
-                        className="size-full object-cover"
+                        className="size-full object-contain p-0.5"
                       />
                     ) : (
                       index + 1
