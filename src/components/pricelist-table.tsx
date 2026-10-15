@@ -397,10 +397,10 @@ export default function PricelistTable({
         </CardContent>
       </Card>
 
-      {/* ── Mobile: full-width stacked cards ─────────── */}
-      <div className="flex flex-col gap-2 sm:hidden">
+      {/* ── Mobile: two-column grid of cards ─────────── */}
+      <div className="grid grid-cols-2 gap-3 sm:hidden">
         {filtered.length === 0 ? (
-          <Card>
+          <Card className="col-span-2">
             <CardContent className="py-8 text-center text-sm text-muted-foreground">
               No products match your search.
             </CardContent>
@@ -411,13 +411,13 @@ export default function PricelistTable({
             const imgSrc = productImageSrc(p.image);
             return (
               <Card key={p.id} className="gap-0 py-0">
-                <CardContent className="flex items-center gap-3 p-3">
+                <CardContent className="flex h-full flex-col gap-2 p-2.5">
                   <button
                     type="button"
                     onClick={() => setActive(p)}
                     aria-label={`View details for ${p.name}`}
                     className={
-                      "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border text-xs font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
+                      "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-border text-2xl font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
                       (imgSrc ? "bg-white" : "bg-amber-500/10 text-amber-600")
                     }
                   >
@@ -425,10 +425,9 @@ export default function PricelistTable({
                       <Image
                         src={imgSrc}
                         alt={p.name}
-                        width={44}
-                        height={44}
-                        sizes="44px"
-                        className="size-full object-contain p-0.5"
+                        fill
+                        sizes="(max-width: 640px) 50vw, 200px"
+                        className="object-contain p-2"
                       />
                     ) : (
                       index + 1
@@ -438,15 +437,17 @@ export default function PricelistTable({
                     <button
                       type="button"
                       onClick={() => setActive(p)}
-                      className="block max-w-full truncate text-left text-sm font-medium"
+                      className="block w-full text-left text-sm font-medium line-clamp-2"
                     >
                       {p.name}
                     </button>
-                    <p className="text-xs text-muted-foreground">
-                      {p.packing && (
-                        <span className="mr-2">{p.packing}</span>
-                      )}
-                      <span className="line-through">
+                    {p.packing && (
+                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                        {p.packing}
+                      </p>
+                    )}
+                    <p className="mt-1 text-xs">
+                      <span className="text-muted-foreground line-through">
                         ₹{Number(p.mrp).toLocaleString("en-IN")}
                       </span>{" "}
                       <span className="font-semibold text-amber-600">
@@ -456,8 +457,8 @@ export default function PricelistTable({
                   </div>
                   {qty === 0 ? (
                     <Button
-                      size="icon"
-                      className="shrink-0 bg-amber-500 text-black hover:bg-amber-400"
+                      size="sm"
+                      className="w-full bg-amber-500 text-black hover:bg-amber-400"
                       onClick={() => setQty(p.id, 1)}
                       aria-label={`Add ${p.name} to cart`}
                     >
@@ -465,9 +466,10 @@ export default function PricelistTable({
                         className="size-4"
                         aria-hidden="true"
                       />
+                      Add
                     </Button>
                   ) : (
-                    <div className="flex shrink-0 items-center gap-1">
+                    <div className="flex items-center justify-between gap-1">
                       <Button
                         variant="outline"
                         size="icon-sm"
@@ -476,7 +478,7 @@ export default function PricelistTable({
                       >
                         <MinusIcon className="size-3.5" aria-hidden="true" />
                       </Button>
-                      <span className="w-6 text-center text-sm font-semibold tabular-nums">
+                      <span className="text-sm font-semibold tabular-nums">
                         {qty}
                       </span>
                       <Button
