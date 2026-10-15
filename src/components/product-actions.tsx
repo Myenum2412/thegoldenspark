@@ -27,8 +27,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import ProductImageField from "@/components/product-image-field";
 import { deleteProducts, updateProduct } from "@/lib/store";
-import type { Product } from "@/lib/store-data";
+import { productImageSrc, type Product } from "@/lib/store-data";
+import Image from "next/image";
 
 export default function ProductActions({
   product,
@@ -48,6 +50,7 @@ export default function ProductActions({
   const [mrp, setMrp] = React.useState(String(product.mrp));
   const [rate, setRate] = React.useState(String(product.special_rate));
   const [stock, setStock] = React.useState(String(product.stock ?? 0));
+  const [image, setImage] = React.useState(product.image ?? "");
 
   function resetForm() {
     setName(product.name);
@@ -56,6 +59,7 @@ export default function ProductActions({
     setMrp(String(product.mrp));
     setRate(String(product.special_rate));
     setStock(String(product.stock ?? 0));
+    setImage(product.image ?? "");
   }
 
   async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
@@ -69,6 +73,7 @@ export default function ProductActions({
         mrp: Number(mrp) || 0,
         special_rate: Number(rate) || 0,
         stock: Number(stock) || 0,
+        image: image.trim(),
       });
     } catch (err) {
       setSaving(false);
@@ -121,6 +126,17 @@ export default function ProductActions({
             <DialogTitle>Product #{product.item_no}</DialogTitle>
             <DialogDescription>{product.name}</DialogDescription>
           </DialogHeader>
+          {productImageSrc(product.image) && (
+            <div className="relative h-48 w-full overflow-hidden rounded-lg border border-border bg-muted/40">
+              <Image
+                src={productImageSrc(product.image)!}
+                alt={product.name}
+                fill
+                sizes="(max-width: 640px) 100vw, 448px"
+                className="object-contain p-2"
+              />
+            </div>
+          )}
           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
             <div>
               <dt className="text-muted-foreground">Category</dt>
@@ -261,6 +277,13 @@ export default function ProductActions({
                 onChange={(e) => setStock(e.target.value.replace(/\D/g, ""))}
               />
             </Field>
+            <div className="sm:col-span-2">
+              <ProductImageField
+                id={`edit-image-${product.id}`}
+                value={image}
+                onChange={setImage}
+              />
+            </div>
             <DialogFooter className="sm:col-span-2">
               <DialogClose
                 render={<Button variant="outline" type="button">Cancel</Button>}

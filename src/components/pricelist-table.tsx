@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import {
+  ImageOffIcon,
   MinusIcon,
   PlusIcon,
   ShoppingCartIcon,
@@ -25,7 +27,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import CheckoutDialog from "@/components/checkout-dialog";
-import type { Product } from "@/lib/store-data";
+import ProductQuickView from "@/components/product-quick-view";
+import { productImageSrc, type Product } from "@/lib/store-data";
 
 const CART_KEY = "gsh-cart";
 
@@ -38,6 +41,44 @@ function loadCart(): Record<string, number> {
   }
 }
 
+// Small clickable thumbnail; falls back to a muted placeholder when the
+// product has no image assigned yet.
+function ProductThumb({
+  product,
+  size,
+  onOpen,
+}: {
+  product: Product;
+  size: number;
+  onOpen: () => void;
+}) {
+  const src = productImageSrc(product.image);
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`View details for ${product.name}`}
+      style={{ width: size, height: size }}
+      className="group relative shrink-0 overflow-hidden rounded-md border border-border bg-muted/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+    >
+      {src ? (
+        <Image
+          src={src}
+          alt={product.name}
+          width={size}
+          height={size}
+          sizes={`${size}px`}
+          className="size-full object-cover transition duration-200 group-hover:scale-105"
+        />
+      ) : (
+        <span className="flex size-full items-center justify-center text-muted-foreground">
+          <ImageOffIcon className="size-4" aria-hidden="true" />
+        </span>
+      )}
+    </button>
+  );
+}
+
 export default function PricelistTable({
   products,
 }: {
@@ -47,6 +88,7 @@ export default function PricelistTable({
   const [category, setCategory] = React.useState("All");
   const [cart, setCart] = React.useState<Record<string, number>>(loadCart);
   const [checkoutOpen, setCheckoutOpen] = React.useState(false);
+  const [active, setActive] = React.useState<Product | null>(null);
   const [customer, setCustomer] = React.useState({
     name: "",
     phone: "",
@@ -277,7 +319,20 @@ export default function PricelistTable({
                           {index + 1}
                         </TableCell>
                         <TableCell>
-                          <p className="font-medium">{p.name}</p>
+                          <div className="flex items-center gap-3">
+                            <ProductThumb
+                              product={p}
+                              size={48}
+                              onOpen={() => setActive(p)}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setActive(p)}
+                              className="text-left font-medium hover:text-amber-600"
+                            >
+                              {p.name}
+                            </button>
+                          </div>
                         </TableCell>
                         <TableCell>{p.packing}</TableCell>
                         <TableCell className="text-right tabular-nums text-muted-foreground line-through">
@@ -353,14 +408,37 @@ export default function PricelistTable({
         ) : (
           filtered.map((p, index) => {
             const qty = cart[String(p.id)] ?? 0;
+            const imgSrc = productImageSrc(p.image);
             return (
               <Card key={p.id} className="gap-0 py-0">
                 <CardContent className="flex items-center gap-3 p-3">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums">
-                    {index + 1}
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActive(p)}
+                    aria-label={`View details for ${p.name}`}
+                    className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-amber-500/10 text-xs font-bold text-amber-600 tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                  >
+                    {imgSrc ? (
+                      <Image
+                        src={imgSrc}
+                        alt={p.name}
+                        width={44}
+                        height={44}
+                        sizes="44px"
+                        className="size-full object-cover"
+                      />
+                    ) : (
+                      index + 1
+                    )}
+                  </button>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium">{p.name}</p>
+                    <button
+                      type="button"
+                      onClick={() => setActive(p)}
+                      className="block max-w-full truncate text-left text-sm font-medium"
+                    >
+                      {p.name}
+                    </button>
                     <p className="text-xs text-muted-foreground">
                       {p.packing && (
                         <span className="mr-2">{p.packing}</span>
@@ -456,6 +534,18 @@ export default function PricelistTable({
           </CardContent>
         </Card>
       )}
+
+      <ProductQuickView
+        product={active}
+        open={active !== null}
+        onOpenChange={(open) => {
+          if (!open) setActive(null);
+        }}
+        qty={active ? cart[String(active.id)] ?? 0 : 0}
+        onQtyChange={(q) => {
+          if (active) setQty(active.id, q);
+        }}
+      />
 
       <CheckoutDialog
         open={checkoutOpen}

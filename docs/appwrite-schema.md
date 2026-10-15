@@ -37,6 +37,12 @@ parentheses. All attributes except where noted are **required**.
 | mrp | double | required |
 | special_rate | double | required |
 | stock | integer | required |
+| image | string | 256, not required |
+
+`image` holds a filename from `public/Diwali` (e.g. `Vibrant Flower Pots
+Fireworks Box.png`) or a full URL. The homepage pricelist shows it as a
+thumbnail; clicking it opens a product detail popup. Assign it per product
+from the dashboard (Products → edit) using the image picker.
 
 Permissions: **Any → Read**. (The public homepage pricelist reads this
 without login.) Create/Update/Delete: **Users** (dashboard, logged in).

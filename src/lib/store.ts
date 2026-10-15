@@ -30,6 +30,11 @@ export function listProducts(): Promise<Product[]> {
   return call<Product[]>("listProducts");
 }
 
+// Bare filenames in /public/Diwali, for the product image picker.
+export function listProductImages(): Promise<string[]> {
+  return call<string[]>("listImages");
+}
+
 export function createProduct(data: {
   item_no: number;
   name: string;
@@ -38,6 +43,7 @@ export function createProduct(data: {
   mrp: number;
   special_rate: number;
   stock: number;
+  image?: string;
 }): Promise<void> {
   return call<void>("createProduct", data);
 }
@@ -51,6 +57,7 @@ export function updateProduct(
     mrp: number;
     special_rate: number;
     stock: number;
+    image?: string;
   }
 ): Promise<void> {
   return call<void>("updateProduct", { id, data });

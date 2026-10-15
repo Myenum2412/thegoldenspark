@@ -1,6 +1,8 @@
 // Server-only data layer. Backed by the existing Appwrite "Billing" database
 // through the TablesDB API + API key. Import this only from server code
 // (route handlers, server components); client components use ./store.ts.
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
 import { ID, Query } from "appwrite";
 import type { Models } from "appwrite";
 import { APPWRITE_DATABASE_ID, TABLES } from "./appwrite";
@@ -50,6 +52,7 @@ function toProduct(row: Row): Product {
     mrp: Number(row.mrp ?? price),
     special_rate: price,
     stock: Number(row.stock ?? 0),
+    image: row.image ? String(row.image) : undefined,
     created_at: row.$createdAt,
   };
 }
@@ -91,6 +94,22 @@ async function phoneByClientId(): Promise<Map<string, string>> {
   return map;
 }
 
+// ── Product images ────────────────────────────────────────
+
+// Bare filenames available in /public/Diwali, used to populate the image
+// picker in the dashboard. Read from disk so the list always matches reality.
+export async function listProductImages(): Promise<string[]> {
+  try {
+    const dir = join(process.cwd(), "public", "Diwali");
+    const entries = await readdir(dir);
+    return entries
+      .filter((f) => /\.(png|jpe?g|webp|gif|avif)$/i.test(f))
+      .sort((a, b) => a.localeCompare(b));
+  } catch {
+    return [];
+  }
+}
+
 // ── Products ──────────────────────────────────────────────
 
 export async function listProducts(): Promise<Product[]> {
@@ -116,6 +135,7 @@ export async function createProduct(data: {
   mrp: number;
   special_rate: number;
   stock: number;
+  image?: string;
 }): Promise<void> {
   const price = data.special_rate || data.mrp || 0;
   await tables().createRow({
@@ -130,6 +150,7 @@ export async function createProduct(data: {
       stock: data.stock,
       packing: data.packing || "",
       mrp: data.mrp || 0,
+      image: data.image?.trim() || null,
     },
   });
 }
@@ -143,6 +164,7 @@ export async function updateProduct(
     mrp: number;
     special_rate: number;
     stock: number;
+    image?: string;
   }
 ): Promise<void> {
   await tables().updateRow({
@@ -155,6 +177,7 @@ export async function updateProduct(
       stock: data.stock,
       packing: data.packing || "",
       mrp: data.mrp || 0,
+      image: data.image?.trim() || null,
     },
   });
 }

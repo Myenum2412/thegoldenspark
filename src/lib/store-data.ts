@@ -28,5 +28,19 @@ export type Product = {
   mrp: number;
   special_rate: number;
   stock: number;
+  image?: string;
   created_at?: string;
 };
+
+// Product images live in /public/Diwali. The stored value may be a bare
+// filename ("Lakshmi Deluxe Firework Bundle.png"), a root-relative path, or a
+// full URL. Filenames contain spaces/apostrophes, so encode the path before
+// handing it to next/image.
+export function productImageSrc(image?: string | null): string | null {
+  if (!image) return null;
+  const value = image.trim();
+  if (!value) return null;
+  if (/^https?:\/\//i.test(value)) return value;
+  const path = value.startsWith("/") ? value : `/Diwali/${value}`;
+  return encodeURI(path);
+}

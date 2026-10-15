@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import ProductImageField from "@/components/product-image-field";
 import { createProduct } from "@/lib/store";
 
 export default function AddProductForm({
@@ -28,6 +29,7 @@ export default function AddProductForm({
   const [mrp, setMrp] = React.useState("");
   const [rate, setRate] = React.useState("");
   const [stock, setStock] = React.useState("");
+  const [image, setImage] = React.useState("");
   const [saving, setSaving] = React.useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -42,6 +44,7 @@ export default function AddProductForm({
         mrp: Number(mrp) || 0,
         special_rate: Number(rate) || 0,
         stock: Number(stock) || 0,
+        image: image.trim(),
       });
     } catch (err) {
       setSaving(false);
@@ -60,6 +63,7 @@ export default function AddProductForm({
     setMrp("");
     setRate("");
     setStock("");
+    setImage("");
     onAdded?.();
   }
 
@@ -79,6 +83,8 @@ export default function AddProductForm({
       setRate={setRate}
       stock={stock}
       setStock={setStock}
+      image={image}
+      setImage={setImage}
       saving={saving}
       onSubmit={handleSubmit}
       cols={plain ? "sm:grid-cols-2" : "sm:grid-cols-3"}
@@ -114,6 +120,8 @@ export function AddProductFields({
   setRate,
   stock,
   setStock,
+  image,
+  setImage,
   saving,
   onSubmit,
   cols = "sm:grid-cols-3",
@@ -133,6 +141,8 @@ export function AddProductFields({
   setRate: (v: string) => void;
   stock: string;
   setStock: (v: string) => void;
+  image: string;
+  setImage: (v: string) => void;
   saving: boolean;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   cols?: string;
@@ -214,6 +224,17 @@ export function AddProductFields({
               onChange={(e) => setStock(e.target.value.replace(/\D/g, ""))}
             />
           </Field>
+          <div
+            className={
+              cols.includes("grid-cols-2") ? "sm:col-span-2" : "sm:col-span-3"
+            }
+          >
+            <ProductImageField
+              id="product-image"
+              value={image}
+              onChange={setImage}
+            />
+          </div>
           <div className={btnClass}>
             <Button type="submit" disabled={saving}>
               {saving ? "Adding…" : "Add product"}

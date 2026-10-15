@@ -6,6 +6,7 @@ import * as store from "@/lib/store.server";
 // server; the browser only needs its gs_session cookie.
 const ACTIONS: Record<string, (payload: unknown) => Promise<unknown>> = {
   listProducts: () => store.listProducts(),
+  listImages: () => store.listProductImages(),
   createProduct: (p) => store.createProduct(p as Parameters<typeof store.createProduct>[0]),
   updateProduct: (p) => {
     const { id, data } = p as { id: string; data: Parameters<typeof store.updateProduct>[1] };
