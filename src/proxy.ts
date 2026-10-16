@@ -15,9 +15,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (!authed && pathname.startsWith("/api/store")) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // /api/store is intentionally NOT blocked here: the storefront checkout
+  // must reach it anonymously. The route itself enforces auth per action
+  // (public: createCustomer/createOrder/createOrderItems; everything else
+  // requires the gs_session cookie).
 
   return NextResponse.next();
 }

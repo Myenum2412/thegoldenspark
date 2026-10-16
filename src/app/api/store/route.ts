@@ -25,11 +25,14 @@ const ACTIONS: Record<string, (payload: unknown) => Promise<unknown>> = {
   deleteOrdersWithItems: (p) => store.deleteOrdersWithItems(p as string[]),
 };
 
-export async function POST(req: NextRequest) {
-  if (!req.cookies.get(GS_SESSION_COOKIE)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+// Storefront checkout runs anonymously: visitors on / place orders without
+// logging in. These three actions only create rows (never read or mutate
+// existing data), so they are allowed without a session. Everything else
+// (reads of customer/order data, product management, deletes) stays behind
+// the admin gs_session cookie.
+const PUBLIC_ACTIONS = new Set(["createCustomer", "createOrder", "createOrderItems"]);
 
+export async function POST(req: NextRequest) {
   let action: string | undefined;
   let payload: unknown;
   try {
@@ -44,6 +47,10 @@ export async function POST(req: NextRequest) {
   const handler = action ? ACTIONS[action] : undefined;
   if (!handler) {
     return NextResponse.json({ error: `Unknown action: ${action}` }, { status: 400 });
+  }
+
+  if ((!action || !PUBLIC_ACTIONS.has(action)) && !req.cookies.get(GS_SESSION_COOKIE)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
