@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     // Orders go to the store number so the owner gets every order.
     const storeNumber = (
-      process.env.STORE_WHATSAPP_NUMBER ?? "918248601417"
+      process.env.STORE_WHATSAPP_NUMBER ?? "919087606352"
     ).replace(/\D/g, "");
     const to = storeNumber;
 

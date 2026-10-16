@@ -24,7 +24,7 @@ import {
 } from "@/lib/store";
 import type { Product } from "@/lib/store-data";
 
-const WHATSAPP = "https://wa.me/918248601417";
+const WHATSAPP = "https://wa.me/919087606352";
 
 export type OrderLine = { product: Product; qty: number };
 

@@ -13,9 +13,9 @@ import PricelistTable from "@/components/pricelist-table";
 import { listProducts } from "@/lib/store.server";
 import type { Product } from "@/lib/store-data";
 
-const PHONE_DISPLAY = "+91 8248601417";
-const PHONE_TEL = "tel:+918248601417";
-const WHATSAPP = "https://wa.me/918248601417";
+const PHONE_DISPLAY = "+91 9087606352";
+const PHONE_TEL = "tel:+919087606352";
+const WHATSAPP = "https://wa.me/919087606352";
 
 async function getProducts(): Promise<Product[]> {
   try {
