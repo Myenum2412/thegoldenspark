@@ -25,15 +25,19 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteCustomersWithOrders } from "@/lib/store";
+import CustomerView from "@/components/customer-view";
 import type { Customer } from "@/lib/store-data";
+import type { Order } from "@/components/order-view";
 
 export default function CustomersTable({
   customers,
   stats,
+  orders,
   onChanged,
 }: {
   customers: Customer[];
   stats: Record<string, { count: number; total: number }>;
+  orders: Order[];
   onChanged?: () => void;
 }) {
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
@@ -148,12 +152,16 @@ export default function CustomersTable({
               <TableHead>Phone</TableHead>
               <TableHead className="text-right">Orders</TableHead>
               <TableHead>Submitted</TableHead>
+              <TableHead className="w-12 text-right">View</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {customers.map((c) => {
               const st = stats[String(c.id)];
               const checked = selected.has(String(c.id));
+              const customerOrders = orders.filter(
+                (o) => o.customer_id != null && String(o.customer_id) === String(c.id)
+              );
               return (
                 <TableRow
                   key={c.id}
@@ -183,6 +191,9 @@ export default function CustomersTable({
                     {c.created_at
                       ? new Date(c.created_at).toLocaleString("en-IN")
                       : "—"}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <CustomerView customer={c} orders={customerOrders} />
                   </TableCell>
                 </TableRow>
               );

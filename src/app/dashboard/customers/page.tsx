@@ -20,6 +20,7 @@ import DashboardStats from "@/components/dashboard-stats";
 import { SidebarUser } from "@/components/sidebar-user";
 import { listCustomers, listOrders } from "@/lib/store";
 import type { Customer } from "@/lib/store-data";
+import type { Order } from "@/components/order-view";
 
 export default function Page() {
   return (
@@ -34,6 +35,7 @@ export default function Page() {
 function CustomersData() {
   const [customers, setCustomers] = React.useState<Customer[] | null>(null);
   const [stats, setStats] = React.useState<Record<string, { count: number; total: number }> | null>(null);
+  const [orders, setOrders] = React.useState<Order[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
 
@@ -53,6 +55,7 @@ function CustomersData() {
           statsByCustomer.set(key, st);
         }
         setCustomers(customerRows);
+        setOrders(orderRows);
         setStats(Object.fromEntries(statsByCustomer));
       })
       .catch((err: unknown) => {
@@ -64,7 +67,7 @@ function CustomersData() {
   }, [refreshKey]);
 
   if (error) return <SetupNotice message={error} table="customers" />;
-  if (!customers || !stats) return <DashboardLoading />;
+  if (!customers || !stats || !orders) return <DashboardLoading />;
 
   return (
     <>
@@ -115,6 +118,7 @@ function CustomersData() {
           <CustomersTable
             customers={customers}
             stats={stats}
+            orders={orders}
             onChanged={() => {
               setCustomers(null);
               setStats(null);

@@ -61,9 +61,8 @@ function toCustomer(row: Row): Customer {
   return {
     id: row.$id,
     name: String(row.name ?? ""),
-    // Billing clients only store name + phone; address is not persisted.
-    address: "",
-    pincode: "",
+    address: row.address != null ? String(row.address) : "",
+    pincode: row.pincode != null ? String(row.pincode) : "",
     phone: String(row.phone ?? ""),
     created_at: row.$createdAt,
   };
@@ -215,17 +214,33 @@ export async function createCustomer(data: {
   address: string;
   pincode: string;
 }): Promise<{ id: string }> {
-  const row = await tables().createRow({
-    databaseId: APPWRITE_DATABASE_ID,
-    tableId: TABLES.clients,
-    rowId: ID.unique(),
-    data: {
-      localId: ID.unique(),
-      name: data.name,
-      phone: data.phone,
-    },
-  });
-  return { id: row.$id };
+  const base = { localId: ID.unique(), name: data.name, phone: data.phone };
+  try {
+    const row = await tables().createRow({
+      databaseId: APPWRITE_DATABASE_ID,
+      tableId: TABLES.clients,
+      rowId: ID.unique(),
+      data: {
+        ...base,
+        address: data.address,
+        pincode: data.pincode,
+      },
+    });
+    return { id: row.$id };
+  } catch (err) {
+    // Older clients tables lack the address/pincode columns. Retry with just
+    // name + phone so checkout never fails, until the columns are added.
+    if (err instanceof Error && /unknown attribute/i.test(err.message)) {
+      const row = await tables().createRow({
+        databaseId: APPWRITE_DATABASE_ID,
+        tableId: TABLES.clients,
+        rowId: ID.unique(),
+        data: base,
+      });
+      return { id: row.$id };
+    }
+    throw err;
+  }
 }
 
 // Deletes customers plus their sales rows first, so nothing is orphaned.
