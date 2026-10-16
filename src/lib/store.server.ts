@@ -51,8 +51,14 @@ function customerAddress(row: Row): { address: string; pincode: string } {
   const address = row.address != null ? String(row.address) : "";
   const pincode = row.pincode != null ? String(row.pincode) : "";
   if (address || pincode) return { address, pincode };
-  const m = STASH_RE.exec(String(row.localId ?? ""));
-  if (m) return { pincode: m[1], address: m[2] };
+  const lid = String(row.localId ?? "");
+  if (lid.startsWith("gs1")) {
+    const first = lid.indexOf("|");
+    const last = lid.indexOf("|", first + 1);
+    if (first >= 0 && last >= 0 && last > first) {
+      return { pincode: lid.slice(first + 1, last), address: lid.slice(last + 1) };
+    }
+  }
   return { address: "", pincode: "" };
 }
 
