@@ -37,6 +37,25 @@ function itemNoFromBarcode(barcode: unknown): number {
   return digits ? Number(digits) : 0;
 }
 
+// Address stash: the billing clients table historically only has name+phone
+// (no address/pincode columns). When the columns are missing, checkout keeps
+// the details in the otherwise-unused localId column as "gs1|<pincode>|<address>"
+// (localId is capped at 128 chars). Real columns always win when present.
+const STASH_RE = /^gs1\|([^|]*)\|([\s\S]*)$/;
+
+function stashAddress(address: string, pincode: string): string {
+  return `gs1|${pincode}|${address}`.slice(0, 128);
+}
+
+function customerAddress(row: Row): { address: string; pincode: string } {
+  const address = row.address != null ? String(row.address) : "";
+  const pincode = row.pincode != null ? String(row.pincode) : "";
+  if (address || pincode) return { address, pincode };
+  const m = STASH_RE.exec(String(row.localId ?? ""));
+  if (m) return { pincode: m[1], address: m[2] };
+  return { address: "", pincode: "" };
+}
+
 // ── Row → app model ───────────────────────────────────────
 
 function toProduct(row: Row): Product {
@@ -58,11 +77,12 @@ function toProduct(row: Row): Product {
 }
 
 function toCustomer(row: Row): Customer {
+  const direct = customerAddress(row);
   return {
     id: row.$id,
     name: String(row.name ?? ""),
-    address: row.address != null ? String(row.address) : "",
-    pincode: row.pincode != null ? String(row.pincode) : "",
+    address: direct.address,
+    pincode: direct.pincode,
     phone: String(row.phone ?? ""),
     created_at: row.$createdAt,
   };
@@ -228,16 +248,31 @@ export async function createCustomer(data: {
     });
     return { id: row.$id };
   } catch (err) {
-    // Older clients tables lack the address/pincode columns. Retry with just
-    // name + phone so checkout never fails, until the columns are added.
+    // Older clients tables lack the address/pincode columns. Retry with the
+    // details stashed in the unused localId column so checkout still records
+    // them; a plain unique id is used if even that fails.
     if (err instanceof Error && /unknown attribute/i.test(err.message)) {
-      const row = await tables().createRow({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: TABLES.clients,
-        rowId: ID.unique(),
-        data: base,
-      });
-      return { id: row.$id };
+      const stashed = {
+        ...base,
+        localId: stashAddress(data.address, data.pincode),
+      };
+      try {
+        const row = await tables().createRow({
+          databaseId: APPWRITE_DATABASE_ID,
+          tableId: TABLES.clients,
+          rowId: ID.unique(),
+          data: stashed,
+        });
+        return { id: row.$id };
+      } catch {
+        const row = await tables().createRow({
+          databaseId: APPWRITE_DATABASE_ID,
+          tableId: TABLES.clients,
+          rowId: ID.unique(),
+          data: base,
+        });
+        return { id: row.$id };
+      }
     }
     throw err;
   }
@@ -417,7 +452,7 @@ export async function getOrderDetails(orderId: string): Promise<{
   }
 
   let phone = "";
-  const address: { address: string; pincode: string } | null = null;
+  let address: { address: string; pincode: string } | null = null;
   if (sale.clientId) {
     try {
       const client = (await tables().getRow({
@@ -426,6 +461,8 @@ export async function getOrderDetails(orderId: string): Promise<{
         rowId: String(sale.clientId),
       })) as Row;
       phone = String(client.phone ?? "");
+      const ca = customerAddress(client);
+      if (ca.address || ca.pincode) address = ca;
     } catch {
       // client row missing — leave defaults
     }

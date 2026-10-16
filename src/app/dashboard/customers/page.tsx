@@ -18,9 +18,9 @@ import {
 import SetupNotice from "@/components/setup-notice";
 import DashboardStats from "@/components/dashboard-stats";
 import { SidebarUser } from "@/components/sidebar-user";
-import { listCustomers, listOrders } from "@/lib/store";
+import { listCustomers, listOrders, listOrderItems } from "@/lib/store";
 import type { Customer } from "@/lib/store-data";
-import type { Order } from "@/components/order-view";
+import type { Order, OrderItem } from "@/components/order-view";
 
 export default function Page() {
   return (
@@ -36,14 +36,15 @@ function CustomersData() {
   const [customers, setCustomers] = React.useState<Customer[] | null>(null);
   const [stats, setStats] = React.useState<Record<string, { count: number; total: number }> | null>(null);
   const [orders, setOrders] = React.useState<Order[] | null>(null);
+  const [items, setItems] = React.useState<OrderItem[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
     let live = true;
     setError(null);
-    Promise.all([listCustomers(), listOrders()])
-      .then(([customerRows, orderRows]) => {
+    Promise.all([listCustomers(), listOrders(), listOrderItems()])
+      .then(([customerRows, orderRows, itemRows]) => {
         if (!live) return;
         const statsByCustomer = new Map<string, { count: number; total: number }>();
         for (const o of orderRows) {
@@ -56,6 +57,7 @@ function CustomersData() {
         }
         setCustomers(customerRows);
         setOrders(orderRows);
+        setItems(itemRows);
         setStats(Object.fromEntries(statsByCustomer));
       })
       .catch((err: unknown) => {
@@ -67,7 +69,7 @@ function CustomersData() {
   }, [refreshKey]);
 
   if (error) return <SetupNotice message={error} table="customers" />;
-  if (!customers || !stats || !orders) return <DashboardLoading />;
+  if (!customers || !stats || !orders || !items) return <DashboardLoading />;
 
   return (
     <>
@@ -119,6 +121,7 @@ function CustomersData() {
             customers={customers}
             stats={stats}
             orders={orders}
+            items={items}
             onChanged={() => {
               setCustomers(null);
               setStats(null);

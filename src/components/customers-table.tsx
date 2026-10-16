@@ -27,21 +27,34 @@ import {
 import { deleteCustomersWithOrders } from "@/lib/store";
 import CustomerView from "@/components/customer-view";
 import type { Customer } from "@/lib/store-data";
-import type { Order } from "@/components/order-view";
+import type { Order, OrderItem } from "@/components/order-view";
 
 export default function CustomersTable({
   customers,
   stats,
   orders,
+  items,
   onChanged,
 }: {
   customers: Customer[];
   stats: Record<string, { count: number; total: number }>;
   orders: Order[];
+  items: OrderItem[];
   onChanged?: () => void;
 }) {
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [deleting, setDeleting] = React.useState(false);
+
+  const itemsByOrder = React.useMemo(() => {
+    const map = new Map<string, OrderItem[]>();
+    for (const it of items) {
+      const key = String(it.order_id);
+      const list = map.get(key) ?? [];
+      list.push(it);
+      map.set(key, list);
+    }
+    return map;
+  }, [items]);
 
   const allIds = customers.map((c) => String(c.id));
   const allSelected = allIds.length > 0 && selected.size === allIds.length;
@@ -193,7 +206,13 @@ export default function CustomersTable({
                       : "—"}
                   </TableCell>
                   <TableCell className="text-right">
-                    <CustomerView customer={c} orders={customerOrders} />
+                    <CustomerView
+                      customer={c}
+                      orders={customerOrders}
+                      items={customerOrders.flatMap(
+                        (o) => itemsByOrder.get(String(o.id)) ?? []
+                      )}
+                    />
                   </TableCell>
                 </TableRow>
               );
