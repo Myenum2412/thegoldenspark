@@ -33,5 +33,24 @@ manually — nothing breaks.
 ## Endpoints
 
 - `GET /status` → `{ "ready": true }`
+- `GET /qr?secret=…` → PNG of the link QR (401 bad secret, 409 already
+  linked, 204 no QR pending yet). Handy for scanning remotely.
 - `POST /send` `{ to, message, secret }` → `{ ok, id }`
   (`to` = digits, e.g. `919876543210`)
+
+## Chrome on a server
+
+If Puppeteer's bundled Chrome download is skipped or an existing Chrome
+lives elsewhere, point the sender at it:
+
+```bash
+PUPPETEER_EXECUTABLE_PATH=/home/ubuntu/.cache/puppeteer/chrome/linux-<ver>/chrome-linux64/chrome
+```
+
+Server Chrome also needs its shared libraries, e.g. on Ubuntu:
+
+```bash
+sudo apt-get install -y libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 \
+  libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
+  libgbm1 libpango-1.0-0 libcairo2 libasound2t64 libnss3 libnspr4 libxshmfence1
+```

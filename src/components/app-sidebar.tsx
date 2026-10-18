@@ -7,6 +7,7 @@ import {
   ClipboardListIcon,
   LayoutDashboardIcon,
   PackageIcon,
+  SettingsIcon,
   StoreIcon,
   UsersIcon,
 } from "lucide-react"
@@ -64,6 +65,11 @@ const data = {
       title: "Reports",
       url: "/dashboard/reports",
       icon: <ChartColumnIcon />,
+    },
+    {
+      title: "Settings",
+      url: "/dashboard/settings",
+      icon: <SettingsIcon />,
     },
     {
       title: "View Store",
