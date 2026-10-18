@@ -5,10 +5,12 @@ import {
   CheckCircle2Icon,
   Loader2Icon,
   RefreshCwIcon,
+  SendIcon,
   SmartphoneIcon,
   TriangleAlertIcon,
   WifiOffIcon,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,9 +26,19 @@ type WaState = {
   configured: boolean;
   reachable: boolean;
   ready: boolean;
+  number: string | null;
 };
 
 type QrState = "idle" | "loading" | "pending" | "ready" | "error";
+
+function formatNumber(value: string | null): string | null {
+  if (!value) return null;
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+91 ${digits.slice(2, 7)} ${digits.slice(7)}`;
+  }
+  return `+${digits}`;
+}
 
 export default function WaSettings() {
   const [state, setState] = React.useState<WaState | null>(null);
@@ -34,6 +46,7 @@ export default function WaSettings() {
   const [qrSrc, setQrSrc] = React.useState<string | null>(null);
   const [updated, setUpdated] = React.useState<Date | null>(null);
   const [refreshTick, setRefreshTick] = React.useState(0);
+  const [testing, setTesting] = React.useState(false);
   const objectUrl = React.useRef<string | null>(null);
 
   // Poll the sender's status while this page is open.
@@ -49,9 +62,16 @@ export default function WaSettings() {
           configured: body.configured === true,
           reachable: body.reachable === true,
           ready: body.ready === true,
+          number: body.number ?? null,
         });
       } catch {
-        if (live) setState({ configured: false, reachable: false, ready: false });
+        if (live)
+          setState({
+            configured: false,
+            reachable: false,
+            ready: false,
+            number: null,
+          });
       }
     }
 
@@ -66,7 +86,37 @@ export default function WaSettings() {
   const configured = state?.configured ?? false;
   const reachable = state?.reachable ?? false;
   const ready = state?.ready ?? false;
+  const number = state?.number ?? null;
   const loading = state === null;
+
+  async function sendTest() {
+    setTesting(true);
+    try {
+      const res = await fetch("/api/wa-test", { method: "POST" });
+      const body = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        to?: string;
+        error?: string;
+      };
+      if (res.ok && body.ok) {
+        toast.success("Test message sent", {
+          description: "Check the linked WhatsApp for a confirmation.",
+        });
+      } else {
+        const reason =
+          body.error === "not-linked"
+            ? "The sender is not linked yet."
+            : body.error === "not-configured"
+              ? "Sender not configured."
+              : "Could not send the test message.";
+        toast.error("Test failed", { description: reason });
+      }
+    } catch {
+      toast.error("Test failed", { description: "Could not reach the sender." });
+    } finally {
+      setTesting(false);
+    }
+  }
 
   // Load and periodically refresh the rotating QR while awaiting a scan.
   React.useEffect(() => {
@@ -158,15 +208,43 @@ export default function WaSettings() {
             <Loader2Icon className="size-4 animate-spin" /> Checking the sender…
           </p>
         ) : ready ? (
-          <div className="flex items-start gap-3 rounded-lg border border-green-500/30 bg-green-500/5 p-4">
-            <CheckCircle2Icon className="mt-0.5 size-5 shrink-0 text-green-600" />
-            <div className="space-y-1 text-sm">
-              <p className="font-medium">WhatsApp is connected</p>
-              <p className="text-muted-foreground">
-                New checkout orders are sent automatically to the store number.
-                If the sender goes offline, checkout falls back to opening
-                WhatsApp manually — orders are never lost.
-              </p>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3 rounded-lg border border-green-500/30 bg-green-500/5 p-4">
+              <CheckCircle2Icon className="mt-0.5 size-5 shrink-0 text-green-600" />
+              <div className="space-y-1 text-sm">
+                <p className="font-medium">
+                  WhatsApp is connected
+                  {formatNumber(number) ? (
+                    <span className="font-normal text-muted-foreground">
+                      {" "}
+                      as {formatNumber(number)}
+                    </span>
+                  ) : null}
+                </p>
+                <p className="text-muted-foreground">
+                  New checkout orders are sent automatically to the store
+                  number. If the sender goes offline, checkout falls back to
+                  opening WhatsApp manually — orders are never lost.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={sendTest}
+                disabled={testing}
+              >
+                {testing ? (
+                  <Loader2Icon className="animate-spin" />
+                ) : (
+                  <SendIcon />
+                )}
+                {testing ? "Sending…" : "Send test message"}
+              </Button>
+              <span className="text-xs text-muted-foreground">
+                Sends a message from the linked WhatsApp to itself.
+              </span>
             </div>
           </div>
         ) : !configured ? (

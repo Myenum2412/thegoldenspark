@@ -25,11 +25,12 @@ export async function GET() {
         ready: false,
       });
     }
-    const body = (await res.json()) as { ready?: boolean };
+    const body = (await res.json()) as { ready?: boolean; number?: string | null };
     return NextResponse.json({
       configured: true,
       reachable: true,
       ready: body.ready === true,
+      number: body.number ?? null,
     });
   } catch {
     return NextResponse.json({

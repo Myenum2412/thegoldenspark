@@ -46,6 +46,7 @@ const client = new Client({
 
 let ready = false;
 let qrDataUrl = null;
+let linkedNumber = null;
 
 client.on("qr", async (qr) => {
   ready = false;
@@ -63,7 +64,12 @@ client.on("auth_failure", (m) => console.error("Auth failed:", m));
 client.on("ready", () => {
   ready = true;
   qrDataUrl = null;
-  console.log("WhatsApp sender ready.");
+  try {
+    linkedNumber = client.info?.wid?.user ?? null;
+  } catch {
+    linkedNumber = null;
+  }
+  console.log(`WhatsApp sender ready${linkedNumber ? ` as ${linkedNumber}` : ""}.`);
 });
 client.on("disconnected", (reason) => {
   ready = false;
@@ -74,8 +80,20 @@ client.on("disconnected", (reason) => {
   setTimeout(() => process.exit(1), 3000);
 });
 
+// Diagnostics: confirm messages actually leave the device.
+client.on("message_create", (m) => {
+  if (m.fromMe) {
+    console.log(`outgoing -> ${m.to}: ${String(m.body || "").slice(0, 50)}`);
+  }
+});
+client.on("message_ack", (m, ack) => {
+  if (m.fromMe) {
+    console.log(`ack ${ack} for "${String(m.body || "").slice(0, 30)}"`);
+  }
+});
+
 app.get("/status", (_req, res) => {
-  res.json({ ready });
+  res.json({ ready, number: linkedNumber });
 });
 
 function qrPng(res) {
@@ -150,7 +168,16 @@ app.post("/send", async (req, res) => {
     }
     const chatId = `${to}@c.us`;
     const sent = await client.sendMessage(chatId, message);
-    return res.json({ ok: true, id: sent.id._serialized });
+    // whatsapp-web.js can resolve `sendMessage` with undefined even when
+    // the message WAS delivered (recent WhatsApp Web stopped returning the
+    // serialized message model for every send). A resolved promise means
+    // the send didn't throw, so treat it as success and report the id when
+    // we have it.
+    const id = sent?.id?._serialized ?? null;
+    if (!sent) {
+      console.warn(`send to ${to}: WhatsApp returned no message model (unknown id)`);
+    }
+    return res.json({ ok: true, id });
   } catch (err) {
     console.error("send failed:", err && err.message);
     return res.status(500).json({ ok: false, error: "send failed" });
