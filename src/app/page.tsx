@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import {
   MapPin,
@@ -26,8 +27,11 @@ async function getProducts(): Promise<Product[]> {
 }
 
 // Streamed inside Suspense so the uncached Appwrite read (Cache Components
-// enabled) doesn't block prerendering of the shell.
+// enabled) doesn't block prerendering of the shell. `connection()` defers the
+// read to request time; without it the pricelist (including product images)
+// would be baked into the static shell and stay stale until the next deploy.
 async function PricelistSection() {
+  await connection();
   const products = await getProducts();
   return <PricelistTable products={products} />;
 }
