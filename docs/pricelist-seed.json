@@ -740,7 +740,8 @@
     "packing": "Box",
     "mrp": 6925,
     "special_rate": 1385,
-    "stock": 100
+    "stock": 100,
+    "image": "GIFT BOX - NEITHAL.png"
   },
   {
     "item_no": 83,
