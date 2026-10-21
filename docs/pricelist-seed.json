@@ -465,7 +465,8 @@
     "packing": "PACK",
     "mrp": 1370,
     "special_rate": 274,
-    "stock": 100
+    "stock": 100,
+    "image": "CHINNA CHOTTA FANCY.jpg"
   },
   {
     "item_no": 53,
@@ -646,7 +647,8 @@
     "packing": "Box",
     "mrp": 6270,
     "special_rate": 1254,
-    "stock": 100
+    "stock": 100,
+    "image": "Royal Lion Monster Fireworks Box.png"
   },
   {
     "item_no": 73,
@@ -925,7 +927,8 @@
     "packing": "Box",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 100
+    "stock": 100,
+    "image": "Golden Yellow Bow Fireworks Box.png"
   },
   {
     "item_no": 104,
