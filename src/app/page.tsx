@@ -20,7 +20,14 @@ const WHATSAPP = "https://wa.me/919087606352";
 
 async function getProducts(): Promise<Product[]> {
   try {
-    return await listProducts();
+    const products = await listProducts();
+    // Home page display order: group by category, alphabetical by name within
+    // each category. (The dashboard keeps the stored `ordr` ordering.)
+    return products.sort(
+      (a, b) =>
+        a.category.localeCompare(b.category, "en") ||
+        a.name.localeCompare(b.name, "en", { numeric: true })
+    );
   } catch {
     return [];
   }
