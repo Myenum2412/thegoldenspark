@@ -979,7 +979,8 @@
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 100
+    "stock": 100,
+    "image": "Blood Rain Fireworks Box.png"
   },
   {
     "item_no": 110,
