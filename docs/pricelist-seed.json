@@ -565,7 +565,8 @@
     "packing": "Box",
     "mrp": 5060,
     "special_rate": 1012,
-    "stock": 100
+    "stock": 100,
+    "image": "Fire Storm Fireworks Box Packaging.png"
   },
   {
     "item_no": 64,
