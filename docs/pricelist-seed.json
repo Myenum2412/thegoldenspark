@@ -947,7 +947,8 @@
     "packing": "Box",
     "mrp": 1300,
     "special_rate": 260,
-    "stock": 100
+    "stock": 100,
+    "image": "Magenta Pop Corn Bow Fireworks Box.png"
   },
   {
     "item_no": 106,
@@ -965,7 +966,8 @@
     "packing": "Box",
     "mrp": 1300,
     "special_rate": 260,
-    "stock": 100
+    "stock": 100,
+    "image": "Silver Bow Fireworks Box.png"
   },
   {
     "item_no": 108,
