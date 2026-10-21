@@ -88,7 +88,7 @@ Permissions: **Any → Create**. Read/Update/Delete: **Users**.
 
 ## 4. Seed the pricelist
 
-`docs/pricelist-seed.json` holds the 105 products from the 2026 list.
+`docs/pricelist-seed.json` holds the 116 products from the 2026 list.
 Import it with a script against the products collection, e.g.:
 
 ```bash

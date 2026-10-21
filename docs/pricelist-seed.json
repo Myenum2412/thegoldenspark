@@ -1,948 +1,1046 @@
 [
   {
     "item_no": 1,
-    "name": "W11-60 SHOTS",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "Box",
-    "mrp": 10700,
-    "special_rate": 2140,
-    "stock": 0
-  },
-  {
-    "item_no": 2,
-    "name": "Robin 7 Up Rainbow",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "BNDL",
-    "mrp": 900,
-    "special_rate": 180,
-    "stock": 0
-  },
-  {
-    "item_no": 3,
-    "name": "W08-Robin Vip 10 in 1",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "BNDL",
-    "mrp": 15200,
-    "special_rate": 3040,
-    "stock": 0
-  },
-  {
-    "item_no": 4,
-    "name": "Robin Super Deluxe 10 in 1",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "BNDL",
-    "mrp": 450,
-    "special_rate": 90,
-    "stock": 0
-  },
-  {
-    "item_no": 5,
-    "name": "Robin Classic 5 in 1 (Prince)",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "BNDL",
-    "mrp": 1000,
-    "special_rate": 200,
-    "stock": 0
-  },
-  {
-    "item_no": 6,
-    "name": "F183-Mystic Burst Tin",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "PCS",
-    "mrp": 1500,
-    "special_rate": 300,
-    "stock": 0
-  },
-  {
-    "item_no": 7,
-    "name": "F208-METEOR SHOWER",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "Box",
-    "mrp": 1600,
-    "special_rate": 320,
-    "stock": 0
-  },
-  {
-    "item_no": 8,
-    "name": "F209-TRI COLOUR SMOKE",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "Box",
-    "mrp": 1500,
-    "special_rate": 300,
-    "stock": 0
-  },
-  {
-    "item_no": 9,
-    "name": "W08-VIP",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 15200,
-    "special_rate": 3040,
-    "stock": 0
-  },
-  {
-    "item_no": 10,
-    "name": "W08A-5K LIKES",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 12000,
-    "special_rate": 2400,
-    "stock": 0
-  },
-  {
-    "item_no": 11,
-    "name": "W09-10K LIKES",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 24000,
-    "special_rate": 4800,
-    "stock": 0
-  },
-  {
-    "item_no": 12,
-    "name": "F121A-SKY WAR 120 SHOTS",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "PCS",
-    "mrp": 18600,
-    "special_rate": 3720,
-    "stock": 0
-  },
-  {
-    "item_no": 13,
-    "name": "F201-WETWOS THOGAI",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 2500,
-    "special_rate": 500,
-    "stock": 0
-  },
-  {
-    "item_no": 14,
-    "name": "F184-Gliter Stream Tin",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "PCS",
-    "mrp": 1750,
-    "special_rate": 350,
-    "stock": 0
-  },
-  {
-    "item_no": 15,
-    "name": "W05-MARVEL YELLOW",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 3100,
-    "special_rate": 620,
-    "stock": 0
-  },
-  {
-    "item_no": 16,
-    "name": "F185-Colour Smoke Candle",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "Box",
-    "mrp": 1500,
-    "special_rate": 300,
-    "stock": 0
-  },
-  {
-    "item_no": 17,
-    "name": "W09C-30SHOTS FIRE STORM (UV)",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "Box",
-    "mrp": 5060,
-    "special_rate": 1012,
-    "stock": 0
-  },
-  {
-    "item_no": 18,
-    "name": "W09A-30SHOTS (SQUARE)",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "Box",
-    "mrp": 4025,
-    "special_rate": 805,
-    "stock": 0
-  },
-  {
-    "item_no": 19,
-    "name": "F180-SILVER BLAZE TIN",
-    "category": "Smoke Effects, Tins & Special Items",
-    "packing": "PCS",
-    "mrp": 750,
-    "special_rate": 150,
-    "stock": 0
-  },
-  {
-    "item_no": 20,
-    "name": "G100-TRAVEL GIFT BAG",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "BAGS",
-    "mrp": 22500,
-    "special_rate": 4500,
-    "stock": 0
-  },
-  {
-    "item_no": 21,
-    "name": "W09B-30SHOTS ELITE (UV)",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "Box",
-    "mrp": 5060,
-    "special_rate": 1012,
-    "stock": 0
-  },
-  {
-    "item_no": 22,
-    "name": "W01-MINI",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 420,
-    "special_rate": 84,
-    "stock": 0
-  },
-  {
-    "item_no": 23,
-    "name": "W02-NANO",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 1210,
-    "special_rate": 242,
-    "stock": 0
-  },
-  {
-    "item_no": 24,
-    "name": "W04-TOY",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 2140,
-    "special_rate": 428,
-    "stock": 0
-  },
-  {
-    "item_no": 25,
-    "name": "W05-MARVEL",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 3100,
-    "special_rate": 620,
-    "stock": 0
-  },
-  {
-    "item_no": 26,
-    "name": "W07-MONSTER",
-    "category": "Kids Items & Special Aerial Fireworks",
-    "packing": "Box",
-    "mrp": 6270,
-    "special_rate": 1254,
-    "stock": 0
-  },
-  {
-    "item_no": 27,
-    "name": "F202-WETWOS 25 RIDER",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 3000,
-    "special_rate": 600,
-    "stock": 0
-  },
-  {
-    "item_no": 28,
-    "name": "F203-WETWOS WHEEL",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 2000,
-    "special_rate": 400,
-    "stock": 0
-  },
-  {
-    "item_no": 29,
-    "name": "N30-Wetwo's Sword",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 2000,
-    "special_rate": 400,
-    "stock": 0
-  },
-  {
-    "item_no": 30,
-    "name": "F123A-JUSTICE LEAGUE",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PACK",
-    "mrp": 1260,
-    "special_rate": 252,
-    "stock": 0
-  },
-  {
-    "item_no": 31,
-    "name": "S17-15 CM GREEN SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 430,
-    "special_rate": 86,
-    "stock": 0
-  },
-  {
-    "item_no": 32,
-    "name": "SP26-10 CM RAINBOW SPARKLERS 4 IN 1",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 1000,
-    "special_rate": 200,
-    "stock": 0
-  },
-  {
-    "item_no": 33,
-    "name": "S20-30 CM RED SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 490,
-    "special_rate": 98,
-    "stock": 0
-  },
-  {
-    "item_no": 34,
-    "name": "S19-30 CM GREEN SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 480,
-    "special_rate": 96,
-    "stock": 0
-  },
-  {
-    "item_no": 35,
-    "name": "S22-50 CM ELECTRIC SPARKLERS (TUBE)",
-    "category": "Electric & Colour Sparklers",
-    "packing": "TUBE",
-    "mrp": 960,
-    "special_rate": 192,
-    "stock": 0
-  },
-  {
-    "item_no": 36,
-    "name": "S24-50 CM COLOUR SPARKLERS (TUBE)",
-    "category": "Electric & Colour Sparklers",
-    "packing": "TUBE",
-    "mrp": 990,
-    "special_rate": 198,
-    "stock": 0
-  },
-  {
-    "item_no": 37,
-    "name": "SP25-75 CM ELECTRIC SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "TUBE",
-    "mrp": 990,
-    "special_rate": 198,
-    "stock": 0,
-    "image": "WeTwo's Electric Fountain Firework Tube.png"
-  },
-  {
-    "item_no": 38,
-    "name": "S16-12 CM RED SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 300,
-    "special_rate": 60,
-    "stock": 0
-  },
-  {
-    "item_no": 39,
-    "name": "S15-12 CM GREEN SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 290,
-    "special_rate": 58,
-    "stock": 0
-  },
-  {
-    "item_no": 40,
-    "name": "S01-7 CM ELECTRIC SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 100,
-    "special_rate": 20,
-    "stock": 0
-  },
-  {
-    "item_no": 41,
-    "name": "S06-7 CM COLOUR SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 110,
-    "special_rate": 22,
-    "stock": 0
-  },
-  {
-    "item_no": 42,
-    "name": "F168-ARC",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1260,
-    "special_rate": 252,
-    "stock": 0
-  },
-  {
-    "item_no": 43,
-    "name": "ROCKET BOMB",
-    "category": "Bijili, Bombs & Other Crackers",
-    "packing": "Box",
-    "mrp": 800,
-    "special_rate": 160,
-    "stock": 0
-  },
-  {
-    "item_no": 44,
-    "name": "GOO GOO",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 1000,
-    "special_rate": 200,
-    "stock": 0
-  },
-  {
-    "item_no": 45,
-    "name": "BLOODY BLAZES",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 1000,
-    "special_rate": 200,
-    "stock": 0
-  },
-  {
-    "item_no": 46,
-    "name": "POPCORN FOUNTAIN",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 700,
-    "special_rate": 140,
-    "stock": 0
-  },
-  {
-    "item_no": 47,
-    "name": "F132-WETWO'S 7 SHOT",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1165,
-    "special_rate": 233,
-    "stock": 0
-  },
-  {
-    "item_no": 48,
-    "name": "G09-GIFT BOX - KURINJI (A)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 3210,
-    "special_rate": 642,
-    "stock": 0
-  },
-  {
-    "item_no": 49,
-    "name": "G10-GIFT BOX - MULLAI (B)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 3900,
-    "special_rate": 780,
-    "stock": 0
-  },
-  {
-    "item_no": 50,
-    "name": "G11-GIFT BOX - MARUTHAM (C)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 4590,
-    "special_rate": 918,
-    "stock": 0
-  },
-  {
-    "item_no": 51,
-    "name": "G12-GIFT BOX - NEITHAL (D)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 6925,
-    "special_rate": 1385,
-    "stock": 0
-  },
-  {
-    "item_no": 52,
-    "name": "GIFT BOX - Yes (G)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 3300,
-    "special_rate": 660,
-    "stock": 0
-  },
-  {
-    "item_no": 53,
-    "name": "G12-GIFT BOX - PALAI (E)",
-    "category": "Gift Boxes & Gift Bags",
-    "packing": "Box",
-    "mrp": 7610,
-    "special_rate": 1522,
-    "stock": 0
-  },
-  {
-    "item_no": 54,
-    "name": "R47-28 ANGERY BIRD",
-    "category": "Bijili, Bombs & Other Crackers",
-    "packing": "PKTS",
-    "mrp": 220,
-    "special_rate": 44,
-    "stock": 0
-  },
-  {
-    "item_no": 55,
-    "name": "R48-56 ANGERY BIRD",
-    "category": "Bijili, Bombs & Other Crackers",
-    "packing": "PKTS",
-    "mrp": 430,
-    "special_rate": 86,
-    "stock": 0
-  },
-  {
-    "item_no": 56,
-    "name": "F124-CLASIC HITS FIVE IN ONE",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PACK",
-    "mrp": 1600,
-    "special_rate": 320,
-    "stock": 0
-  },
-  {
-    "item_no": 57,
-    "name": "SUPER SHOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 560,
-    "special_rate": 112,
-    "stock": 0
-  },
-  {
-    "item_no": 58,
-    "name": "AMBER SHOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 560,
-    "special_rate": 112,
-    "stock": 0
-  },
-  {
-    "item_no": 59,
-    "name": "RUBY SHOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PCS",
-    "mrp": 510,
-    "special_rate": 102,
-    "stock": 0
-  },
-  {
-    "item_no": 60,
-    "name": "F133-CHINNA CHOTTA FANCY",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "PACK",
-    "mrp": 1370,
-    "special_rate": 274,
-    "stock": 0
-  },
-  {
-    "item_no": 61,
-    "name": "YELLOW BOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1260,
-    "special_rate": 252,
-    "stock": 0
-  },
-  {
-    "item_no": 62,
-    "name": "RED BOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1300,
-    "special_rate": 260,
-    "stock": 0
-  },
-  {
-    "item_no": 63,
-    "name": "POPCORN BOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1300,
-    "special_rate": 260,
-    "stock": 0
-  },
-  {
-    "item_no": 64,
-    "name": "CRACKLING BOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1260,
-    "special_rate": 252,
-    "stock": 0
-  },
-  {
-    "item_no": 65,
-    "name": "SILVER BOW",
-    "category": "Fancy Items, Shots & Wheels",
-    "packing": "Box",
-    "mrp": 1300,
-    "special_rate": 260,
-    "stock": 0
-  },
-  {
-    "item_no": 66,
-    "name": "R27A-FLOWER POT MEGA GIANT",
-    "category": "Flower Pots & Colour Pots",
-    "packing": "Box",
-    "mrp": 2000,
-    "special_rate": 400,
-    "stock": 0
-  },
-  {
-    "item_no": 67,
-    "name": "S02-10 CM ELECTRIC SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 210,
-    "special_rate": 42,
-    "stock": 0
-  },
-  {
-    "item_no": 68,
-    "name": "S04-15 CM ELECTRIC SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 400,
-    "special_rate": 80,
-    "stock": 0
-  },
-  {
-    "item_no": 69,
-    "name": "S05-30 CM ELECTRIC SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 400,
-    "special_rate": 80,
-    "stock": 0
-  },
-  {
-    "item_no": 70,
-    "name": "S07-10 CM COLOUR SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 220,
-    "special_rate": 44,
-    "stock": 0
-  },
-  {
-    "item_no": 71,
-    "name": "S09-15 CM COLOUR SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 410,
-    "special_rate": 82,
-    "stock": 0
-  },
-  {
-    "item_no": 72,
-    "name": "S10-30 CM COLOUR SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 410,
-    "special_rate": 82,
-    "stock": 0
-  },
-  {
-    "item_no": 73,
-    "name": "S18-15 CM RED SPARKLERS",
-    "category": "Electric & Colour Sparklers",
-    "packing": "Box",
-    "mrp": 440,
-    "special_rate": 88,
-    "stock": 0
-  },
-  {
-    "item_no": 74,
     "name": "R03-3.5\" LAKSHMI CRACKERS",
     "category": "Lakshmi & Wetwo Crackers",
     "packing": "PKTS",
     "mrp": 140,
     "special_rate": 28,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 75,
+    "item_no": 2,
     "name": "R01-4\" LAKSHMI CRACKERS",
     "category": "Lakshmi & Wetwo Crackers",
     "packing": "PKTS",
     "mrp": 220,
     "special_rate": 44,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 76,
+    "item_no": 3,
     "name": "R05-2.5\" WETWO CRACKERS",
     "category": "Lakshmi & Wetwo Crackers",
     "packing": "PKTS",
     "mrp": 90,
     "special_rate": 18,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 77,
+    "item_no": 4,
     "name": "R07-LAKSHMI DLX CRACKERS",
     "category": "Lakshmi & Wetwo Crackers",
     "packing": "PKTS",
     "mrp": 380,
     "special_rate": 76,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 78,
+    "item_no": 5,
+    "name": "S01-7 CM ELECTRIC SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 100,
+    "special_rate": 20,
+    "stock": 100
+  },
+  {
+    "item_no": 6,
+    "name": "S02-10 CM ELECTRIC SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 210,
+    "special_rate": 42,
+    "stock": 100
+  },
+  {
+    "item_no": 7,
+    "name": "S04-15 CM ELECTRIC SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 400,
+    "special_rate": 80,
+    "stock": 100
+  },
+  {
+    "item_no": 8,
+    "name": "S05-30 CM ELECTRIC SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 400,
+    "special_rate": 80,
+    "stock": 100
+  },
+  {
+    "item_no": 9,
+    "name": "S06-7 CM COLOUR SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 110,
+    "special_rate": 22,
+    "stock": 100
+  },
+  {
+    "item_no": 10,
+    "name": "S07-10 CM COLOUR SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 220,
+    "special_rate": 44,
+    "stock": 100
+  },
+  {
+    "item_no": 11,
+    "name": "S09-15 CM COLOUR SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 410,
+    "special_rate": 82,
+    "stock": 100
+  },
+  {
+    "item_no": 12,
+    "name": "S10-30 CM COLOUR SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 410,
+    "special_rate": 82,
+    "stock": 100
+  },
+  {
+    "item_no": 13,
+    "name": "S16-12 CM RED SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 300,
+    "special_rate": 60,
+    "stock": 100
+  },
+  {
+    "item_no": 14,
+    "name": "S15-12 CM GREEN SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 290,
+    "special_rate": 58,
+    "stock": 100
+  },
+  {
+    "item_no": 15,
+    "name": "S18-15 CM RED SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 440,
+    "special_rate": 88,
+    "stock": 100
+  },
+  {
+    "item_no": 16,
+    "name": "S17-15 CM GREEN SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 430,
+    "special_rate": 86,
+    "stock": 100
+  },
+  {
+    "item_no": 17,
+    "name": "S20-30CM RED SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 490,
+    "special_rate": 98,
+    "stock": 100
+  },
+  {
+    "item_no": 18,
+    "name": "S19-30 CM GREEN SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 480,
+    "special_rate": 96,
+    "stock": 100
+  },
+  {
+    "item_no": 19,
+    "name": "S22-50 CM ELECTRIC SPARKLERS(TUBE)",
+    "category": "Electric & Colour Sparklers",
+    "packing": "TUBE",
+    "mrp": 960,
+    "special_rate": 192,
+    "stock": 100
+  },
+  {
+    "item_no": 20,
+    "name": "S24-50 CM COLOUR SPARKLERS(TUBE)",
+    "category": "Electric & Colour Sparklers",
+    "packing": "TUBE",
+    "mrp": 990,
+    "special_rate": 198,
+    "stock": 100
+  },
+  {
+    "item_no": 21,
+    "name": "SP25-75 CM ELECTRIC SPARKLERS",
+    "category": "Electric & Colour Sparklers",
+    "packing": "TUBE",
+    "mrp": 990,
+    "special_rate": 198,
+    "stock": 100
+  },
+  {
+    "item_no": 22,
+    "name": "SP26-10 CM RAINBOW SPARKLERS 4 IN 1",
+    "category": "Electric & Colour Sparklers",
+    "packing": "Box",
+    "mrp": 1000,
+    "special_rate": 200,
+    "stock": 100
+  },
+  {
+    "item_no": 23,
     "name": "R11-GROUND CHAKKAR ASHOKA",
     "category": "Ground Chakkars & Twinkling Stars",
     "packing": "Box",
     "mrp": 670,
     "special_rate": 134,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 79,
+    "item_no": 24,
     "name": "R12-GROUND CHAKKAR DELUXE",
     "category": "Ground Chakkars & Twinkling Stars",
     "packing": "Box",
     "mrp": 1170,
     "special_rate": 234,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 80,
+    "item_no": 25,
     "name": "R10-GROUND CHAKKAR BIG",
     "category": "Ground Chakkars & Twinkling Stars",
     "packing": "Box",
     "mrp": 350,
     "special_rate": 70,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 81,
-    "name": "R15-2\" TWINKLING STAR",
+    "item_no": 26,
+    "name": "R15-2'TWINKLING STAR",
     "category": "Ground Chakkars & Twinkling Stars",
     "packing": "Box",
     "mrp": 570,
     "special_rate": 114,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 82,
-    "name": "R16-4\" TWINKLING STAR",
+    "item_no": 27,
+    "name": "R16-4'TWINKLING STAR",
     "category": "Ground Chakkars & Twinkling Stars",
     "packing": "Box",
     "mrp": 1020,
     "special_rate": 204,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 83,
+    "item_no": 28,
     "name": "R24-FLOWER POTS BIG",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 820,
     "special_rate": 164,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 84,
+    "item_no": 29,
     "name": "R25-FLOWER POTS SPECIAL",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1170,
     "special_rate": 234,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 85,
+    "item_no": 30,
     "name": "R26-FLOWER POTS SUPER",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1530,
     "special_rate": 306,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 86,
+    "item_no": 31,
     "name": "R27-FLOWER POTS GIANT",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1660,
     "special_rate": 332,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 87,
+    "item_no": 32,
     "name": "R30-FLOWER POTS 2 IN 1 SPECIAL",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1230,
     "special_rate": 246,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 88,
-    "name": "R31-THREE COLOUR POTS GIANT",
-    "category": "Flower Pots & Colour Pots",
-    "packing": "Box",
-    "mrp": 1180,
-    "special_rate": 236,
-    "stock": 0
-  },
-  {
-    "item_no": 89,
-    "name": "R32-RED COLOUR POTS DELUXE",
-    "category": "Flower Pots & Colour Pots",
-    "packing": "Box",
-    "mrp": 1520,
-    "special_rate": 304,
-    "stock": 0
-  },
-  {
-    "item_no": 90,
+    "item_no": 33,
     "name": "R29-FLOWER POTS MAHA",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 91,
+    "item_no": 34,
     "name": "R33-COLOUR KOTI",
     "category": "Flower Pots & Colour Pots",
     "packing": "Box",
     "mrp": 1870,
     "special_rate": 374,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 92,
+    "item_no": 35,
+    "name": "R27A-FLOWER POT MEGA GIANT",
+    "category": "Flower Pots & Colour Pots",
+    "packing": "Box",
+    "mrp": 2000,
+    "special_rate": 400,
+    "stock": 100
+  },
+  {
+    "item_no": 36,
     "name": "R35-RECTANGULAR BOMB GREEN",
     "category": "Bijili, Bombs & Other Crackers",
     "packing": "Box",
     "mrp": 500,
     "special_rate": 100,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 93,
+    "item_no": 37,
     "name": "R56-RED BIJILI CRACKERS",
     "category": "Bijili, Bombs & Other Crackers",
     "packing": "BAGS",
     "mrp": 325,
     "special_rate": 65,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 94,
+    "item_no": 38,
     "name": "R58-STRIPPED BIJILI CRACKERS",
     "category": "Bijili, Bombs & Other Crackers",
     "packing": "BAGS",
     "mrp": 350,
     "special_rate": 70,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 95,
+    "item_no": 39,
     "name": "R59-CHIT PUT",
     "category": "Bijili, Bombs & Other Crackers",
     "packing": "Box",
     "mrp": 420,
     "special_rate": 84,
-    "stock": 0
+    "stock": 100
+  },
+  {
+    "item_no": 40,
+    "name": "R31-THREE COLOUR POTS GIANT",
+    "category": "Flower Pots & Colour Pots",
+    "packing": "Box",
+    "mrp": 1180,
+    "special_rate": 236,
+    "stock": 100
+  },
+  {
+    "item_no": 41,
+    "name": "R32-RED COLOUR POTS DELUXE",
+    "category": "Flower Pots & Colour Pots",
+    "packing": "Box",
+    "mrp": 1520,
+    "special_rate": 304,
+    "stock": 100
+  },
+  {
+    "item_no": 42,
+    "name": "R38-KING OF KANGO GREEN",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "Box",
+    "mrp": 1000,
+    "special_rate": 200,
+    "stock": 100
+  },
+  {
+    "item_no": 43,
+    "name": "R48-56 ANGERY BIRD",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "PKTS",
+    "mrp": 430,
+    "special_rate": 86,
+    "stock": 100
+  },
+  {
+    "item_no": 44,
+    "name": "R36-VIKRANTH GREEN",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "Box",
+    "mrp": 570,
+    "special_rate": 114,
+    "stock": 100
+  },
+  {
+    "item_no": 45,
+    "name": "F158-1\" FANCY MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 560,
+    "special_rate": 112,
+    "stock": 100
+  },
+  {
+    "item_no": 46,
+    "name": "F161-3\" FANCY MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 2400,
+    "special_rate": 480,
+    "stock": 100
+  },
+  {
+    "item_no": 47,
+    "name": "F161A-4\" FANCY MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 2640,
+    "special_rate": 528,
+    "stock": 100
+  },
+  {
+    "item_no": 48,
+    "name": "F163-1.5\" FANCY 3 PCS MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 2420,
+    "special_rate": 484,
+    "stock": 100
+  },
+  {
+    "item_no": 49,
+    "name": "F166-12 SHOTS MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 1580,
+    "special_rate": 316,
+    "stock": 100
+  },
+  {
+    "item_no": 50,
+    "name": "F167-FOUNTAIN MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 700,
+    "special_rate": 140,
+    "stock": 100
+  },
+  {
+    "item_no": 51,
+    "name": "F132-WETWO'S 7 SHOT",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1165,
+    "special_rate": 233,
+    "stock": 100
+  },
+  {
+    "item_no": 52,
+    "name": "F133-CHINNA CHOTTA FANCY",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PACK",
+    "mrp": 1370,
+    "special_rate": 274,
+    "stock": 100
+  },
+  {
+    "item_no": 53,
+    "name": "F168-ARC",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1260,
+    "special_rate": 252,
+    "stock": 100
+  },
+  {
+    "item_no": 54,
+    "name": "F169-BOW MIX",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1260,
+    "special_rate": 252,
+    "stock": 100
+  },
+  {
+    "item_no": 55,
+    "name": "F124 CLASIC HITS FIVE IN ONE",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PACK",
+    "mrp": 1600,
+    "special_rate": 320,
+    "stock": 100
+  },
+  {
+    "item_no": 56,
+    "name": "F203-WETWOS WHEEL",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 2000,
+    "special_rate": 400,
+    "stock": 100
+  },
+  {
+    "item_no": 57,
+    "name": "N30-Wetwo's Sword",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 2000,
+    "special_rate": 400,
+    "stock": 100
+  },
+  {
+    "item_no": 58,
+    "name": "F201-WETWOS THOGAI",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 2500,
+    "special_rate": 500,
+    "stock": 100
+  },
+  {
+    "item_no": 59,
+    "name": "W11-60 SHOTS",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "Box",
+    "mrp": 10700,
+    "special_rate": 2140,
+    "stock": 100
+  },
+  {
+    "item_no": 60,
+    "name": "F121A-SKY WAR 120 SHOTS",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "PCS",
+    "mrp": 18600,
+    "special_rate": 3720,
+    "stock": 100
+  },
+  {
+    "item_no": 61,
+    "name": "F122-COLORFULL SKY 240 SHOTS",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "PCS",
+    "mrp": 33350,
+    "special_rate": 6670,
+    "stock": 100
+  },
+  {
+    "item_no": 62,
+    "name": "N17-VERA LEVEL BRO 10 X 10",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "Box",
+    "mrp": 26150,
+    "special_rate": 5230,
+    "stock": 100
+  },
+  {
+    "item_no": 63,
+    "name": "W09C-30SHOTS FIRE STORM(UV)",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "Box",
+    "mrp": 5060,
+    "special_rate": 1012,
+    "stock": 100
+  },
+  {
+    "item_no": 64,
+    "name": "W09A-30SHOTS (SQUARE)",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "Box",
+    "mrp": 4025,
+    "special_rate": 805,
+    "stock": 100
+  },
+  {
+    "item_no": 65,
+    "name": "W09B-30SHOTS ELITE(UV)",
+    "category": "Aerial Shots & Sky Fireworks",
+    "packing": "Box",
+    "mrp": 5060,
+    "special_rate": 1012,
+    "stock": 100
+  },
+  {
+    "item_no": 66,
+    "name": "R47-28 ANGRY BIRD",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "PKTS",
+    "mrp": 220,
+    "special_rate": 44,
+    "stock": 100
+  },
+  {
+    "item_no": 67,
+    "name": "R49-100 ANGRY BIRD",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "PKTS",
+    "mrp": 750,
+    "special_rate": 150,
+    "stock": 100
+  },
+  {
+    "item_no": 68,
+    "name": "W01-MINI",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 420,
+    "special_rate": 84,
+    "stock": 100
+  },
+  {
+    "item_no": 69,
+    "name": "W02-NANO",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 1210,
+    "special_rate": 242,
+    "stock": 100
+  },
+  {
+    "item_no": 70,
+    "name": "W04-TOY",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 2140,
+    "special_rate": 428,
+    "stock": 100
+  },
+  {
+    "item_no": 71,
+    "name": "W05- MARVEL",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 3100,
+    "special_rate": 620,
+    "stock": 100
+  },
+  {
+    "item_no": 72,
+    "name": "W07-MONSTER",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 6270,
+    "special_rate": 1254,
+    "stock": 100
+  },
+  {
+    "item_no": 73,
+    "name": "F202-WETWOS 25 RIDER",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 3000,
+    "special_rate": 600,
+    "stock": 100
+  },
+  {
+    "item_no": 74,
+    "name": "W08-VIP",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 15200,
+    "special_rate": 3040,
+    "stock": 100
+  },
+  {
+    "item_no": 75,
+    "name": "W08A- 5K LIKES",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 12000,
+    "special_rate": 2400,
+    "stock": 100
+  },
+  {
+    "item_no": 76,
+    "name": "W09-10K LIKES",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 24000,
+    "special_rate": 4800,
+    "stock": 100
+  },
+  {
+    "item_no": 77,
+    "name": "W03-2K LIKES",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 4000,
+    "special_rate": 800,
+    "stock": 100
+  },
+  {
+    "item_no": 78,
+    "name": "W06-MARVEL YELLOW",
+    "category": "Kids Items & Special Aerial Fireworks",
+    "packing": "Box",
+    "mrp": 2700,
+    "special_rate": 540,
+    "stock": 100
+  },
+  {
+    "item_no": 79,
+    "name": "G09-GIFT BOX - KURINJI (A)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 3210,
+    "special_rate": 642,
+    "stock": 100
+  },
+  {
+    "item_no": 80,
+    "name": "G10-GIFT BOX - MULLAI (B)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 3900,
+    "special_rate": 780,
+    "stock": 100
+  },
+  {
+    "item_no": 81,
+    "name": "G11-GIFT BOX - MARUTHAM (C)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 4590,
+    "special_rate": 918,
+    "stock": 98
+  },
+  {
+    "item_no": 82,
+    "name": "G12-GIFT BOX - NEITHAL (D)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 6925,
+    "special_rate": 1385,
+    "stock": 100
+  },
+  {
+    "item_no": 83,
+    "name": "G12-GIFT BOX - PALAI (E)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 7610,
+    "special_rate": 1522,
+    "stock": 100
+  },
+  {
+    "item_no": 84,
+    "name": "G100-TRAVEL GIFT BAG",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "BAGS",
+    "mrp": 22500,
+    "special_rate": 4500,
+    "stock": 100
+  },
+  {
+    "item_no": 85,
+    "name": "F183- Mystic Burst Tin",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "PCS",
+    "mrp": 1500,
+    "special_rate": 300,
+    "stock": 100
+  },
+  {
+    "item_no": 86,
+    "name": "F208-METEOR SHOWER",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "Box",
+    "mrp": 1600,
+    "special_rate": 320,
+    "stock": 100
+  },
+  {
+    "item_no": 87,
+    "name": "F209-TRI COLOUR SMOKE",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "Box",
+    "mrp": 1500,
+    "special_rate": 300,
+    "stock": 100
+  },
+  {
+    "item_no": 88,
+    "name": "F184-Gliter Stream Tin",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "PCS",
+    "mrp": 1750,
+    "special_rate": 350,
+    "stock": 100
+  },
+  {
+    "item_no": 89,
+    "name": "F185-Colour Smoke Candle",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "Box",
+    "mrp": 1500,
+    "special_rate": 300,
+    "stock": 100
+  },
+  {
+    "item_no": 90,
+    "name": "F180-SILVER BLAZE TIN",
+    "category": "Smoke Effects, Tins & Special Items",
+    "packing": "PCS",
+    "mrp": 750,
+    "special_rate": 150,
+    "stock": 100
+  },
+  {
+    "item_no": 91,
+    "name": "Robin 7 Up Rainbow",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "BNDL",
+    "mrp": 900,
+    "special_rate": 180,
+    "stock": 100
+  },
+  {
+    "item_no": 92,
+    "name": "Robin Super Deluxe 10 in 1",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "BNDL",
+    "mrp": 450,
+    "special_rate": 90,
+    "stock": 100
+  },
+  {
+    "item_no": 93,
+    "name": "Robin Classic 5 in 1 (Prince)",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "BNDL",
+    "mrp": 1000,
+    "special_rate": 200,
+    "stock": 100
+  },
+  {
+    "item_no": 94,
+    "name": "F123A-JUSTICE LEAGUE",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PACK",
+    "mrp": 1260,
+    "special_rate": 252,
+    "stock": 100
+  },
+  {
+    "item_no": 95,
+    "name": "ROCKET BOMB",
+    "category": "Bijili, Bombs & Other Crackers",
+    "packing": "Box",
+    "mrp": 800,
+    "special_rate": 160,
+    "stock": 100
   },
   {
     "item_no": 96,
+    "name": "GOO GOO",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 1000,
+    "special_rate": 200,
+    "stock": 100
+  },
+  {
+    "item_no": 97,
+    "name": "BLOODY BLAZES",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 1000,
+    "special_rate": 200,
+    "stock": 100
+  },
+  {
+    "item_no": 98,
+    "name": "POPCORN FOUNTAIN",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 700,
+    "special_rate": 140,
+    "stock": 100
+  },
+  {
+    "item_no": 99,
+    "name": "GIFT BOX - Yes (G)",
+    "category": "Gift Boxes & Gift Bags",
+    "packing": "Box",
+    "mrp": 3300,
+    "special_rate": 660,
+    "stock": 100
+  },
+  {
+    "item_no": 100,
+    "name": "SUPER SHOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 560,
+    "special_rate": 112,
+    "stock": 100
+  },
+  {
+    "item_no": 101,
+    "name": "AMBER SHOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 560,
+    "special_rate": 112,
+    "stock": 100
+  },
+  {
+    "item_no": 102,
+    "name": "RUBY SHOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "PCS",
+    "mrp": 510,
+    "special_rate": 102,
+    "stock": 100
+  },
+  {
+    "item_no": 103,
+    "name": "YELLOW BOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1260,
+    "special_rate": 252,
+    "stock": 100
+  },
+  {
+    "item_no": 104,
+    "name": "RED BOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1300,
+    "special_rate": 260,
+    "stock": 100
+  },
+  {
+    "item_no": 105,
+    "name": "POPCORN BOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1300,
+    "special_rate": 260,
+    "stock": 100
+  },
+  {
+    "item_no": 106,
+    "name": "CRACKLING BOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1260,
+    "special_rate": 252,
+    "stock": 100
+  },
+  {
+    "item_no": 107,
+    "name": "SILVER BOW",
+    "category": "Fancy Items, Shots & Wheels",
+    "packing": "Box",
+    "mrp": 1300,
+    "special_rate": 260,
+    "stock": 100
+  },
+  {
+    "item_no": 108,
     "name": "SEA OF STARS",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 97,
+    "item_no": 109,
     "name": "BLOOD RAIN",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 98,
+    "item_no": 110,
     "name": "GARDEN (1.5\" 3 PCS)",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "Box",
     "mrp": 2200,
     "special_rate": 440,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 99,
+    "item_no": 111,
     "name": "DISCO LIGHT 12 SHOTS",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 1440,
     "special_rate": 288,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 100,
+    "item_no": 112,
     "name": "MASTI MAGIC 12 SHOT",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 1580,
     "special_rate": 316,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 101,
+    "item_no": 113,
     "name": "SOMETHING SOMETHING FOUNTAIN",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 102,
+    "item_no": 114,
     "name": "NUTURE FOUNTAIN",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 103,
+    "item_no": 115,
     "name": "CRACKLING FOUNTAIN",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 0
+    "stock": 100
   },
   {
-    "item_no": 104,
+    "item_no": 116,
     "name": "NAYAGARA",
     "category": "Fancy Items, Shots & Wheels",
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 0
-  },
-  {
-    "item_no": 105,
-    "name": "F122-240 Shot",
-    "category": "Aerial Shots & Sky Fireworks",
-    "packing": "PCS",
-    "mrp": 33350,
-    "special_rate": 6670,
-    "stock": 0
+    "stock": 100
   }
 ]
