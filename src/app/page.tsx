@@ -21,10 +21,12 @@ const WHATSAPP = "https://wa.me/919087606352";
 async function getProducts(): Promise<Product[]> {
   try {
     const products = await listProducts();
-    // Home page display order: group by category, alphabetical by name within
-    // each category. (The dashboard keeps the stored `ordr` ordering.)
+    // Home page display order: cheapest special rate first ("small to big").
+    // Category then name only break price ties. (The dashboard keeps the
+    // stored `ordr` ordering.)
     return products.sort(
       (a, b) =>
+        Number(a.special_rate) - Number(b.special_rate) ||
         a.category.localeCompare(b.category, "en") ||
         a.name.localeCompare(b.name, "en", { numeric: true })
     );
