@@ -901,7 +901,8 @@
     "packing": "PCS",
     "mrp": 560,
     "special_rate": 112,
-    "stock": 100
+    "stock": 100,
+    "image": "Twin-Pack Blue Fireworks Boxes.png"
   },
   {
     "item_no": 101,
@@ -910,7 +911,8 @@
     "packing": "PCS",
     "mrp": 560,
     "special_rate": 112,
-    "stock": 100
+    "stock": 100,
+    "image": "AMBER SHOW Fireworks Pack.png"
   },
   {
     "item_no": 102,
@@ -919,7 +921,8 @@
     "packing": "PCS",
     "mrp": 510,
     "special_rate": 102,
-    "stock": 100
+    "stock": 100,
+    "image": "Ruby Show Firework Twin Pack.png"
   },
   {
     "item_no": 103,
