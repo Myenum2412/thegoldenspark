@@ -582,7 +582,8 @@
     "packing": "Box",
     "mrp": 5060,
     "special_rate": 1012,
-    "stock": 100
+    "stock": 100,
+    "image": "Elite 30 Multicolour Fireworks Box.png"
   },
   {
     "item_no": 66,
@@ -1041,6 +1042,7 @@
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 100
+    "stock": 100,
+    "image": "Nayagara Falls Fireworks Box.png"
   }
 ]
