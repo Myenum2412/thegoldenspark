@@ -961,7 +961,8 @@
     "packing": "Box",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 100
+    "stock": 100,
+    "image": "WeTwo’s Crackling Bow Fireworks Box.png"
   },
   {
     "item_no": 107,
