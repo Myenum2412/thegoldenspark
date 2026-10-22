@@ -281,9 +281,14 @@ export default function PricelistTable({
                     >
                       {p.name}
                     </button>
-                    {p.packing && (
-                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                        {p.packing}
+                    {(p.packing || p.barcode) && (
+                      <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                        {p.barcode && (
+                          <span className="shrink-0 rounded bg-muted px-1 py-0.5 font-mono text-[10px] font-semibold text-foreground/80">
+                            {p.barcode}
+                          </span>
+                        )}
+                        <span className="truncate">{p.packing}</span>
                       </p>
                     )}
                     <p className="mt-1 text-xs">

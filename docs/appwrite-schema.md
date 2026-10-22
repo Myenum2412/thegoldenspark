@@ -31,6 +31,7 @@ parentheses. All attributes except where noted are **required**.
 | key | type | size |
 |---|---|---|
 | item_no | integer | required |
+| ordr | integer | not required |
 | name | string | 256, required |
 | category | string | 128, required |
 | packing | string | 32, required |
@@ -38,6 +39,11 @@ parentheses. All attributes except where noted are **required**.
 | special_rate | double | required |
 | stock | integer | required |
 | image | string | 256, not required |
+
+`ordr` is the product's position in the printed 2026 pricelist (1 = first
+item on the list, e.g. `G09` KURINJI (A) → `G12` PALAI (E) run in order). The
+home page lists products in this order, so keep it in sync when the pricelist
+changes.
 
 `image` holds a filename from `public/Diwali` (e.g. `Vibrant Flower Pots
 Fireworks Box.png`) or a full URL. The homepage pricelist shows it as a

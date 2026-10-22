@@ -21,13 +21,14 @@ const WHATSAPP = "https://wa.me/919087606352";
 async function getProducts(): Promise<Product[]> {
   try {
     const products = await listProducts();
-    // Home page display order: cheapest special rate first ("small to big").
-    // Category then name only break price ties. (The dashboard keeps the
-    // stored `ordr` ordering.)
-    return products.sort(
+    // Home page display order: the printed 2026 pricelist order, kept in the
+    // catalog's `ordr` column (1 = first item on the list, e.g. the GIFT BOX
+    // A→B→C→D→E run). `listProducts()` already sorts this way — the explicit
+    // sort keeps the page order independent of the fetch helper.
+    return [...products].sort(
       (a, b) =>
-        Number(a.special_rate) - Number(b.special_rate) ||
-        a.category.localeCompare(b.category, "en") ||
+        (a.ordr || Number.MAX_SAFE_INTEGER) -
+          (b.ordr || Number.MAX_SAFE_INTEGER) ||
         a.name.localeCompare(b.name, "en", { numeric: true })
     );
   } catch {
