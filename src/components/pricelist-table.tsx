@@ -67,10 +67,30 @@ export default function PricelistTable({
     const matchesQ =
       q.length === 0 ||
       p.name.toLowerCase().includes(q) ||
+      p.barcode.toLowerCase().includes(q) ||
       String(p.item_no).includes(q);
     const matchesC = category === "All" || p.category === category;
     return matchesQ && matchesC;
   });
+
+  // Group the list the way the printed pricelist does: one block per group
+  // (e.g. "Electric & Colour Sparklers", "Gift Boxes & Gift Bags"), the
+  // groups in the order they start on the list, and the products inside a
+  // group in pricelist order.
+  const groups = React.useMemo(() => {
+    const map = new Map<string, Product[]>();
+    for (const p of filtered) {
+      const key = p.category?.trim() || "Other Items";
+      const list = map.get(key);
+      if (list) list.push(p);
+      else map.set(key, [p]);
+    }
+    const firstOrder = (list: Product[]) =>
+      Math.min(...list.map((p) => p.ordr || Number.MAX_SAFE_INTEGER));
+    return [...map.entries()].sort(
+      ([, a], [, b]) => firstOrder(a) - firstOrder(b)
+    );
+  }, [filtered]);
 
   const byId = React.useMemo(
     () => new Map(products.map((p) => [String(p.id), p])),
@@ -100,6 +120,96 @@ export default function PricelistTable({
   }
 
   const listEmpty = products.length === 0;
+
+  function renderCard(p: Product, index: number) {
+    const qty = cart[String(p.id)] ?? 0;
+    const imgSrc = productImageSrc(p.image);
+    return (
+      <Card key={p.id} className="gap-0 py-0">
+        <CardContent className="flex h-full flex-col gap-2 p-2.5">
+          <button
+            type="button"
+            onClick={() => setActive(p)}
+            aria-label={`View details for ${p.name}`}
+            className={
+              "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-border text-2xl font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
+              (imgSrc ? "bg-white" : "bg-amber-500/10 text-amber-600")
+            }
+          >
+            {imgSrc ? (
+              <Image
+                src={imgSrc}
+                alt={p.name}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                className="object-contain p-2"
+              />
+            ) : (
+              (p.ordr ?? index + 1)
+            )}
+          </button>
+          <div className="min-w-0 flex-1">
+            <button
+              type="button"
+              onClick={() => setActive(p)}
+              className="block w-full text-left text-sm font-medium line-clamp-2"
+            >
+              {p.name}
+            </button>
+            {(p.packing || p.barcode) && (
+              <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                {p.barcode && (
+                  <span className="shrink-0 rounded bg-muted px-1 py-0.5 font-mono text-[10px] font-semibold text-foreground/80">
+                    {p.barcode}
+                  </span>
+                )}
+                <span className="truncate">{p.packing}</span>
+              </p>
+            )}
+            <p className="mt-1 text-xs">
+              <span className="text-muted-foreground line-through">
+                ₹{Number(p.mrp).toLocaleString("en-IN")}
+              </span>{" "}
+              <span className="font-semibold text-amber-600">
+                ₹{Number(p.special_rate).toLocaleString("en-IN")}
+              </span>
+            </p>
+          </div>
+          {qty === 0 ? (
+            <Button
+              size="sm"
+              className="w-full bg-amber-500 text-black hover:bg-amber-400"
+              onClick={() => setQty(p.id, 1)}
+              aria-label={`Add ${p.name} to cart`}
+            >
+              <ShoppingCartIcon className="size-4" aria-hidden="true" />
+              Add
+            </Button>
+          ) : (
+            <div className="flex items-center justify-between gap-1">
+              <Button
+                variant="outline"
+                size="icon-sm"
+                onClick={() => setQty(p.id, qty - 1)}
+                aria-label={`Remove one ${p.name}`}
+              >
+                <MinusIcon className="size-3.5" aria-hidden="true" />
+              </Button>
+              <span className="text-sm font-semibold tabular-nums">{qty}</span>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                onClick={() => setQty(p.id, qty + 1)}
+                aria-label={`Add one more ${p.name}`}
+              >
+                <PlusIcon className="size-3.5" aria-hidden="true" />
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -237,111 +347,30 @@ export default function PricelistTable({
             </CardDescription>
           </CardHeader>
         </Card>
+      ) : filtered.length === 0 ? (
+        <Card>
+          <CardContent className="py-8 text-center text-sm text-muted-foreground">
+            No products match your search.
+          </CardContent>
+        </Card>
       ) : (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-        {filtered.length === 0 ? (
-          <Card className="col-span-full">
-            <CardContent className="py-8 text-center text-sm text-muted-foreground">
-              No products match your search.
-            </CardContent>
-          </Card>
-        ) : (
-          filtered.map((p, index) => {
-            const qty = cart[String(p.id)] ?? 0;
-            const imgSrc = productImageSrc(p.image);
-            return (
-              <Card key={p.id} className="gap-0 py-0">
-                <CardContent className="flex h-full flex-col gap-2 p-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setActive(p)}
-                    aria-label={`View details for ${p.name}`}
-                    className={
-                      "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-border text-2xl font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
-                      (imgSrc ? "bg-white" : "bg-amber-500/10 text-amber-600")
-                    }
-                  >
-                    {imgSrc ? (
-                      <Image
-                        src={imgSrc}
-                        alt={p.name}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                        className="object-contain p-2"
-                      />
-                    ) : (
-                      index + 1
-                    )}
-                  </button>
-                  <div className="min-w-0 flex-1">
-                    <button
-                      type="button"
-                      onClick={() => setActive(p)}
-                      className="block w-full text-left text-sm font-medium line-clamp-2"
-                    >
-                      {p.name}
-                    </button>
-                    {(p.packing || p.barcode) && (
-                      <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                        {p.barcode && (
-                          <span className="shrink-0 rounded bg-muted px-1 py-0.5 font-mono text-[10px] font-semibold text-foreground/80">
-                            {p.barcode}
-                          </span>
-                        )}
-                        <span className="truncate">{p.packing}</span>
-                      </p>
-                    )}
-                    <p className="mt-1 text-xs">
-                      <span className="text-muted-foreground line-through">
-                        ₹{Number(p.mrp).toLocaleString("en-IN")}
-                      </span>{" "}
-                      <span className="font-semibold text-amber-600">
-                        ₹{Number(p.special_rate).toLocaleString("en-IN")}
-                      </span>
-                    </p>
-                  </div>
-                  {qty === 0 ? (
-                    <Button
-                      size="sm"
-                      className="w-full bg-amber-500 text-black hover:bg-amber-400"
-                      onClick={() => setQty(p.id, 1)}
-                      aria-label={`Add ${p.name} to cart`}
-                    >
-                      <ShoppingCartIcon
-                        className="size-4"
-                        aria-hidden="true"
-                      />
-                      Add
-                    </Button>
-                  ) : (
-                    <div className="flex items-center justify-between gap-1">
-                      <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => setQty(p.id, qty - 1)}
-                        aria-label={`Remove one ${p.name}`}
-                      >
-                        <MinusIcon className="size-3.5" aria-hidden="true" />
-                      </Button>
-                      <span className="text-sm font-semibold tabular-nums">
-                        {qty}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="icon-sm"
-                        onClick={() => setQty(p.id, qty + 1)}
-                        aria-label={`Add one more ${p.name}`}
-                      >
-                        <PlusIcon className="size-3.5" aria-hidden="true" />
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })
-        )}
-      </div>
+        <div className="flex flex-col gap-6">
+          {groups.map(([group, items]) => (
+            <section key={group} className="flex flex-col gap-3">
+              <div className="flex items-baseline gap-2 border-b border-border pb-1.5">
+                <h3 className="google-sans text-sm font-semibold tracking-wide text-amber-600 uppercase dark:text-amber-400">
+                  {group}
+                </h3>
+                <span className="text-xs text-muted-foreground">
+                  {items.length} item{items.length === 1 ? "" : "s"}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+                {items.map((p, index) => renderCard(p, index))}
+              </div>
+            </section>
+          ))}
+        </div>
       )}
 
       {count > 0 && (
