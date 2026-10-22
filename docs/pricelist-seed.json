@@ -722,7 +722,8 @@
     "packing": "Box",
     "mrp": 3900,
     "special_rate": 780,
-    "stock": 100
+    "stock": 100,
+    "image": "GIFT BOX - NEITHAL.png"
   },
   {
     "item_no": 81,
@@ -741,7 +742,7 @@
     "mrp": 6925,
     "special_rate": 1385,
     "stock": 100,
-    "image": "GIFT BOX - NEITHAL.png"
+    "image": "WeTwo 40-Item Fireworks Gift Box (1).png"
   },
   {
     "item_no": 83,
