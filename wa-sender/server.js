@@ -38,8 +38,24 @@ app.use(express.json({ limit: "256kb" }));
 const client = new Client({
   authStrategy: new LocalAuth({ dataPath: ".wwebjs_auth" }),
   puppeteer: {
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: "new",
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-extensions",
+      "--disable-background-networking",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-features=TranslateUI,BlinkGenPropertyTrees,NetworkService,NetworkServiceInProcess",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--single-process",
+      "--no-zygote",
+      "--remote-debugging-port=9222",
+      "--user-data-dir=/tmp/chrome-user-data",
+    ],
     ...(EXECUTABLE_PATH ? { executablePath: EXECUTABLE_PATH } : {}),
   },
 });

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ClipboardListIcon, PackageIcon, WalletIcon } from "lucide-react";
+import { ClipboardListIcon, PackageIcon, WalletIcon, CalendarIcon, TrendingUpIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
 } from "@/components/order-view";
 import OrdersTable from "@/components/orders-table";
 import WaStatus from "@/components/wa-status";
+import MonthlySales from "@/components/monthly-sales";
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { SidebarUser } from "@/components/sidebar-user";
@@ -76,6 +77,7 @@ function OrdersData() {
   const itemsSold = Array.from(itemsByOrder.values())
     .flat()
     .reduce((n, it) => n + Number(it.qty), 0);
+  const newOrders = orders.filter((o) => o.status === "new").length;
 
   return (
     <>
@@ -99,8 +101,17 @@ function OrdersData() {
             description: "Total quantity across orders.",
             icon: PackageIcon,
           },
+          {
+            name: "New Orders",
+            value: String(newOrders),
+            description: "Orders with status 'new'.",
+            icon: CalendarIcon,
+          },
         ]}
       />
+      <div className="grid gap-4 lg:grid-cols-3">
+        <MonthlySales orders={orders} />
+      </div>
       <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">

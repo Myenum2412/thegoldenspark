@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CalendarIcon, ClipboardListIcon, UsersIcon } from "lucide-react";
+import { CalendarIcon, ClipboardListIcon, UsersIcon, WalletIcon, TrendingUpIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -71,37 +71,51 @@ function CustomersData() {
   if (error) return <SetupNotice message={error} table="customers" />;
   if (!customers || !stats || !orders || !items) return <DashboardLoading />;
 
+  const totalCustomers = customers.length;
+  const customersWithOrders = Object.keys(stats).length;
+  const totalLifetimeValue = orders.reduce((sum, o) => sum + Number(o.total), 0);
+  const avgOrderValue = orders.length > 0 ? totalLifetimeValue / orders.length : 0;
+
+  const newThisMonth = customers.filter((c) => {
+    if (!c.created_at) return false;
+    const d = new Date(c.created_at);
+    const now = new Date();
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+
   return (
     <>
       <DashboardStats
         stats={[
           {
             name: "Total Customers",
-            value: String(customers.length),
+            value: String(totalCustomers),
             description: "Details submitted from the store website.",
             icon: UsersIcon,
           },
           {
             name: "Customers with Orders",
-            value: String(Object.keys(stats).length),
+            value: String(customersWithOrders),
             description: "Placed at least one order.",
             icon: ClipboardListIcon,
           },
           {
             name: "New This Month",
-            value: String(
-              customers.filter((c) => {
-                if (!c.created_at) return false;
-                const d = new Date(c.created_at);
-                const now = new Date();
-                return (
-                  d.getMonth() === now.getMonth() &&
-                  d.getFullYear() === now.getFullYear()
-                );
-              }).length
-            ),
+            value: String(newThisMonth),
             description: "Joined in the current month.",
             icon: CalendarIcon,
+          },
+          {
+            name: "Lifetime Value",
+            value: `₹${totalLifetimeValue.toLocaleString("en-IN")}`,
+            description: "Total revenue from all customers.",
+            icon: WalletIcon,
+          },
+          {
+            name: "Avg Order Value",
+            value: `₹${avgOrderValue.toLocaleString("en-IN")}`,
+            description: "Average spend per order.",
+            icon: TrendingUpIcon,
           },
         ]}
       />

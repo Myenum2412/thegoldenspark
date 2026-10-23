@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { PackageIcon, UsersIcon, WalletIcon } from "lucide-react";
+import { PackageIcon, UsersIcon, WalletIcon, TrophyIcon, BarChart3Icon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import RecentCustomers from "@/components/recent-customers";
+import MonthlySales from "@/components/monthly-sales";
+import TopProducts from "@/components/top-products";
 import {
   DashboardLoading,
   DashboardShell,
@@ -18,8 +20,9 @@ import {
 import DashboardStats from "@/components/dashboard-stats";
 import SetupNotice from "@/components/setup-notice";
 import { SidebarUser } from "@/components/sidebar-user";
-import { listCustomers, listProducts } from "@/lib/store";
+import { listCustomers, listProducts, listOrders, listOrderItems } from "@/lib/store";
 import type { Customer, Product } from "@/lib/store-data";
+import type { Order, OrderItem } from "@/components/order-view";
 
 export default function Page() {
   return (
@@ -34,17 +37,21 @@ export default function Page() {
 function ReportsData() {
   const [customers, setCustomers] = React.useState<Customer[] | null>(null);
   const [products, setProducts] = React.useState<Product[] | null>(null);
+  const [orders, setOrders] = React.useState<Order[] | null>(null);
+  const [items, setItems] = React.useState<OrderItem[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [refreshKey, setRefreshKey] = React.useState(0);
 
   React.useEffect(() => {
     let live = true;
     setError(null);
-    Promise.all([listCustomers(), listProducts()])
-      .then(([c, p]) => {
+    Promise.all([listCustomers(), listProducts(), listOrders(), listOrderItems()])
+      .then(([c, p, o, it]) => {
         if (live) {
           setCustomers(c);
           setProducts(p);
+          setOrders(o);
+          setItems(it);
         }
       })
       .catch((err: unknown) => {
@@ -55,14 +62,15 @@ function ReportsData() {
     };
   }, [refreshKey]);
 
-  if (error) return <SetupNotice message={error} table="customers" />;
-  if (!customers || !products) return <DashboardLoading />;
+  if (error) return <SetupNotice message={error} table="reports" />;
+  if (!customers || !products || !orders || !items) return <DashboardLoading />;
 
   const stockValue = products.reduce(
     (sum, p) => sum + Number(p.special_rate) * Number(p.stock),
     0
   );
   const lowStock = products.filter((p) => Number(p.stock) <= 10);
+  const orderValue = orders.reduce((sum, o) => sum + Number(o.total), 0);
 
   return (
     <>
@@ -75,10 +83,22 @@ function ReportsData() {
             icon: UsersIcon,
           },
           {
+            name: "Total Orders",
+            value: String(orders.length),
+            description: "Completed checkouts",
+            icon: PackageIcon,
+          },
+          {
+            name: "Revenue",
+            value: `₹${orderValue.toLocaleString("en-IN")}`,
+            description: "Total order value",
+            icon: WalletIcon,
+          },
+          {
             name: "Products Live",
             value: String(products.length),
             description: `${lowStock.length} low on stock (≤ 10)`,
-            icon: PackageIcon,
+            icon: TrophyIcon,
           },
           {
             name: "Stock Value",
@@ -88,6 +108,11 @@ function ReportsData() {
           },
         ]}
       />
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <MonthlySales orders={orders} />
+        <TopProducts products={products} items={items} />
+      </div>
 
       <Card>
         <CardHeader>

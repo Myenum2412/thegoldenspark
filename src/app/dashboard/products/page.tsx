@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { PackageIcon, TriangleAlertIcon, WalletIcon } from "lucide-react";
+import { PackageIcon, TriangleAlertIcon, WalletIcon, TagIcon, ShoppingCartIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -12,6 +12,8 @@ import {
 import { SidebarProvider } from "@/components/ui/sidebar";
 import AddProductDialog from "@/components/add-product-dialog";
 import ProductsTable from "@/components/products-table";
+import CategoryBreakdown from "@/components/category-breakdown";
+import ReorderSuggestions from "@/components/reorder-suggestions";
 import {
   DashboardLoading,
   DashboardShell,
@@ -71,6 +73,7 @@ function ProductsData({
     0
   );
   const lowStock = products.filter((p) => Number(p.stock) <= 10).length;
+  const outOfStock = products.filter((p) => Number(p.stock) === 0).length;
 
   return (
     <>
@@ -94,8 +97,18 @@ function ProductsData({
             description: "Products with stock ≤ 10.",
             icon: TriangleAlertIcon,
           },
+          {
+            name: "Out of Stock",
+            value: String(outOfStock),
+            description: "Products with zero stock.",
+            icon: ShoppingCartIcon,
+          },
         ]}
       />
+      <div className="grid gap-4 md:grid-cols-2">
+        <CategoryBreakdown products={products} />
+        <ReorderSuggestions products={products} />
+      </div>
       <Card>
       <CardHeader>
         <CardTitle>

@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
-import { FileTextIcon } from "lucide-react";
+import { FileTextIcon, ClockIcon, ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
 import { getBill } from "@/lib/store.server";
 import BillToolbar from "@/components/bill-toolbar";
+import BillWhatsAppShare from "@/components/bill-whatsapp-share";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export const metadata = { title: "Bill — Golden Sparks" };
 
@@ -40,7 +44,91 @@ export default async function BillPage({
   return (
     <div className="min-h-svh bg-neutral-100 py-6 sm:py-10">
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4">
-        <BillToolbar />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 print:hidden">
+          <BillToolbar />
+          <div className="flex gap-2">
+            <Link href="/dashboard/orders">
+              <Button size="sm" variant="outline">
+                <ChevronRightIcon className="size-4 mr-1" aria-hidden="true" />
+                Back to Orders
+              </Button>
+            </Link>
+            <BillWhatsAppShare
+              phone={order.phone}
+              customerName={order.customer_name}
+              invoiceNo={order.invoiceNo}
+              total={order.total}
+              shopName={shop.name || "Golden Sparks"}
+              items={items.map((it) => ({
+                name: it.name,
+                qty: it.qty,
+                amount: it.amount,
+              }))}
+            />
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 print:hidden">
+          <Card className="border border-neutral-200 rounded-lg p-4">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ClockIcon className="size-4" aria-hidden="true" />
+                Order Summary
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Order Number</span>
+                <span className="font-medium">{order.invoiceNo}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Customer</span>
+                <span className="font-medium">
+                  {order.customer_name} {order.phone ? `· ${order.phone}` : ""}
+                </span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Date</span>
+                <span className="font-medium">{dateStr(order.createdAt)}</span>
+              </div>
+              <div className="flex justify-between text-sm font-semibold border-t pt-2">
+                <span>Total Amount</span>
+                <span className="text-amber-600 tabular-nums">
+                  ₹{inr(order.total)}
+                </span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Items Count</span>
+                <span className="font-medium">{items.length}</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="border border-neutral-200 rounded-lg p-4">
+            <CardHeader>
+              <CardTitle>Billing From</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <p className="font-semibold text-lg">{shop.name || "Golden Sparks"}</p>
+              {(shop.addressLine1 || shop.addressLine2) && (
+                <p className="text-sm text-neutral-600">
+                  {[shop.addressLine1, shop.addressLine2]
+                    .filter(Boolean)
+                    .join(", ")}
+                </p>
+              )}
+              {shop.phoneNumber && (
+                <p className="text-sm text-neutral-600">📞 {shop.phoneNumber}</p>
+              )}
+              {shop.upiId && (
+                <p className="text-sm text-neutral-600">UPI: {shop.upiId}</p>
+              )}
+              <p className="mt-2 text-xs text-muted-foreground">
+                This bill is generated automatically from the order placed on
+                the store website.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="bill-print overflow-hidden rounded-lg border border-neutral-300 bg-white text-neutral-900 shadow-sm">
           {/* ── Header ─────────────────────────────── */}
@@ -170,16 +258,17 @@ export default async function BillPage({
             </p>
           </footer>
         </div>
+        <style>{`
+          @page { size: A4; margin: 12mm; }
+          body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          @media print {
+            body { background: white !important; }
+            .bill-print { box-shadow: none !important; border: none !important; border-radius: 0 !important; }
+            .bill-print * { color: black !important; }
+            .print\\:hidden { display: none !important; }
+          }
+        `}</style>
       </div>
-      <style>{`
-        @page { size: A4; margin: 12mm; }
-        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        @media print {
-          body { background: white !important; }
-          .bill-print { box-shadow: none !important; border: none !important; border-radius: 0 !important; }
-          .bill-print * { color: black !important; }
-        }
-      `}</style>
     </div>
   );
 }
