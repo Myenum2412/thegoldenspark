@@ -38,4 +38,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# wa-sender service (node_modules + logged-in WhatsApp session — never commit)
+/wa-sender/node_modules/
+/wa-sender/.wwebjs_auth/
+/wa-sender/.wwebjs_cache/
 next-env.d.ts
