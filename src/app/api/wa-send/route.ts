@@ -44,28 +44,40 @@ export async function POST(req: Request) {
       .filter((l) => l !== "")
       .join("\n");
 
-    // Orders go to the store number so the owner gets every order.
-    const storeNumber = (
-      process.env.STORE_WHATSAPP_NUMBER ?? "919087606352"
-    ).replace(/\D/g, "");
-    const to = storeNumber;
+    // Orders go to the store number(s) so the owner gets every order.
+    // Multiple numbers can be configured, comma separated — every order
+    // is sent to each of them.
+    const storeNumbers = (
+      process.env.STORE_WHATSAPP_NUMBER ?? "919087606352,918344476962"
+    )
+      .split(",")
+      .map((n) => n.replace(/\D/g, ""))
+      .filter(Boolean);
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
-    let sendRes: Response;
-    try {
-      sendRes = await fetch(`${senderUrl}/send`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to, message, secret: senderSecret }),
-        signal: controller.signal,
-      });
-    } finally {
-      clearTimeout(timeout);
-    }
-    if (!sendRes.ok) return NextResponse.json({ sent: false });
-    const body = (await sendRes.json()) as { ok?: boolean };
-    return NextResponse.json({ sent: body.ok === true });
+    const sendToOne = async (to: string): Promise<boolean> => {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000);
+        try {
+          const sendRes = await fetch(`${senderUrl}/send`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ to, message, secret: senderSecret }),
+            signal: controller.signal,
+          });
+          if (!sendRes.ok) return false;
+          const body = (await sendRes.json()) as { ok?: boolean };
+          return body.ok === true;
+        } finally {
+          clearTimeout(timeout);
+        }
+      } catch {
+        return false;
+      }
+    };
+
+    const results = await Promise.all(storeNumbers.map(sendToOne));
+    return NextResponse.json({ sent: results.some(Boolean) });
   } catch {
     return NextResponse.json({ sent: false });
   }
