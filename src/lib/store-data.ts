@@ -129,6 +129,8 @@ const LEGACY_IMAGE_MAP: Record<string, string> = {
   "wetwo_electric_sparklers_box.webp": "WeTwo Electric Sparklers Box.png",
   "diwali_firecracker_pack_with_goddess_labels.webp": "Diwali Firecracker Pack with Goddess Labels.png",
   "colourful_wetwo_firecracker_bundle.webp": "Colourful WeTwo Firecracker Bundle.png",
+  "electric_giant_crackers_package.webp": "Electric Giant Crackers Package.png",
+  "electric_giant_crackers_package.png": "Electric Giant Crackers Package.png",
 };
 
 // Product images live in /public/Diwali. The stored value may be a bare
