@@ -66,6 +66,10 @@ function toProduct(row: Row): Product {
   const price = Number(row.price ?? 0);
   const name = String(row.name ?? "");
   const barcode = String(row.barcode ?? "");
+  let image = row.image ? String(row.image) : undefined;
+  if (/angery\s*bird/i.test(name)) {
+    image = "Electric Giant Crackers Package.png";
+  }
   return {
     id: row.$id,
     ordr: Number(row.ordr ?? 0),
@@ -77,7 +81,7 @@ function toProduct(row: Row): Product {
     mrp: Number(row.mrp ?? price),
     special_rate: price,
     stock: Number(row.stock ?? 0),
-    image: row.image ? String(row.image) : undefined,
+    image,
     min_qty: getProductMinQty({ id: row.$id, name, barcode }),
     created_at: row.$createdAt,
   };
