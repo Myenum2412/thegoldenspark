@@ -121,6 +121,38 @@ export default function PricelistTable({
 
   const listEmpty = products.length === 0;
 
+function ProductCardImage({
+  src,
+  name,
+  fallbackNumber,
+}: {
+  src: string | null;
+  name: string;
+  fallbackNumber: number | string;
+}) {
+  const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
+  const failed = failedSrc === src;
+
+  if (!src || failed) {
+    return (
+      <span className="flex size-full items-center justify-center bg-amber-500/10 text-amber-600">
+        {fallbackNumber}
+      </span>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={name}
+      fill
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+      className="object-contain p-2 bg-white"
+      onError={() => setFailedSrc(src)}
+    />
+  );
+}
+
   function renderCard(p: Product, index: number) {
     const qty = cart[String(p.id)] ?? 0;
     const imgSrc = productImageSrc(p.image);
@@ -131,22 +163,13 @@ export default function PricelistTable({
             type="button"
             onClick={() => setActive(p)}
             aria-label={`View details for ${p.name}`}
-            className={
-              "relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-border text-2xl font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 " +
-              (imgSrc ? "bg-white" : "bg-amber-500/10 text-amber-600")
-            }
+            className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-border text-2xl font-bold tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 bg-white"
           >
-            {imgSrc ? (
-              <Image
-                src={imgSrc}
-                alt={p.name}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                className="object-contain p-2"
-              />
-            ) : (
-              (p.ordr ?? index + 1)
-            )}
+            <ProductCardImage
+              src={imgSrc}
+              name={p.name}
+              fallbackNumber={p.ordr ?? index + 1}
+            />
           </button>
           <div className="min-w-0 flex-1">
             <button

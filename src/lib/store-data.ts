@@ -32,15 +32,37 @@ export type Product = {
   created_at?: string;
 };
 
+const LEGACY_IMAGE_MAP: Record<string, string> = {
+  "we_two_s_sword_fireworks_box.webp": "We Two’s Sword Fireworks Box.png",
+  "wetwo_electric_sparklers_box.webp": "WeTwo Electric Sparklers Box.png",
+  "diwali_firecracker_pack_with_goddess_labels.webp": "Diwali Firecracker Pack with Goddess Labels.png",
+  "colourful_wetwo_firecracker_bundle.webp": "Colourful WeTwo Firecracker Bundle.png",
+};
+
 // Product images live in /public/Diwali. The stored value may be a bare
 // filename ("Lakshmi Deluxe Firework Bundle.png"), a root-relative path, or a
 // full URL. Filenames contain spaces/apostrophes, so encode the path before
 // handing it to next/image.
 export function productImageSrc(image?: string | null): string | null {
   if (!image) return null;
-  const value = image.trim();
+  let value = image.trim();
   if (!value) return null;
   if (/^https?:\/\//i.test(value)) return value;
+
+  // Handle legacy or imported asset paths (e.g. "assets/product_images/...")
+  if (value.startsWith("/") && value.includes("assets/product_images/")) {
+    value = value.replace(/^\//, "");
+  }
+  if (value.startsWith("assets/product_images/")) {
+    const base = value.replace(/^assets\/product_images\//, "");
+    if (LEGACY_IMAGE_MAP[base]) {
+      value = LEGACY_IMAGE_MAP[base];
+    } else {
+      value = base;
+    }
+  }
+
   const path = value.startsWith("/") ? value : `/Diwali/${value}`;
   return encodeURI(path);
 }
+

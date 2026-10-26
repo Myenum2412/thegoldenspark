@@ -13,6 +13,37 @@ import {
 } from "@/components/ui/dialog";
 import { productImageSrc, type Product } from "@/lib/store-data";
 
+function QuickViewImage({
+  src,
+  name,
+}: {
+  src: string | null;
+  name: string;
+}) {
+  const [failedSrc, setFailedSrc] = React.useState<string | null>(null);
+  const failed = failedSrc === src;
+
+  if (!src || failed) {
+    return (
+      <ImageOffIcon
+        className="size-12 text-muted-foreground"
+        aria-hidden="true"
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={name}
+      fill
+      sizes="(max-width: 640px) 100vw, 512px"
+      className="object-contain p-2"
+      onError={() => setFailedSrc(src)}
+    />
+  );
+}
+
 export default function ProductQuickView({
   product,
   open,
@@ -34,20 +65,7 @@ export default function ProductQuickView({
         {product && (
           <>
             <div className="relative flex h-56 w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/40 sm:h-72">
-              {src ? (
-                <Image
-                  src={src}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 512px"
-                  className="object-contain p-2"
-                />
-              ) : (
-                <ImageOffIcon
-                  className="size-12 text-muted-foreground"
-                  aria-hidden="true"
-                />
-              )}
+              <QuickViewImage src={src} name={product.name} />
             </div>
             <DialogHeader>
               <DialogTitle className="text-lg leading-snug">
