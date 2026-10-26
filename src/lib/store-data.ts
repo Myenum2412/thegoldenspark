@@ -124,43 +124,129 @@ export function getProductMinQty(
   return 1;
 }
 
-const LEGACY_IMAGE_MAP: Record<string, string> = {
-  "we_two_s_sword_fireworks_box.webp": "We Two’s Sword Fireworks Box.png",
-  "wetwo_electric_sparklers_box.webp": "WeTwo Electric Sparklers Box.png",
-  "diwali_firecracker_pack_with_goddess_labels.webp": "Diwali Firecracker Pack with Goddess Labels.png",
-  "colourful_wetwo_firecracker_bundle.webp": "Colourful WeTwo Firecracker Bundle.png",
+const DIWALI_FILE_MAP: Record<string, string> = {
+  "10klikescosmicfireworksbox": "10K Likes Cosmic Fireworks Box.png",
+  "240shots": "240shots.png",
+  "25riderfireworksboxmockup": "25 Rider Fireworks Box Mockup.png",
+  "ambershowfireworkspack": "AMBER SHOW Fireworks Pack.png",
+  "arc": "ARC.png",
+  "bloodrainfireworksbox": "Blood Rain Fireworks Box.png",
+  "bloodyblazesredshowerfireworkbox": "Bloody Blazes Red Shower Firework Box.png",
+  "chinnachottafancy": "CHINNA CHOTTA FANCY.jpg",
+  "chitputcartoonfireworkbox": "Chitput Cartoon Firework Box.png",
+  "classichitsfireworkboxcollection": "Classic Hits Firework Box Collection.png",
+  "colourkotipeacockfireworksbox": "Colour Koti Peacock Fireworks Box.png",
+  "coloursmokefireworksbox": "Colour Smoke Fireworks Box.png",
+  "colourful7shotsfireworksbox": "Colourful 7 Shots Fireworks Box.png",
+  "colourfulflowerpotfireworksbox": "Colourful Flower Pot Fireworks Box.png",
+  "colourfulflowerpotfireworkspackaging": "Colourful Flower Pot Fireworks Packaging.png",
+  "colourfulgoddesslabelledfirecrackerbundle": "Colourful Goddess-Labelled Firecracker Bundle.png",
+  "colourfulwetwofirecrackerbundle": "Colourful WeTwo Firecracker Bundle.png",
+  "comicstylerectangularbombfireworksbox": "Comic-Style Rectangular Bomb Fireworks Box.png",
+  "discolightsfireworksbox": "Disco Lights Fireworks Box.png",
+  "diwalifirecrackerpackwithgoddesslabels": "Diwali Firecracker Pack with Goddess Labels.png",
+  "electricgiantcrackerspackage": "Electric Giant Crackers Package.png",
+  "elite30multicolourfireworksbox": "Elite 30 Multicolour Fireworks Box.png",
+  "f123ajusticeleague": "F123A - JUSTICE LEAGUE.jpeg",
+  "firestormfireworksboxpackaging": "Fire Storm Fireworks Box Packaging.png",
+  "giantflowerpotsfireworksbox": "Giant Flower Pots Fireworks Box.png",
+  "giftboxneithal": "GIFT BOX - NEITHAL.png",
+  "glitterstreamfireworktube": "Glitter Stream Firework Tube.png",
+  "goldenyellowbowfireworksbox": "Golden Yellow Bow Fireworks Box.png",
+  "googoowhiteshowerfireworkbox": "Goo Goo White Shower Firework Box.png",
+  "greensparklerboxproductpackshot2": "Green Sparkler Box Product Packshot (2).png",
+  "groundchakkardeluxefireworksbox": "Ground Chakkar Deluxe Fireworks Box.png",
+  "lakshmideluxefireworkbundle": "Lakshmi Deluxe Firework Bundle.png",
+  "magentapopcornbowfireworksbox": "Magenta Pop Corn Bow Fireworks Box.png",
+  "maruthamagriculturallandgiftbox": "Marutham Agricultural Land Gift Box.png",
+  "mastimagicfireworksbox": "Masti Magic Fireworks Box.png",
+  "meteorshowerfireworksbox": "Meteor Shower Fireworks Box.png",
+  "minikinglionfireworksbox": "Mini King Lion Fireworks Box.png",
+  "multicolourfireworksbox30shots": "Multicolour Fireworks Box_ 30 Shots.png",
+  "mysticburstgreenfireworkscanister": "Mystic Burst Green Fireworks Canister.png",
+  "nayagarafallsfireworksbox": "Nayagara Falls Fireworks Box.png",
+  "packagedfirecrackerbundleonwhite": "Packaged Firecracker Bundle on White.png",
+  "palai": "palai.png",
+  "pyromarvelkingfireworksbox": "Pyro Marvel King Fireworks Box.png",
+  "pyrovipkinglionfireworksbox": "Pyro VIP King Lion Fireworks Box.png",
+  "r58strippedbijilicrackers": "R58-STRIPPED BIJILI CRACKERS.jpeg",
+  "rainbowsparklerboxpackaging": "Rainbow Sparkler Box Packaging.png",
+  "redbijilicrackerspackaging": "Red Bijili Crackers Packaging.png",
+  "redbowfireworksbox": "Red Bow Fireworks Box.png",
+  "redfireworksgiftbagproductphoto": "Red Fireworks Gift Bag Product Photo.png",
+  "regallionnanofireworksbox": "Regal Lion Nano Fireworks Box.png",
+  "regallionpyrotoykingbox": "Regal Lion Pyro Toy King Box.png",
+  "robin7upcartoonmatchboxpackaging": "Robin 7UP Cartoon Matchbox Packaging.png",
+  "robintop10fireworksbox": "Robin Top 10 Fireworks Box.png",
+  "rocketbombfireworkboxpackaging": "Rocket Bomb Firework Box Packaging.png",
+  "royallionmonsterfireworksbox": "Royal Lion Monster Fireworks Box.png",
+  "rubyshowfireworktwinpack": "Ruby Show Firework Twin Pack.png",
+  "seaofstarsfireworksbox": "Sea of Stars Fireworks Box.png",
+  "silverblazefireworkstin": "Silver Blaze Fireworks Tin.png",
+  "silverbowfireworksbox": "Silver Bow Fireworks Box.png",
+  "strippedbijilicrackers": "STRIPPED BIJILI CRACKERS.jpeg",
+  "tricoloursmokefireworksbox": "Tricolour Smoke Fireworks Box.png",
+  "twinpackbluefireworksboxes": "Twin-Pack Blue Fireworks Boxes.png",
+  "twinklingstarfairyfireworksbox": "Twinkling Star Fairy Fireworks Box.png",
+  "vibrantcarnivalfountainfireworksbox": "Vibrant Carnival Fountain Fireworks Box.png",
+  "vibrantcracklingfountainfireworksbox": "Vibrant Crackling Fountain Fireworks Box.png",
+  "vibrantflowerpotsfireworksbox": "Vibrant Flower Pots Fireworks Box.png",
+  "vibrantflowerpotssuperfireworksbox": "Vibrant Flower Pots Super Fireworks Box.png",
+  "vibrantgreengardenfireworksbox": "Vibrant Green Garden Fireworks Box.png",
+  "vibrantmahaflowerpotsfireworksbox": "Vibrant Maha Flower Pots Fireworks Box.png",
+  "vibrantmulticolourshotsfireworksbox": "Vibrant Multicolour Shots Fireworks Box.png",
+  "vibrantnaturefountainfireworksbox": "Vibrant Nature Fountain Fireworks Box.png",
+  "vibrantpurplecoloursparklerspackaging": "Vibrant Purple Colour Sparklers Packaging.png",
+  "vibrantrobindiwalimatchesbox": "Vibrant Robin Diwali Matches Box.png",
+  "vibrantskywarfireworksbox": "Vibrant Sky War Fireworks Box.png",
+  "vibrantthogaifireworkspackage": "Vibrant Thogai Fireworks Package.png",
+  "vibrantwetwos3colourpotsfireworksbox": "Vibrant WeTwo’s 3 Colour Pots Fireworks Box.png",
+  "wetwosswordfireworksbox": "We Two’s Sword Fireworks Box.png",
+  "wetwo40itemfireworksgiftbox1": "WeTwo 40-Item Fireworks Gift Box (1).png",
+  "wetwoelectricsparklersbox": "WeTwo Electric Sparklers Box.png",
+  "wetwoelectricsparklerstwinboxes2": "WeTWO Electric Sparklers Twin Boxes (2).png",
+  "wetwoelectricsparklerstwinboxes": "WeTWO Electric Sparklers Twin Boxes.png",
+  "wetwofireworksgiftboxcatalogue": "Wetwo Fireworks Gift Box Catalogue.png",
+  "wetwoflowerpotsbigfireworksbox": "WeTwo Flower Pots Big Fireworks Box.png",
+  "wetwosfireworksboxpair": "WeTwo's Fireworks Box Pair.png",
+  "wetwosasokagroundchakkarbox": "WeTwo’s Asoka Ground Chakkar Box.png",
+  "wetwoscarnivalferriswheelfireworks": "WeTwo’s Carnival Ferris Wheel Fireworks.png",
+  "wetwoscolourfulflowerpots2in1box": "WeTwo’s Colourful Flower Pots 2-in-1 Box.png",
+  "wetwoscracklingbowfireworksbox": "WeTwo’s Crackling Bow Fireworks Box.png",
+  "wetwoselectricfountainfireworktube": "WeTwo’s Electric Fountain Firework Tube.png",
+  "wetwosflowerpotsfireworksbox": "WeTwo’s Flower Pots Fireworks Box.png",
+  "wetwosgroundchakkarfireworksbox": "WeTwo’s Ground Chakkar Fireworks Box.png",
+  "wetwospopcornfountainbox": "WeTwo’s Popcorn Fountain Box.png",
+  "wetwosredcolourpotdeluxebox": "WeTwo’s Red Colour Pot Deluxe Box.png",
+  "yesgiftboxfireworksassortment": "Yes Gift Box Fireworks Assortment.png",
 };
 
+function normalizeFileSlug(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/^.*[\/\\]/, "")
+    .replace(/\.(png|jpe?g|webp|svg|gif)$/i, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
 // Product images live in /public/Diwali. The stored value may be a bare
-// filename ("Lakshmi Deluxe Firework Bundle.png"), a root-relative path, or a
-// full URL. Filenames contain spaces/apostrophes, so encode the path before
-// handing it to next/image.
+// filename ("Lakshmi Deluxe Firework Bundle.png"), a root-relative path, a
+// legacy asset slug, or a full URL.
 export function productImageSrc(image?: string | null): string | null {
   if (!image) return null;
-  let value = image.trim();
+  const value = image.trim();
   if (!value) return null;
   if (/^https?:\/\//i.test(value)) return value;
 
-  // Handle legacy or imported asset paths (e.g. "assets/product_images/...")
-  if (value.startsWith("/") && value.includes("assets/product_images/")) {
-    value = value.replace(/^\//, "");
-  }
-  if (value.startsWith("assets/product_images/")) {
-    const base = value.replace(/^assets\/product_images\//, "");
-    if (LEGACY_IMAGE_MAP[base]) {
-      value = LEGACY_IMAGE_MAP[base];
-    } else {
-      value = base;
-    }
+  const slug = normalizeFileSlug(value);
+  const matched = DIWALI_FILE_MAP[slug];
+  let fileName = matched || value.replace(/^.*[\/\\]/, "");
+
+  if (!matched && !/\.(png|jpe?g|webp|svg|gif)$/i.test(fileName)) {
+    fileName = `${fileName}.png`;
   }
 
-  if (value === "Electric Giant Crackers Package") {
-    value = "Electric Giant Crackers Package.png";
-  } else if (!value.startsWith("/") && !/\.(png|jpe?g|webp|svg|gif)$/i.test(value)) {
-    value = `${value}.png`;
-  }
-
-  const path = value.startsWith("/") ? value : `/Diwali/${value}`;
+  const path = fileName.startsWith("/") ? fileName : `/Diwali/${fileName}`;
   return encodeURI(path);
 }
 
