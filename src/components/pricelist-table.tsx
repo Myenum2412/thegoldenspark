@@ -19,7 +19,11 @@ import {
 import { Input } from "@/components/ui/input";
 import CheckoutDialog from "@/components/checkout-dialog";
 import ProductQuickView from "@/components/product-quick-view";
-import { productImageSrc, type Product } from "@/lib/store-data";
+import {
+  productImageSrc,
+  getProductMinQty,
+  type Product,
+} from "@/lib/store-data";
 
 const CART_KEY = "gsh-cart";
 
@@ -156,6 +160,8 @@ function ProductCardImage({
   function renderCard(p: Product, index: number) {
     const qty = cart[String(p.id)] ?? 0;
     const imgSrc = productImageSrc(p.image);
+    const minQty = p.min_qty ?? getProductMinQty(p);
+
     return (
       <Card key={p.id} className="gap-0 py-0">
         <CardContent className="flex h-full flex-col gap-2 p-2.5">
@@ -179,14 +185,19 @@ function ProductCardImage({
             >
               {p.name}
             </button>
-            {(p.packing || p.barcode) && (
-              <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+            {(p.packing || p.barcode || minQty > 1) && (
+              <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                 {p.barcode && (
                   <span className="shrink-0 rounded bg-muted px-1 py-0.5 font-mono text-[10px] font-semibold text-foreground/80">
                     {p.barcode}
                   </span>
                 )}
-                <span className="truncate">{p.packing}</span>
+                {p.packing && <span className="truncate">{p.packing}</span>}
+                {minQty > 1 && (
+                  <span className="shrink-0 rounded bg-amber-500/15 px-1 py-0.5 font-mono text-[10px] font-semibold text-amber-700 dark:text-amber-400">
+                    Min: {minQty}
+                  </span>
+                )}
               </p>
             )}
             <p className="mt-1 text-xs">
@@ -202,18 +213,24 @@ function ProductCardImage({
             <Button
               size="sm"
               className="w-full bg-amber-500 text-black hover:bg-amber-400"
-              onClick={() => setQty(p.id, 1)}
+              onClick={() => setQty(p.id, minQty)}
               aria-label={`Add ${p.name} to cart`}
             >
               <ShoppingCartIcon className="size-4" aria-hidden="true" />
-              Add
+              Add {minQty > 1 ? `(${minQty})` : ""}
             </Button>
           ) : (
             <div className="flex items-center justify-between gap-1">
               <Button
                 variant="outline"
                 size="icon-sm"
-                onClick={() => setQty(p.id, qty - 1)}
+                onClick={() => {
+                  if (qty <= minQty) {
+                    setQty(p.id, 0);
+                  } else {
+                    setQty(p.id, qty - 1);
+                  }
+                }}
                 aria-label={`Remove one ${p.name}`}
               >
                 <MinusIcon className="size-3.5" aria-hidden="true" />

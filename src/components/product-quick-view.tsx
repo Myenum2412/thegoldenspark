@@ -11,7 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { productImageSrc, type Product } from "@/lib/store-data";
+import {
+  productImageSrc,
+  getProductMinQty,
+  type Product,
+} from "@/lib/store-data";
 
 function QuickViewImage({
   src,
@@ -58,6 +62,7 @@ export default function ProductQuickView({
   onQtyChange: (qty: number) => void;
 }) {
   const src = productImageSrc(product?.image);
+  const minQty = product ? (product.min_qty ?? getProductMinQty(product)) : 1;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -81,14 +86,23 @@ export default function ProductQuickView({
                 <dt className="text-muted-foreground">Packing</dt>
                 <dd className="font-medium">{product.packing || "—"}</dd>
               </div>
-              <div>
-                <dt className="text-muted-foreground">Stock</dt>
-                <dd className="font-medium tabular-nums">
-                  {Number(product.stock ?? 0) > 0
-                    ? Number(product.stock).toLocaleString("en-IN")
-                    : "Out of stock"}
-                </dd>
-              </div>
+              {minQty > 1 ? (
+                <div>
+                  <dt className="text-muted-foreground">Minimum Order</dt>
+                  <dd className="font-semibold text-amber-600 tabular-nums">
+                    {minQty} {product.packing ? product.packing.toLowerCase() : "units"}
+                  </dd>
+                </div>
+              ) : (
+                <div>
+                  <dt className="text-muted-foreground">Stock</dt>
+                  <dd className="font-medium tabular-nums">
+                    {Number(product.stock ?? 0) > 0
+                      ? Number(product.stock).toLocaleString("en-IN")
+                      : "Out of stock"}
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt className="text-muted-foreground">MRP (₹)</dt>
                 <dd className="font-medium tabular-nums text-muted-foreground line-through">
@@ -106,10 +120,10 @@ export default function ProductQuickView({
               {qty === 0 ? (
                 <Button
                   className="w-full bg-amber-500 text-black hover:bg-amber-400"
-                  onClick={() => onQtyChange(1)}
+                  onClick={() => onQtyChange(minQty)}
                 >
                   <ShoppingCartIcon className="size-4" aria-hidden="true" />
-                  Add to Cart
+                  Add to Cart {minQty > 1 ? `(Min: ${minQty})` : ""}
                 </Button>
               ) : (
                 <>
@@ -120,7 +134,13 @@ export default function ProductQuickView({
                     <Button
                       variant="outline"
                       size="icon-sm"
-                      onClick={() => onQtyChange(qty - 1)}
+                      onClick={() => {
+                        if (qty <= minQty) {
+                          onQtyChange(0);
+                        } else {
+                          onQtyChange(qty - 1);
+                        }
+                      }}
                       aria-label={`Remove one ${product.name}`}
                     >
                       <MinusIcon className="size-3.5" aria-hidden="true" />

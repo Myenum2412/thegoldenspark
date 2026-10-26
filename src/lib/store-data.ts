@@ -29,8 +29,100 @@ export type Product = {
   special_rate: number;
   stock: number;
   image?: string;
+  min_qty?: number;
   created_at?: string;
 };
+
+// Minimum start quantity per product when adding to cart.
+// Products not listed default to 1.
+export const PRODUCT_MIN_QTY_BY_NAME: Record<string, number> = {
+  // 5 count start:
+  "3.5\" LAKSHMI CRACKERS": 5,
+  "4\" LAKSHMI CRACKERS": 5,
+  "LAKSHMI DLX CRACKERS": 5,
+  "7 CM ELECTRIC SPARKLERS": 5,
+  "10 CM ELECTRIC SPARKLERS": 5,
+  "12 CM RED SPARKLERS": 5,
+  "12 CM GREEN SPARKLERS": 5,
+  "10 CM RAINBOW SPARKLERS 4 IN 1": 5,
+
+  // 10 count start:
+  "2.5\" WETWO CRACKERS": 10,
+
+  // 2 count start:
+  "15 CM ELECTRIC SPARKLERS": 2,
+  "30 CM COLOUR SPARKLERS": 2,
+  "15 CM RED SPARKLERS": 2,
+  "15 CM GREEN SPARKLERS": 2,
+  "30 CM RED SPARKLERS": 2,
+  "30 CM GREEN SPARKLERS": 2,
+  "GROUND CHAKKAR BIG": 2,
+  "RED BIJILI CRACKERS": 2,
+  "STRIPPED BIJILI CRACKERS": 2,
+  "56 ANGERY BIRD": 2,
+  "28 ANGERY BIRD": 2,
+  "SUPER SHOW": 2,
+  "AMBER SHOW": 2,
+  "RUBY SHOW": 2,
+  "MINI": 2,
+  "MINI (100 wala)": 2,
+};
+
+// Also support matching by barcode/item code as fallback
+export const PRODUCT_MIN_QTY_BY_CODE: Record<string, number> = {
+  R03: 5, // 3.5" LAKSHMI CRACKERS
+  R01: 5, // 4" LAKSHMI CRACKERS
+  R05: 10, // 2.5" WETWO CRACKERS
+  R07: 5, // LAKSHMI DLX CRACKERS
+  S01: 5, // 7 CM ELECTRIC SPARKLERS
+  S02: 5, // 10 CM ELECTRIC SPARKLERS
+  S16: 5, // 12 CM RED SPARKLERS
+  S15: 5, // 12 CM GREEN SPARKLERS
+  SP26: 5, // 10 CM RAINBOW SPARKLERS 4 IN 1
+  S04: 2, // 15 CM ELECTRIC SPARKLERS
+  S10: 2, // 30 CM COLOUR SPARKLERS
+  S18: 2, // 15 CM RED SPARKLERS
+  S17: 2, // 15 CM GREEN SPARKLERS
+  S20: 2, // 30 CM RED SPARKLERS
+  S19: 2, // 30 CM GREEN SPARKLERS
+  R10: 2, // GROUND CHAKKAR BIG
+  R56: 2, // RED BIJILI CRACKERS
+  R58: 2, // STRIPPED BIJILI CRACKERS
+  R48: 2, // 56 ANGERY BIRD
+  "CRK-054": 2, // 28 ANGERY BIRD
+  "CRK-057": 2, // SUPER SHOW
+  "CRK-058": 2, // AMBER SHOW
+  "CRK-059": 2, // RUBY SHOW
+  W01: 2, // MINI (100 wala)
+};
+
+export function getProductMinQty(
+  product?: {
+    name?: string;
+    barcode?: string;
+    min_qty?: number;
+    id?: string | number;
+  } | null
+): number {
+  if (!product) return 1;
+  if (typeof product.min_qty === "number" && product.min_qty > 0) {
+    return product.min_qty;
+  }
+  const name = (product.name ?? "").trim().toUpperCase();
+  if (PRODUCT_MIN_QTY_BY_NAME[name]) {
+    return PRODUCT_MIN_QTY_BY_NAME[name];
+  }
+  for (const [key, qty] of Object.entries(PRODUCT_MIN_QTY_BY_NAME)) {
+    if (name === key.toUpperCase() || name.startsWith(key.toUpperCase())) {
+      return qty;
+    }
+  }
+  const code = (product.barcode ?? "").trim().toUpperCase();
+  if (PRODUCT_MIN_QTY_BY_CODE[code]) {
+    return PRODUCT_MIN_QTY_BY_CODE[code];
+  }
+  return 1;
+}
 
 const LEGACY_IMAGE_MAP: Record<string, string> = {
   "we_two_s_sword_fireworks_box.webp": "We Two’s Sword Fireworks Box.png",

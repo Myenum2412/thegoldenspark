@@ -5,7 +5,7 @@ import { ID, Query } from "appwrite";
 import type { Models } from "appwrite";
 import { APPWRITE_DATABASE_ID, TABLES } from "./appwrite";
 import { tables } from "./appwrite-server";
-import type { Customer, Product } from "./store-data";
+import { getProductMinQty, type Customer, type Product } from "./store-data";
 import type { Order, OrderItem } from "@/components/order-view";
 
 type Row = Models.Row & { [key: string]: unknown };
@@ -64,18 +64,21 @@ function customerAddress(row: Row): { address: string; pincode: string } {
 
 function toProduct(row: Row): Product {
   const price = Number(row.price ?? 0);
+  const name = String(row.name ?? "");
+  const barcode = String(row.barcode ?? "");
   return {
     id: row.$id,
     ordr: Number(row.ordr ?? 0),
     item_no: itemNoFromBarcode(row.barcode),
-    barcode: String(row.barcode ?? ""),
-    name: String(row.name ?? ""),
+    barcode,
+    name,
     category: String(row.category ?? "General"),
     packing: String(row.packing ?? ""),
     mrp: Number(row.mrp ?? price),
     special_rate: price,
     stock: Number(row.stock ?? 0),
     image: row.image ? String(row.image) : undefined,
+    min_qty: getProductMinQty({ id: row.$id, name, barcode }),
     created_at: row.$createdAt,
   };
 }
