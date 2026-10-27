@@ -66,10 +66,16 @@
     "note": "No dedicated red-sparkler pack art is available; use the generic sparkler box."
   },
   {
+    "barcode": "S22",
+    "name": "50 CM ELECTRIC SPARKLERS (TUBE)",
+    "image": "WeTwo’s Electric Fountain Firework Tube.png",
+    "note": "Use the electric fountain tube artwork requested for the 50 CM tube product."
+  },
+  {
     "barcode": "S24",
     "name": "50 CM COLOUR SPARKLERS (TUBE)",
-    "image": "Vibrant Purple Colour Sparklers Packaging.png",
-    "note": "Use the colour-sparkler pack art instead of the generic electric-sparkler box."
+    "image": "WeTwo’s Electric Fountain Firework Tube.png",
+    "note": "Use the electric fountain tube artwork requested for the 50 CM tube product."
   },
   {
     "barcode": "SP26",
