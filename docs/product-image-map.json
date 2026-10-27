@@ -210,6 +210,12 @@
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
+    "barcode": "W05",
+    "name": "MARVEL (500 wala Double)",
+    "image": "MARVEL (500 wala Double).png",
+    "note": "Use the dedicated MARVEL (500 wala Double) pack artwork."
+  },
+  {
     "barcode": "W07",
     "name": "MONSTER (1k wala)",
     "image": "Royal Lion Monster Fireworks Box.png",
@@ -224,8 +230,8 @@
   {
     "barcode": "W08A",
     "name": "5K LIKES (5K wala)",
-    "image": "Pyro VIP King Lion Fireworks Box.png",
-    "note": "No dedicated 5K Likes pack art exists yet; share the VIP artwork rather than the wrong remote image."
+    "image": "5K Likes Cosmic Fireworks Packaging.png",
+    "note": "Use the dedicated 5K Likes cosmic pack artwork."
   },
   {
     "barcode": "W09",
