@@ -1,0 +1,266 @@
+[
+  {
+    "barcode": "S02",
+    "name": "10 CM ELECTRIC SPARKLERS",
+    "image": "10 CM Electric Sparklers.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "S06",
+    "name": "7 CM COLOUR SPARKLERS",
+    "image": "7 CM Colour Sparklers.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "S07",
+    "name": "10 CM COLOUR SPARKLERS",
+    "image": "Vibrant Purple Colour Sparklers Packaging.png",
+    "note": "Use the colour-sparkler pack art instead of the generic electric-sparkler box."
+  },
+  {
+    "barcode": "S09",
+    "name": "15 CM COLOUR SPARKLERS",
+    "image": "Vibrant Purple Colour Sparklers Packaging.png",
+    "note": "Use the colour-sparkler pack art instead of the generic electric-sparkler box."
+  },
+  {
+    "barcode": "S10",
+    "name": "30 CM COLOUR SPARKLERS",
+    "image": "Vibrant Purple Colour Sparklers Packaging.png",
+    "note": "Use the colour-sparkler pack art instead of the generic electric-sparkler box."
+  },
+  {
+    "barcode": "S15",
+    "name": "12 CM GREEN SPARKLERS",
+    "image": "Green Sparkler Box Product Packshot (2).png",
+    "note": "Use the green-sparkler pack instead of the 7 CM colour-sparkler image."
+  },
+  {
+    "barcode": "S16",
+    "name": "12 CM RED SPARKLERS",
+    "image": "WeTwo Electric Sparklers Box.png",
+    "note": "No dedicated red-sparkler pack art is available; use the generic sparkler box instead of the 7 CM colour image."
+  },
+  {
+    "barcode": "S17",
+    "name": "15 CM GREEN SPARKLERS",
+    "image": "Green Sparkler Box Product Packshot (2).png",
+    "note": "Use the green-sparkler pack instead of the 7 CM colour-sparkler image."
+  },
+  {
+    "barcode": "S18",
+    "name": "15 CM RED SPARKLERS",
+    "image": "WeTwo Electric Sparklers Box.png",
+    "note": "No dedicated red-sparkler pack art is available; use the generic sparkler box instead of the 7 CM colour image."
+  },
+  {
+    "barcode": "S19",
+    "name": "30 CM GREEN SPARKLERS",
+    "image": "Green Sparkler Box Product Packshot (2).png",
+    "note": "Use the green-sparkler pack instead of the generic electric-sparkler box."
+  },
+  {
+    "barcode": "S20",
+    "name": "30 CM RED SPARKLERS",
+    "image": "WeTwo Electric Sparklers Box.png",
+    "note": "No dedicated red-sparkler pack art is available; use the generic sparkler box."
+  },
+  {
+    "barcode": "S24",
+    "name": "50 CM COLOUR SPARKLERS (TUBE)",
+    "image": "Vibrant Purple Colour Sparklers Packaging.png",
+    "note": "Use the colour-sparkler pack art instead of the generic electric-sparkler box."
+  },
+  {
+    "barcode": "SP26",
+    "name": "10 CM RAINBOW SPARKLERS 4 IN 1",
+    "image": "Rainbow Sparkler Box Packaging.png",
+    "note": "Use the dedicated rainbow-sparkler pack."
+  },
+  {
+    "barcode": "R11",
+    "name": "GROUND CHAKKAR ASHOKA",
+    "image": "WeTwo’s Asoka Ground Chakkar Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "R26",
+    "name": "FLOWER POTS SUPER",
+    "image": "Vibrant Flower Pots Super Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "R27A",
+    "name": "FLOWER POT MEGA GIANT",
+    "image": "Colourful Flower Pot Fireworks Packaging.png",
+    "note": "Use the packaging art that matches the Mega Giant flower pot box."
+  },
+  {
+    "barcode": "R32",
+    "name": "RED COLOUR POTS DELUXE",
+    "image": "WeTwo’s Red Colour Pot Deluxe Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "R33",
+    "name": "COLOUR KOTI",
+    "image": "Colour Koti Peacock Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "R58",
+    "name": "STRIPPED BIJILI CRACKERS",
+    "image": "R58-STRIPPED BIJILI CRACKERS.jpeg",
+    "note": "Use the stripped-bijili pack instead of the plain red-bijili pack."
+  },
+  {
+    "barcode": "F121A",
+    "name": "SKY WAR 120 SHOTS",
+    "image": "Vibrant Sky War Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "F133",
+    "name": "CHINNA CHOTTA FANCY",
+    "image": "CHINNA CHOTTA FANCY.jpg",
+    "note": "Use the dedicated Chotta Fancy pack instead of the 30-shots box."
+  },
+  {
+    "barcode": "F168",
+    "name": "ARC",
+    "image": "ARC.png",
+    "note": "Use the dedicated ARC pack instead of the ferris-wheel box."
+  },
+  {
+    "barcode": "CRK-004",
+    "name": "Robin Super Deluxe 10 in 1",
+    "image": "Robin Super Deluxe 10 in 1.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "CRK-005",
+    "name": "Robin Classic 5 in 1 (Prince)",
+    "image": "Robin Classic 5 in 1.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "CRK-052",
+    "name": "GIFT BOX - Yes (G)",
+    "image": "Yes Gift Box Fireworks Assortment.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "CRK-058",
+    "name": "AMBER SHOW",
+    "image": "AMBER SHOW Fireworks Pack.png",
+    "note": "Use the dedicated Amber Show pack instead of the carnival fountain box."
+  },
+  {
+    "barcode": "CRK-059",
+    "name": "RUBY SHOW",
+    "image": "Ruby Show Firework Twin Pack.png",
+    "note": "Use the dedicated Ruby Show pack instead of the nature fountain box."
+  },
+  {
+    "barcode": "CRK-063",
+    "name": "POPCORN BOW",
+    "image": "Magenta Pop Corn Bow Fireworks Box.png",
+    "note": "Use the dedicated popcorn-bow pack instead of the popcorn-fountain box."
+  },
+  {
+    "barcode": "CRK-064",
+    "name": "CRACKLING BOW",
+    "image": "WeTwo’s Crackling Bow Fireworks Box.png",
+    "note": "Use the dedicated crackling-bow pack instead of the crackling-fountain box."
+  },
+  {
+    "barcode": "CRK-065",
+    "name": "SILVER BOW",
+    "image": "Silver Bow Fireworks Box.png",
+    "note": "Use the dedicated silver-bow pack instead of the Silver Blaze tin."
+  },
+  {
+    "barcode": "CRK-105",
+    "name": "NUTURE FOUNTAIN",
+    "image": "Vibrant Nature Fountain Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "W02",
+    "name": "NANO (300 wala)",
+    "image": "Regal Lion Nano Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "W07",
+    "name": "MONSTER (1k wala)",
+    "image": "Royal Lion Monster Fireworks Box.png",
+    "note": "Use the dedicated Monster box instead of the multicolour-shots box."
+  },
+  {
+    "barcode": "W08",
+    "name": "VIP (2k wala)",
+    "image": "Pyro VIP King Lion Fireworks Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "W08A",
+    "name": "5K LIKES (5K wala)",
+    "image": "Pyro VIP King Lion Fireworks Box.png",
+    "note": "No dedicated 5K Likes pack art exists yet; share the VIP artwork rather than the wrong remote image."
+  },
+  {
+    "barcode": "W09",
+    "name": "10K LIKES (10K wala)",
+    "image": "10K Likes Cosmic Fireworks Box.png",
+    "note": "Use the dedicated 10K Likes box instead of the remote storage image."
+  },
+  {
+    "barcode": "W09A",
+    "name": "30SHOTS (SQUARE)",
+    "image": "30 Shots Square.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "W09B",
+    "name": "30SHOTS ELITE (UV)",
+    "image": "Elite 30 Multicolour Fireworks Box.png",
+    "note": "Use the dedicated Elite 30 box instead of the generic 30-shots image."
+  },
+  {
+    "barcode": "W11",
+    "name": "60 SHOTS",
+    "image": "60 Shots.webp",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "G10",
+    "name": "GIFT BOX - MULLAI (B)",
+    "image": "WeTwo 40-Item Fireworks Gift Box (1).png",
+    "note": "No dedicated Mullai art exists yet; use the 40-item gift box instead of the mislabeled Neithal box."
+  },
+  {
+    "barcode": "G11",
+    "name": "GIFT BOX - MARUTHAM (C)",
+    "image": "Marutham Agricultural Land Gift Box.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  },
+  {
+    "barcode": "G12",
+    "name": "GIFT BOX - NEITHAL (D)",
+    "image": "GIFT BOX - NEITHAL.png",
+    "note": "Use the box whose printed label actually says Neithal."
+  },
+  {
+    "barcode": "G12-E",
+    "name": "GIFT BOX - PALAI (E)",
+    "image": "palai.png",
+    "note": "Use the dedicated Palai gift box instead of the loose-cracker bundle photo."
+  },
+  {
+    "barcode": "G100",
+    "name": "TRAVEL GIFT BAG",
+    "image": "Red Fireworks Gift Bag Product Photo.png",
+    "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
+  }
+]

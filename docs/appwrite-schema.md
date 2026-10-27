@@ -53,9 +53,21 @@ node --env-file=.env.local scripts/apply-pricelist-order.mjs
 ```
 
 `image` holds a filename from `public/Diwali` (e.g. `Vibrant Flower Pots
-Fireworks Box.png`) or a full URL. The homepage pricelist shows it as a
-thumbnail; clicking it opens a product detail popup. Assign it per product
-from the dashboard (Products → edit) using the image picker.
+Fireworks Box.png`). The homepage pricelist shows it as a thumbnail; clicking
+it opens a product detail popup. Assign it per product from the dashboard
+(Products → edit) using the image picker.
+
+All product artwork is served from `public/Diwali`; the storefront no longer
+depends on Appwrite Storage for images. The applied image assignments live in
+`docs/product-image-map.json` (keyed by barcode) and can be re-applied with:
+
+```bash
+node --env-file=.env.local scripts/apply-product-images.mjs --dry-run
+node --env-file=.env.local scripts/apply-product-images.mjs
+```
+
+The script refuses to write a filename that is not present in
+`public/Diwali`, so a typo cannot blank a product card.
 
 Permissions: **Any → Read**. (The public homepage pricelist reads this
 without login.) Create/Update/Delete: **Users** (dashboard, logged in).

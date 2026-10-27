@@ -125,9 +125,13 @@ export function getProductMinQty(
 }
 
 const DIWALI_FILE_MAP: Record<string, string> = {
+  "10cmelectricsparklers": "10 CM Electric Sparklers.webp",
   "10klikescosmicfireworksbox": "10K Likes Cosmic Fireworks Box.png",
   "240shots": "240shots.png",
   "25riderfireworksboxmockup": "25 Rider Fireworks Box Mockup.png",
+  "30shotssquare": "30 Shots Square.webp",
+  "60shots": "60 Shots.webp",
+  "7cmcoloursparklers": "7 CM Colour Sparklers.webp",
   "ambershowfireworkspack": "AMBER SHOW Fireworks Pack.png",
   "arc": "ARC.png",
   "bloodrainfireworksbox": "Blood Rain Fireworks Box.png",
@@ -177,6 +181,8 @@ const DIWALI_FILE_MAP: Record<string, string> = {
   "regallionnanofireworksbox": "Regal Lion Nano Fireworks Box.png",
   "regallionpyrotoykingbox": "Regal Lion Pyro Toy King Box.png",
   "robin7upcartoonmatchboxpackaging": "Robin 7UP Cartoon Matchbox Packaging.png",
+  "robinclassic5in1": "Robin Classic 5 in 1.webp",
+  "robinsuperdeluxe10in1": "Robin Super Deluxe 10 in 1.webp",
   "robintop10fireworksbox": "Robin Top 10 Fireworks Box.png",
   "rocketbombfireworkboxpackaging": "Rocket Bomb Firework Box Packaging.png",
   "royallionmonsterfireworksbox": "Royal Lion Monster Fireworks Box.png",
