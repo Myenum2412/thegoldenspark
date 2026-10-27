@@ -150,6 +150,7 @@ const DIWALI_FILE_MAP: Record<string, string> = {
   "discolightsfireworksbox": "Disco Lights Fireworks Box.png",
   "diwalifirecrackerpackwithgoddesslabels": "Diwali Firecracker Pack with Goddess Labels.png",
   "electricgiantcrackerspackage": "Electric Giant Crackers Package.png",
+  "electricgiantcrackers28pack": "Electric Giant Crackers 28-Pack.png",
   "elite30multicolourfireworksbox": "Elite 30 Multicolour Fireworks Box.png",
   "f123ajusticeleague": "F123A - JUSTICE LEAGUE.jpeg",
   "firestormfireworksboxpackaging": "Fire Storm Fireworks Box Packaging.png",

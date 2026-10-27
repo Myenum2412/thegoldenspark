@@ -156,6 +156,18 @@
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
+    "barcode": "CRK-054",
+    "name": "28 ANGERY BIRD",
+    "image": "Electric Giant Crackers 28-Pack.png",
+    "note": "Use the dedicated 28-pack electric giant crackers artwork."
+  },
+  {
+    "barcode": "CRK-057",
+    "name": "SUPER SHOW",
+    "image": "Twin-Pack Blue Fireworks Boxes.png",
+    "note": "Use the requested twin-pack blue fireworks artwork."
+  },
+  {
     "barcode": "CRK-058",
     "name": "AMBER SHOW",
     "image": "AMBER SHOW Fireworks Pack.png",

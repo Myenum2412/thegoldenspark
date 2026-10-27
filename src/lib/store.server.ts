@@ -67,7 +67,9 @@ function toProduct(row: Row): Product {
   const name = String(row.name ?? "");
   const barcode = String(row.barcode ?? "");
   let image = row.image ? String(row.image) : undefined;
-  if (/angery\s*bird/i.test(name)) {
+  if (/28\s*angery\s*bird/i.test(name)) {
+    image = "Electric Giant Crackers 28-Pack.png";
+  } else if (/angery\s*bird/i.test(name)) {
     image = "Electric Giant Crackers Package.png";
   }
   return {
