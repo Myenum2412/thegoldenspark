@@ -45,6 +45,13 @@ item on the list, e.g. `G09` KURINJI (A) → `G12` PALAI (E) run in order). The
 home page lists products in this order, so keep it in sync when the pricelist
 changes.
 
+The applied order lives in `docs/pricelist-order.json` (ordered by barcode).
+Apply it to the live table with:
+
+```bash
+node --env-file=.env.local scripts/apply-pricelist-order.mjs
+```
+
 `image` holds a filename from `public/Diwali` (e.g. `Vibrant Flower Pots
 Fireworks Box.png`) or a full URL. The homepage pricelist shows it as a
 thumbnail; clicking it opens a product detail popup. Assign it per product
