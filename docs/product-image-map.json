@@ -210,6 +210,12 @@
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
+    "barcode": "CRK-107",
+    "name": "NAYAGARA",
+    "image": "Nayagara Falls Fireworks Box.png",
+    "note": "Use the Nayagara Falls fireworks box artwork for the NAYAGARA product."
+  },
+  {
     "barcode": "W02",
     "name": "NANO (300 wala)",
     "image": "Regal Lion Nano Fireworks Box.png",
