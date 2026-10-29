@@ -264,10 +264,16 @@
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
+    "barcode": "G09",
+    "name": "GIFT BOX - KURINJI (A)",
+    "image": "Wetwo Fireworks Gift Box Catalogue.png",
+    "note": "Use the Wetwo catalogue gift box image for Kurinji."
+  },
+  {
     "barcode": "G10",
     "name": "GIFT BOX - MULLAI (B)",
-    "image": "WeTwo 40-Item Fireworks Gift Box (1).png",
-    "note": "No dedicated Mullai art exists yet; use the 40-item gift box instead of the mislabeled Neithal box."
+    "image": "GIFT BOX - NEITHAL.png",
+    "note": "Swapped with Neithal — use the Neithal box art for Mullai."
   },
   {
     "barcode": "G11",
@@ -278,8 +284,8 @@
   {
     "barcode": "G12",
     "name": "GIFT BOX - NEITHAL (D)",
-    "image": "GIFT BOX - NEITHAL.png",
-    "note": "Use the box whose printed label actually says Neithal."
+    "image": "WeTwo 40-Item Fireworks Gift Box (1).png",
+    "note": "Swapped with Mullai — use the 40-item gift box art for Neithal."
   },
   {
     "barcode": "G12-E",
