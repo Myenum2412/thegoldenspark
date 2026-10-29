@@ -222,6 +222,12 @@
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
+    "barcode": "W04",
+    "name": "TOY (700 wala)",
+    "image": "Regal Lion Pyro Toy King Box.png",
+    "note": "Use the Regal Lion Pyro Toy King Box artwork for the TOY (700 wala) product."
+  },
+  {
     "barcode": "W05",
     "name": "MARVEL (500 wala Double)",
     "image": "MARVEL (500 wala Double).png",
