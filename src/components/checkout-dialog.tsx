@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { MinusIcon, PlusIcon } from "lucide-react";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -72,7 +73,6 @@ export default function CheckoutDialog({
   open,
   onOpenChange,
   lines,
-  total,
   initialCustomer,
   onSaved,
 }: {
@@ -90,6 +90,7 @@ export default function CheckoutDialog({
   const [pincode, setPincode] = React.useState(initialCustomer.pincode);
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [saving, setSaving] = React.useState(false);
+  const [qtyOverrides, setQtyOverrides] = React.useState<Record<string, number>>({});
 
   // Prefill from the details form above the pricelist each time it opens.
   React.useEffect(() => {
@@ -99,9 +100,34 @@ export default function CheckoutDialog({
       setAddress(initialCustomer.address);
       setPincode(initialCustomer.pincode);
       setErrors({});
+      setQtyOverrides({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open ]);
+
+  // Local quantity overrides for the "Selected Products" list — starts from
+  // the cart quantities and can be adjusted before placing the order.
+  const effectiveLines = React.useMemo(
+    () =>
+      lines.map((l) => {
+        const key = String(l.product.id);
+        const qty =
+          qtyOverrides[key] != null
+            ? Math.max(1, Math.floor(qtyOverrides[key]))
+            : l.qty;
+        return { ...l, qty };
+      }),
+    [lines, qtyOverrides]
+  );
+  const effectiveTotal = effectiveLines.reduce(
+    (sum, l) => sum + Number(l.product.special_rate) * l.qty,
+    0
+  );
+
+  function changeQty(productId: string, qty: number) {
+    const next = Math.max(1, Math.floor(qty));
+    setQtyOverrides((prev) => ({ ...prev, [productId]: next }));
+  }
 
   // Saves customer + order + items. Returns the order id, or null
   // when only the customer details could be saved.
@@ -128,7 +154,7 @@ export default function CheckoutDialog({
         customer_id: customerId,
         customer_name: name.trim(),
         phone: cleanPhone,
-        total,
+        total: effectiveTotal,
       });
       orderId = order.id;
     } catch (err) {
@@ -142,7 +168,7 @@ export default function CheckoutDialog({
 
     try {
       await createOrderItems(
-        lines.map((l) => ({
+        effectiveLines.map((l) => ({
           order_id: orderId,
           product_id: String(l.product.id),
           item_no: l.product.item_no,
@@ -171,7 +197,7 @@ export default function CheckoutDialog({
       phone,
       address,
       pincode,
-      lines,
+      lines: effectiveLines,
     });
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
@@ -181,7 +207,7 @@ export default function CheckoutDialog({
     setSaving(false);
     if (orderId == null) return;
 
-    const orderLines = lines.map(
+    const orderLines = effectiveLines.map(
       (l) =>
         `${l.qty} x ${l.product.name} - ₹${(
           Number(l.product.special_rate) * l.qty
@@ -196,7 +222,7 @@ export default function CheckoutDialog({
       "",
       ...orderLines,
       "",
-      `Total: ₹${total.toLocaleString("en-IN")}`,
+      `Total: ₹${effectiveTotal.toLocaleString("en-IN")}`,
     ].join("\n");
 
     // Try automatic send via the wa-sender service; fall back to
@@ -309,14 +335,33 @@ export default function CheckoutDialog({
               Selected Products ({lines.length})
             </p>
             <ul className="max-h-40 divide-y overflow-y-auto">
-              {lines.map((l) => (
+              {effectiveLines.map((l) => (
                 <li
                   key={l.product.id}
                   className="flex items-center justify-between gap-2 px-3 py-2 text-sm"
                 >
-                  <span className="min-w-0">
-                    <span className="font-medium tabular-nums">
-                      {l.qty} ×{" "}
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => changeQty(String(l.product.id), l.qty - 1)}
+                        disabled={l.qty <= 1}
+                        aria-label={`Decrease quantity of ${l.product.name}`}
+                        className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted disabled:opacity-40"
+                      >
+                        <MinusIcon className="size-3.5" />
+                      </button>
+                      <span className="w-8 text-center font-semibold tabular-nums">
+                        {l.qty}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => changeQty(String(l.product.id), l.qty + 1)}
+                        aria-label={`Increase quantity of ${l.product.name}`}
+                        className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted"
+                      >
+                        <PlusIcon className="size-3.5" />
+                      </button>
                     </span>
                     <span className="truncate">{l.product.name}</span>
                   </span>
@@ -332,7 +377,7 @@ export default function CheckoutDialog({
             <p className="flex items-center justify-between border-t bg-muted/40 px-3 py-2 text-sm font-bold">
               <span>Total Amount</span>
               <span className="tabular-nums">
-                ₹{total.toLocaleString("en-IN")}
+                ₹{effectiveTotal.toLocaleString("en-IN")}
               </span>
             </p>
           </div>
@@ -356,7 +401,7 @@ export default function CheckoutDialog({
               <WhatsappIcon className="size-4" aria-hidden="true" />
               {saving
                 ? "Placing…"
-                : `Place Order · ₹${total.toLocaleString("en-IN")}`}
+                : `Place Order · ₹${effectiveTotal.toLocaleString("en-IN")}`}
             </Button>
           </DialogFooter>
         </form>
