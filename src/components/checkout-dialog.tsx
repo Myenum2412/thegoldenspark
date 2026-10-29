@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +24,7 @@ import {
   createOrder,
   createOrderItems,
 } from "@/lib/store";
-import type { Product } from "@/lib/store-data";
+import { productImageSrc, type Product } from "@/lib/store-data";
 
 const WHATSAPP = "https://wa.me/919087606352";
 
@@ -335,44 +336,60 @@ export default function CheckoutDialog({
               Selected Products ({lines.length})
             </p>
             <ul className="max-h-40 divide-y overflow-y-auto">
-              {effectiveLines.map((l) => (
-                <li
-                  key={l.product.id}
-                  className="flex items-center justify-between gap-2 px-3 py-2 text-sm"
-                >
-                  <span className="flex min-w-0 items-center gap-2">
-                    <span className="flex items-center gap-1.5">
-                      <button
-                        type="button"
-                        onClick={() => changeQty(String(l.product.id), l.qty - 1)}
-                        disabled={l.qty <= 1}
-                        aria-label={`Decrease quantity of ${l.product.name}`}
-                        className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted disabled:opacity-40"
-                      >
-                        <MinusIcon className="size-3.5" />
-                      </button>
-                      <span className="w-8 text-center font-semibold tabular-nums">
-                        {l.qty}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => changeQty(String(l.product.id), l.qty + 1)}
-                        aria-label={`Increase quantity of ${l.product.name}`}
-                        className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted"
-                      >
-                        <PlusIcon className="size-3.5" />
-                      </button>
+              {effectiveLines.map((l) => {
+                const imgSrc = productImageSrc(l.product.image);
+                return (
+                  <li
+                    key={l.product.id}
+                    className="flex items-center justify-between gap-2 px-3 py-2 text-sm"
+                  >
+                    <span className="flex min-w-0 items-center gap-2">
+                      {imgSrc ? (
+                        <span className="relative size-10 shrink-0 overflow-hidden rounded-md border bg-white">
+                          <Image
+                            src={imgSrc}
+                            alt={l.product.name}
+                            fill
+                            sizes="40px"
+                            className="object-contain p-1"
+                          />
+                        </span>
+                      ) : null}
+                      <span className="truncate">{l.product.name}</span>
                     </span>
-                    <span className="truncate">{l.product.name}</span>
-                  </span>
-                  <span className="shrink-0 font-semibold tabular-nums">
-                    ₹
-                    {(
-                      Number(l.product.special_rate) * l.qty
-                    ).toLocaleString("en-IN")}
-                  </span>
-                </li>
-              ))}
+                    <span className="flex shrink-0 items-center gap-2">
+                      <span className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => changeQty(String(l.product.id), l.qty - 1)}
+                          disabled={l.qty <= 1}
+                          aria-label={`Decrease quantity of ${l.product.name}`}
+                          className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted disabled:opacity-40"
+                        >
+                          <MinusIcon className="size-3.5" />
+                        </button>
+                        <span className="w-8 text-center font-semibold tabular-nums">
+                          {l.qty}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => changeQty(String(l.product.id), l.qty + 1)}
+                          aria-label={`Increase quantity of ${l.product.name}`}
+                          className="flex size-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-muted"
+                        >
+                          <PlusIcon className="size-3.5" />
+                        </button>
+                      </span>
+                      <span className="shrink-0 font-semibold tabular-nums">
+                        ₹
+                        {(
+                          Number(l.product.special_rate) * l.qty
+                        ).toLocaleString("en-IN")}
+                      </span>
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
             <p className="flex items-center justify-between border-t bg-muted/40 px-3 py-2 text-sm font-bold">
               <span>Total Amount</span>
