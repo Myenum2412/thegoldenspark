@@ -146,13 +146,13 @@
   {
     "barcode": "CRK-004",
     "name": "Robin Super Deluxe 10 in 1",
-    "image": "Robin Super Deluxe 10 in 1.webp",
+    "image": "Robin Classic 5 in 1.webp",
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {
     "barcode": "CRK-005",
     "name": "Robin Classic 5 in 1 (Prince)",
-    "image": "Robin Classic 5 in 1.webp",
+    "image": "Robin Super Deluxe 10 in 1.webp",
     "note": "Vendored the previously remote Appwrite image so the storefront no longer depends on the storage host."
   },
   {

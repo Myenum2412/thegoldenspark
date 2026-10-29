@@ -752,8 +752,8 @@
     "special_rate": 90,
     "stock": 1,
     "min_qty": 1,
-    "image_file": "Robin Super Deluxe 10 in 1.webp",
-    "image_url": "/Diwali/Robin%20Super%20Deluxe%2010%20in%201.webp"
+    "image_file": "Robin Classic 5 in 1.webp",
+    "image_url": "/Diwali/Robin%20Classic%205%20in%201.webp"
   },
   {
     "ordr": 55,
@@ -766,8 +766,8 @@
     "special_rate": 200,
     "stock": 1,
     "min_qty": 1,
-    "image_file": "Robin Classic 5 in 1.webp",
-    "image_url": "/Diwali/Robin%20Classic%205%20in%201.webp"
+    "image_file": "Robin Super Deluxe 10 in 1.webp",
+    "image_url": "/Diwali/Robin%20Super%20Deluxe%2010%20in%201.webp"
   },
   {
     "ordr": 56,
