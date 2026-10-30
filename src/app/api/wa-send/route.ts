@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     // Orders go to the store number(s) so the owner gets every order.
     // Multiple numbers can be configured, comma separated — every order
-    // is sent to each of them.
+    // is sent to each of them sequentially.
     const storeNumbers = (
       process.env.STORE_WHATSAPP_NUMBER ?? "919087606352,918344476962"
     )
@@ -54,30 +54,48 @@ export async function POST(req: Request) {
       .map((n) => n.replace(/\D/g, ""))
       .filter(Boolean);
 
-    const sendToOne = async (to: string): Promise<boolean> => {
-      try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 30000);
+    const sendToOne = async (to: string, retries = 1): Promise<boolean> => {
+      for (let attempt = 0; attempt <= retries; attempt++) {
         try {
-          const sendRes = await fetch(`${senderUrl}/send`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ to, message, secret: senderSecret }),
-            signal: controller.signal,
-          });
-          if (!sendRes.ok) return false;
-          const body = (await sendRes.json()) as { ok?: boolean };
-          return body.ok === true;
-        } finally {
-          clearTimeout(timeout);
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 30000);
+          try {
+            const sendRes = await fetch(`${senderUrl}/send`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ to, message, secret: senderSecret }),
+              signal: controller.signal,
+            });
+            if (sendRes.ok) {
+              const body = (await sendRes.json()) as { ok?: boolean };
+              if (body.ok === true) return true;
+            }
+          } finally {
+            clearTimeout(timeout);
+          }
+        } catch (err) {
+          console.warn(`[wa-send] Attempt ${attempt + 1} failed for ${to}:`, err);
         }
-      } catch {
-        return false;
+        if (attempt < retries) {
+          await new Promise((r) => setTimeout(r, 2000));
+        }
       }
+      return false;
     };
 
-    const results = await Promise.all(storeNumbers.map(sendToOne));
-    return NextResponse.json({ sent: results.some(Boolean) });
+    // Send sequentially to prevent simultaneous Puppeteer evaluate collisions
+    const results: Record<string, boolean> = {};
+    for (const to of storeNumbers) {
+      results[to] = await sendToOne(to);
+      // Small cooldown between recipients
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+
+    const anySent = Object.values(results).some(Boolean);
+    const allSent =
+      storeNumbers.length > 0 && Object.values(results).every(Boolean);
+
+    return NextResponse.json({ sent: anySent, allSent, results });
   } catch {
     return NextResponse.json({ sent: false });
   }

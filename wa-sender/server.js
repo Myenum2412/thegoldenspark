@@ -3,7 +3,7 @@
 // a tiny HTTP API the Next.js site calls to auto-send order confirmations.
 //
 //   POST /send  { to, message, secret }  ->  { ok: true, id }
-//   GET  /status                          ->  { ready: bool }
+//   GET  /status                          ->  { ready: bool, number: string|null }
 //   GET  /qr?secret=...                   ->  PNG of the link QR (while unlinked)
 //
 // Keep this process running 24/7 (pm2 / systemd / Railway / VPS).
@@ -35,26 +35,30 @@ if (!SECRET) {
 const app = express();
 app.use(express.json({ limit: "256kb" }));
 
+let isRestarting = false;
+function triggerRestart(reason) {
+  if (isRestarting) return;
+  isRestarting = true;
+  ready = false;
+  console.error(`[RESTART] Triggering service restart: ${reason}`);
+  setTimeout(() => {
+    process.exit(1);
+  }, 2000);
+}
+
 const client = new Client({
   authStrategy: new LocalAuth({ dataPath: ".wwebjs_auth" }),
   puppeteer: {
-    headless: "new",
+    headless: true,
+    protocolTimeout: 90000,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
-      "--disable-gpu",
       "--disable-dev-shm-usage",
+      "--disable-gpu",
       "--disable-extensions",
-      "--disable-background-networking",
-      "--disable-background-timer-throttling",
-      "--disable-renderer-backgrounding",
-      "--disable-features=TranslateUI,BlinkGenPropertyTrees,NetworkService,NetworkServiceInProcess",
       "--no-first-run",
       "--no-default-browser-check",
-      "--single-process",
-      "--no-zygote",
-      "--remote-debugging-port=9222",
-      "--user-data-dir=/tmp/chrome-user-data",
     ],
     ...(EXECUTABLE_PATH ? { executablePath: EXECUTABLE_PATH } : {}),
   },
@@ -75,8 +79,15 @@ client.on("qr", async (qr) => {
   }
 });
 
-client.on("authenticated", () => console.log("WhatsApp authenticated."));
-client.on("auth_failure", (m) => console.error("Auth failed:", m));
+client.on("authenticated", () => {
+  console.log("WhatsApp authenticated.");
+});
+
+client.on("auth_failure", (m) => {
+  console.error("Auth failed:", m);
+  triggerRestart("auth_failure: " + m);
+});
+
 client.on("ready", () => {
   ready = true;
   qrDataUrl = null;
@@ -87,13 +98,12 @@ client.on("ready", () => {
   }
   console.log(`WhatsApp sender ready${linkedNumber ? ` as ${linkedNumber}` : ""}.`);
 });
+
 client.on("disconnected", (reason) => {
   ready = false;
   qrDataUrl = null;
-  // Exit so pm2 restarts us; LocalAuth keeps the session, so a normal
-  // drop reconnects without a new scan. A real logout will show a QR.
   console.log("Disconnected:", reason, "— restarting to reconnect…");
-  setTimeout(() => process.exit(1), 3000);
+  triggerRestart("disconnected: " + reason);
 });
 
 // Diagnostics: confirm messages actually leave the device.
@@ -108,8 +118,56 @@ client.on("message_ack", (m, ack) => {
   }
 });
 
-app.get("/status", (_req, res) => {
-  res.json({ ready, number: linkedNumber });
+// Send queue to prevent concurrent evaluate collisions in Puppeteer
+let sendQueue = Promise.resolve();
+
+function enqueueSend(to, message) {
+  return new Promise((resolve, reject) => {
+    sendQueue = sendQueue
+      .then(async () => {
+        try {
+          const res = await doSend(to, message);
+          // Wait 800ms between sends to avoid flooding WhatsApp Web
+          await new Promise((r) => setTimeout(r, 800));
+          resolve(res);
+        } catch (err) {
+          await new Promise((r) => setTimeout(r, 500));
+          reject(err);
+        }
+      })
+      .catch((err) => {
+        console.error("Queue chain error:", err?.message);
+      });
+  });
+}
+
+async function doSend(to, message) {
+  if (!ready || isRestarting || !client.pupPage || client.pupPage.isClosed()) {
+    throw new Error("client not ready");
+  }
+
+  let chatId = `${to}@c.us`;
+  try {
+    const numberId = await client.getNumberId(to);
+    if (numberId?._serialized) {
+      chatId = numberId._serialized;
+    }
+  } catch (err) {
+    console.warn(`getNumberId check for ${to} failed, falling back to ${chatId}:`, err?.message);
+  }
+
+  const sent = await client.sendMessage(chatId, message);
+  const id = sent?.id?._serialized ?? null;
+  if (!sent) {
+    console.warn(`send to ${to} (${chatId}): WhatsApp returned no message model (unknown id)`);
+  }
+  return { ok: true, id, chatId };
+}
+
+app.get("/status", async (_req, res) => {
+  const pageHealthy = client.pupPage && !client.pupPage.isClosed();
+  const isOk = ready && pageHealthy && !isRestarting;
+  res.json({ ready: isOk, number: linkedNumber });
 });
 
 function qrPng(res) {
@@ -174,7 +232,7 @@ app.post("/send", async (req, res) => {
     if (req.body.secret !== SECRET) {
       return res.status(401).json({ ok: false, error: "bad secret" });
     }
-    if (!ready) {
+    if (!ready || isRestarting) {
       return res.status(503).json({ ok: false, error: "not ready" });
     }
     const to = String(req.body.to || "").replace(/\D/g, "");
@@ -182,23 +240,73 @@ app.post("/send", async (req, res) => {
     if (to.length < 10 || !message) {
       return res.status(400).json({ ok: false, error: "bad to/message" });
     }
-    const chatId = `${to}@c.us`;
-    const sent = await client.sendMessage(chatId, message);
-    // whatsapp-web.js can resolve `sendMessage` with undefined even when
-    // the message WAS delivered (recent WhatsApp Web stopped returning the
-    // serialized message model for every send). A resolved promise means
-    // the send didn't throw, so treat it as success and report the id when
-    // we have it.
-    const id = sent?.id?._serialized ?? null;
-    if (!sent) {
-      console.warn(`send to ${to}: WhatsApp returned no message model (unknown id)`);
-    }
-    return res.json({ ok: true, id });
+
+    const result = await enqueueSend(to, message);
+    return res.json(result);
   } catch (err) {
-    console.error("send failed:", err && err.message);
-    return res.status(500).json({ ok: false, error: "send failed" });
+    const errMsg = err && err.message ? err.message : String(err);
+    console.error("send failed:", errMsg);
+
+    // If page context is lost or WWebJS undefined, trigger auto-restart
+    if (
+      errMsg.includes("getChat") ||
+      errMsg.includes("context was destroyed") ||
+      errMsg.includes("Session closed") ||
+      errMsg.includes("Target closed") ||
+      errMsg.includes("protocolTimeout")
+    ) {
+      triggerRestart("Fatal send error: " + errMsg);
+    }
+
+    return res.status(500).json({ ok: false, error: errMsg });
   }
 });
 
+// Periodic ping every 60s to ensure WhatsApp Web page stays active and doesn't get evicted
+setInterval(async () => {
+  if (!ready || isRestarting) return;
+  try {
+    if (!client.pupPage || client.pupPage.isClosed()) {
+      triggerRestart("Healthcheck: page closed");
+      return;
+    }
+    const injected = await client.pupPage.evaluate(() => typeof window.WWebJS !== "undefined");
+    if (!injected) {
+      triggerRestart("Healthcheck: window.WWebJS not defined");
+    }
+  } catch (err) {
+    console.warn("Healthcheck warning:", err?.message);
+    if (
+      String(err?.message).includes("Session closed") ||
+      String(err?.message).includes("destroyed") ||
+      String(err?.message).includes("Target closed")
+    ) {
+      triggerRestart("Healthcheck failure: " + err.message);
+    }
+  }
+}, 60000);
+
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+  const msg = String(err);
+  if (
+    msg.includes("auth timeout") ||
+    msg.includes("Target closed") ||
+    msg.includes("Session closed") ||
+    msg.includes("destroyed")
+  ) {
+    triggerRestart("Unhandled rejection: " + msg);
+  }
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  triggerRestart("Uncaught exception: " + err?.message);
+});
+
 app.listen(PORT, () => console.log(`wa-sender on :${PORT}`));
-client.initialize();
+
+client.initialize().catch((err) => {
+  console.error("Client initialization failed:", err);
+  triggerRestart("initialize failed: " + err);
+});
