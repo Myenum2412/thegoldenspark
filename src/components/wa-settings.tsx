@@ -95,12 +95,14 @@ export default function WaSettings() {
       const res = await fetch("/api/wa-test", { method: "POST" });
       const body = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
-        to?: string;
+        targets?: string[];
+        results?: Record<string, boolean>;
         error?: string;
       };
       if (res.ok && body.ok) {
-        toast.success("Test message sent", {
-          description: "Check the linked WhatsApp for a confirmation.",
+        toast.success("Test message sent successfully!", {
+          description:
+            "Delivered to store numbers (+91 83444 76962, +91 90876 06352) & linked device.",
         });
       } else {
         const reason =
@@ -108,7 +110,9 @@ export default function WaSettings() {
             ? "The sender is not linked yet."
             : body.error === "not-configured"
               ? "Sender not configured."
-              : "Could not send the test message.";
+              : body.error === "unauthorized"
+                ? "Session expired. Please log in again."
+                : "Could not send the test message.";
         toast.error("Test failed", { description: reason });
       }
     } catch {
@@ -243,7 +247,7 @@ export default function WaSettings() {
                 {testing ? "Sending…" : "Send test message"}
               </Button>
               <span className="text-xs text-muted-foreground">
-                Sends a message from the linked WhatsApp to itself.
+                Sends a test message to both store numbers (+91 83444 76962, +91 90876 06352) and the linked device.
               </span>
             </div>
           </div>
