@@ -27,6 +27,8 @@ async function main() {
       img = "Electric Giant Crackers 28-Pack.png";
     } else if (/angery\s*bird/i.test(r.name)) {
       img = "Electric Giant Crackers Package.png";
+    } else if (/toy\s*\(700\s*wala\)/i.test(r.name) || r.barcode === "W04") {
+      img = "Regal Lion Pyro Toy King Box.png";
     }
     const webSrc = productImageSrc(img);
     const decodedFile = webSrc ? decodeURI(webSrc.replace(/^\/Diwali\//, "")) : null;

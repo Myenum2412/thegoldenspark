@@ -71,6 +71,8 @@ function toProduct(row: Row): Product {
     image = "Electric Giant Crackers 28-Pack.png";
   } else if (/angery\s*bird/i.test(name)) {
     image = "Electric Giant Crackers Package.png";
+  } else if (/toy\s*\(700\s*wala\)/i.test(name) || barcode === "W04") {
+    image = "Regal Lion Pyro Toy King Box.png";
   }
   return {
     id: row.$id,
