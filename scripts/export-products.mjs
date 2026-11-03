@@ -29,6 +29,8 @@ async function main() {
       img = "Electric Giant Crackers Package.png";
     } else if (/toy\s*\(700\s*wala\)/i.test(r.name) || r.barcode === "W04") {
       img = "Regal Lion Pyro Toy King Box.png";
+    } else if (/nayagara/i.test(r.name) || r.barcode === "CRK-107") {
+      img = "Nayagara Falls Fireworks Box.png";
     }
     const webSrc = productImageSrc(img);
     const decodedFile = webSrc ? decodeURI(webSrc.replace(/^\/Diwali\//, "")) : null;
