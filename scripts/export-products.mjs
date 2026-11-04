@@ -2,15 +2,86 @@ import { existsSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { Client, Query, TablesDB } from "appwrite";
-import { productImageSrc, getProductMinQty } from "../src/lib/store-data.ts";
 
-const ENDPOINT = "https://sfo.cloud.appwrite.io/v1";
-const PROJECT_ID = "6ac84fa0002e5ccfa934";
-const DATABASE_ID = "billing_db";
-const TABLE_ID = "products";
+const ENDPOINT = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || "https://sfo.cloud.appwrite.io/v1";
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || "6ac84fa0002e5ccfa934";
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || "billing_db";
+const TABLE_ID = process.env.NEXT_PUBLIC_APPWRITE_TABLE_PRODUCTS || "products";
+const API_KEY = process.env.APPWRITE_API_KEY?.trim();
+
+function productImageSrc(image) {
+  if (!image) return null;
+  const value = String(image).trim();
+  if (!value) return null;
+  if (/^https?:\/\//i.test(value)) return value;
+  const fileName = value.replace(/^.*[\/\\]/, "");
+  return encodeURI(`/Diwali/${fileName}`);
+}
+
+function getProductMinQty(product) {
+  const name = (product?.name ?? "").trim().toUpperCase();
+  const code = (product?.barcode ?? "").trim().toUpperCase();
+  if (
+    [
+      '3.5" LAKSHMI CRACKERS',
+      '4" LAKSHMI CRACKERS',
+      "LAKSHMI DLX CRACKERS",
+      "7 CM ELECTRIC SPARKLERS",
+      "10 CM ELECTRIC SPARKLERS",
+      "12 CM RED SPARKLERS",
+      "12 CM GREEN SPARKLERS",
+      "10 CM RAINBOW SPARKLERS 4 IN 1",
+    ].includes(name) ||
+    ["R03", "R01", "R07", "S01", "S02", "S16", "S15", "SP26"].includes(code)
+  ) {
+    return 5;
+  }
+  if (name === '2.5" WETWO CRACKERS' || code === "R05") return 10;
+  if (
+    [
+      "15 CM ELECTRIC SPARKLERS",
+      "30 CM COLOUR SPARKLERS",
+      "15 CM RED SPARKLERS",
+      "15 CM GREEN SPARKLERS",
+      "30 CM RED SPARKLERS",
+      "30 CM GREEN SPARKLERS",
+      "GROUND CHAKKAR BIG",
+      "RED BIJILI CRACKERS",
+      "STRIPPED BIJILI CRACKERS",
+      "56 ANGERY BIRD",
+      "28 ANGERY BIRD",
+      "SUPER SHOW",
+      "AMBER SHOW",
+      "RUBY SHOW",
+      "MINI",
+      "MINI (100 WALA)",
+    ].includes(name) ||
+    [
+      "S04",
+      "S10",
+      "S18",
+      "S17",
+      "S20",
+      "S19",
+      "R10",
+      "R56",
+      "R58",
+      "R48",
+      "CRK-054",
+      "CRK-057",
+      "CRK-058",
+      "CRK-059",
+      "W01",
+    ].includes(code)
+  ) {
+    return 2;
+  }
+  return 1;
+}
 
 async function main() {
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
+  if (API_KEY) client.headers["X-Appwrite-Key"] = API_KEY;
   const db = new TablesDB(client);
   const res = await db.listRows({
     databaseId: DATABASE_ID,

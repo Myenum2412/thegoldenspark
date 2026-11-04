@@ -216,6 +216,30 @@
     "note": "Use the Nayagara Falls fireworks box artwork for the NAYAGARA product."
   },
   {
+    "barcode": "CRK-109",
+    "name": "Sony Ring",
+    "image": "sonyring.jpeg",
+    "note": "Use the Sonny Ring Caps packshot for the Sony Ring product."
+  },
+  {
+    "barcode": "CRK-110",
+    "name": "Match Throw",
+    "image": "matchthrow.jpeg",
+    "note": "Use the HW Powerhouse matchbox packshot for the Match Throw product."
+  },
+  {
+    "barcode": "CRK-111",
+    "name": "Bulk Gun",
+    "image": "bulkgun.jpeg",
+    "note": "Use the purple toy gun packshot for the Bulk Gun product."
+  },
+  {
+    "barcode": "CRK-112",
+    "name": "Eagol Gun",
+    "image": "Eagolgun.jpeg",
+    "note": "Use the black and green eagle toy gun packshot for the Eagol Gun product."
+  },
+  {
     "barcode": "W02",
     "name": "NANO (300 wala)",
     "image": "Regal Lion Nano Fireworks Box.png",

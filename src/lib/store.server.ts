@@ -184,6 +184,7 @@ export async function createProduct(data: {
       localId: ID.unique(),
       name: data.name,
       barcode: String(data.item_no),
+      category: data.category || "General",
       price,
       stock: data.stock,
       packing: data.packing || "",
@@ -211,6 +212,7 @@ export async function updateProduct(
     rowId: id,
     data: {
       name: data.name,
+      category: data.category || "General",
       price: data.special_rate || data.mrp || 0,
       stock: data.stock,
       packing: data.packing || "",

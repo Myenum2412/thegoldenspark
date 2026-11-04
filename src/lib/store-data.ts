@@ -125,6 +125,16 @@ export function getProductMinQty(
 }
 
 const DIWALI_FILE_MAP: Record<string, string> = {
+  "bulkgun": "bulkgun.jpeg",
+  "bulkgunjpeg": "bulkgun.jpeg",
+  "eagolgun": "Eagolgun.jpeg",
+  "eagolgunjpeg": "Eagolgun.jpeg",
+  "eaglogun": "Eagolgun.jpeg",
+  "eaglogunjpeg": "Eagolgun.jpeg",
+  "matchthrow": "matchthrow.jpeg",
+  "matchthrowjpeg": "matchthrow.jpeg",
+  "sonyring": "sonyring.jpeg",
+  "sonyringjpeg": "sonyring.jpeg",
   "10cmelectricsparklers": "10 CM Electric Sparklers.webp",
   "10klikescosmicfireworksbox": "10K Likes Cosmic Fireworks Box.png",
   "240shots": "240shots.png",

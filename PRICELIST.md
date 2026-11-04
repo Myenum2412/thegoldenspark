@@ -12,7 +12,7 @@ Salem - 636004
 
 ## Product Pricelist 2026
 
-**105 products** · Special rate is our discounted price; MRP is shown for reference. Prices in Indian Rupees (₹).
+**109 products** · Special rate is our discounted price; MRP is shown for reference. Prices in Indian Rupees (₹).
 
 ### Lakshmi & Wetwo Crackers
 
@@ -168,6 +168,15 @@ Salem - 636004
 | G12-E | GIFT BOX - PALAI (E) | Box | ₹7,610 | **₹1,522** |
 | G100 | TRAVEL GIFT BAG | BAGS | ₹22,500 | **₹4,500** |
 | CRK-052 | GIFT BOX - Yes (G) | Box | ₹3,300 | **₹660** |
+
+### General
+
+| Code | Product | Packing | MRP | Special Rate |
+|---|---|---|---:|---:|
+| CRK-109 | Sony Ring | Box | ₹50 | **₹10** |
+| CRK-110 | Match Throw | Box | ₹100 | **₹20** |
+| CRK-111 | Bulk Gun | PCS | ₹250 | **₹50** |
+| CRK-112 | Eagol Gun | PCS | ₹850 | **₹170** |
 
 ---
 

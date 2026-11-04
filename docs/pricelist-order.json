@@ -523,5 +523,25 @@
     "ordr": 105,
     "barcode": "CRK-107",
     "name": "NAYAGARA"
+  },
+  {
+    "ordr": 106,
+    "barcode": "CRK-109",
+    "name": "Sony Ring"
+  },
+  {
+    "ordr": 107,
+    "barcode": "CRK-110",
+    "name": "Match Throw"
+  },
+  {
+    "ordr": 108,
+    "barcode": "CRK-111",
+    "name": "Bulk Gun"
+  },
+  {
+    "ordr": 109,
+    "barcode": "CRK-112",
+    "name": "Eagol Gun"
   }
 ]

@@ -1,6 +1,34 @@
 [
   {
     "ordr": 1,
+    "id": "a7bec230-7c33-4fe7-9cf1-2f2b1562af93",
+    "barcode": "760762072195",
+    "name": "Silver Bow ",
+    "category": "General",
+    "packing": "",
+    "mrp": 260,
+    "special_rate": 260,
+    "stock": 1,
+    "min_qty": 1,
+    "image_file": "Silver Bow Fireworks Box.png",
+    "image_url": "/Diwali/Silver%20Bow%20Fireworks%20Box.png"
+  },
+  {
+    "ordr": 2,
+    "id": "cd15931e-5449-4daa-a17b-a8ab9907751f",
+    "barcode": "760762072157",
+    "name": "Red Bow",
+    "category": "General",
+    "packing": "",
+    "mrp": 260,
+    "special_rate": 260,
+    "stock": 1,
+    "min_qty": 1,
+    "image_file": "Red Bow Fireworks Box.png",
+    "image_url": "/Diwali/Red%20Bow%20Fireworks%20Box.png"
+  },
+  {
+    "ordr": 1,
     "id": "cracker-079",
     "barcode": "R05",
     "name": "2.5\" WETWO CRACKERS",
@@ -8,7 +36,7 @@
     "packing": "PKTS",
     "mrp": 90,
     "special_rate": 18,
-    "stock": 1045,
+    "stock": 1051,
     "min_qty": 10,
     "image_file": "Colourful WeTwo Firecracker Bundle.png",
     "image_url": "/Diwali/Colourful%20WeTwo%20Firecracker%20Bundle.png"
@@ -36,7 +64,7 @@
     "packing": "PKTS",
     "mrp": 220,
     "special_rate": 44,
-    "stock": 847,
+    "stock": 857,
     "min_qty": 5,
     "image_file": "Colourful Goddess-Labelled Firecracker Bundle.png",
     "image_url": "/Diwali/Colourful%20Goddess-Labelled%20Firecracker%20Bundle.png"
@@ -64,7 +92,7 @@
     "packing": "Box",
     "mrp": 100,
     "special_rate": 20,
-    "stock": 317,
+    "stock": 327,
     "min_qty": 5,
     "image_file": "WeTwo Electric Sparklers Box.png",
     "image_url": "/Diwali/WeTwo%20Electric%20Sparklers%20Box.png"
@@ -78,7 +106,7 @@
     "packing": "Box",
     "mrp": 110,
     "special_rate": 22,
-    "stock": 300,
+    "stock": 301,
     "min_qty": 1,
     "image_file": "7 CM Colour Sparklers.webp",
     "image_url": "/Diwali/7%20CM%20Colour%20Sparklers.webp"
@@ -106,7 +134,7 @@
     "packing": "Box",
     "mrp": 220,
     "special_rate": 44,
-    "stock": 796,
+    "stock": 798,
     "min_qty": 1,
     "image_file": "Vibrant Purple Colour Sparklers Packaging.png",
     "image_url": "/Diwali/Vibrant%20Purple%20Colour%20Sparklers%20Packaging.png"
@@ -120,7 +148,7 @@
     "packing": "Box",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 159,
+    "stock": 161,
     "min_qty": 5,
     "image_file": "Rainbow Sparkler Box Packaging.png",
     "image_url": "/Diwali/Rainbow%20Sparkler%20Box%20Packaging.png"
@@ -162,7 +190,7 @@
     "packing": "Box",
     "mrp": 400,
     "special_rate": 80,
-    "stock": 604,
+    "stock": 603,
     "min_qty": 2,
     "image_file": "WeTwo Electric Sparklers Box.png",
     "image_url": "/Diwali/WeTwo%20Electric%20Sparklers%20Box.png"
@@ -176,7 +204,7 @@
     "packing": "Box",
     "mrp": 430,
     "special_rate": 86,
-    "stock": 400,
+    "stock": 401,
     "min_qty": 2,
     "image_file": "Green Sparkler Box Product Packshot (2).png",
     "image_url": "/Diwali/Green%20Sparkler%20Box%20Product%20Packshot%20(2).png"
@@ -204,7 +232,7 @@
     "packing": "Box",
     "mrp": 440,
     "special_rate": 88,
-    "stock": 400,
+    "stock": 404,
     "min_qty": 2,
     "image_file": "WeTwo Electric Sparklers Box.png",
     "image_url": "/Diwali/WeTwo%20Electric%20Sparklers%20Box.png"
@@ -218,7 +246,7 @@
     "packing": "Box",
     "mrp": 400,
     "special_rate": 80,
-    "stock": 417,
+    "stock": 379,
     "min_qty": 1,
     "image_file": "WeTwo Electric Sparklers Box.png",
     "image_url": "/Diwali/WeTwo%20Electric%20Sparklers%20Box.png"
@@ -232,7 +260,7 @@
     "packing": "Box",
     "mrp": 410,
     "special_rate": 82,
-    "stock": 409,
+    "stock": 404,
     "min_qty": 2,
     "image_file": "Vibrant Purple Colour Sparklers Packaging.png",
     "image_url": "/Diwali/Vibrant%20Purple%20Colour%20Sparklers%20Packaging.png"
@@ -246,7 +274,7 @@
     "packing": "Box",
     "mrp": 490,
     "special_rate": 98,
-    "stock": 204,
+    "stock": 201,
     "min_qty": 2,
     "image_file": "WeTwo Electric Sparklers Box.png",
     "image_url": "/Diwali/WeTwo%20Electric%20Sparklers%20Box.png"
@@ -288,7 +316,7 @@
     "packing": "TUBE",
     "mrp": 960,
     "special_rate": 192,
-    "stock": 124,
+    "stock": 121,
     "min_qty": 1,
     "image_file": "WeTwo’s Electric Fountain Firework Tube.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Electric%20Fountain%20Firework%20Tube.png"
@@ -302,7 +330,7 @@
     "packing": "TUBE",
     "mrp": 990,
     "special_rate": 198,
-    "stock": 73,
+    "stock": 71,
     "min_qty": 1,
     "image_file": "WeTwo’s Electric Fountain Firework Tube.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Electric%20Fountain%20Firework%20Tube.png"
@@ -316,7 +344,7 @@
     "packing": "Box",
     "mrp": 350,
     "special_rate": 70,
-    "stock": 483,
+    "stock": 485,
     "min_qty": 2,
     "image_file": "WeTwo’s Ground Chakkar Fireworks Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Ground%20Chakkar%20Fireworks%20Box.png"
@@ -330,7 +358,7 @@
     "packing": "Box",
     "mrp": 670,
     "special_rate": 134,
-    "stock": 449,
+    "stock": 451,
     "min_qty": 1,
     "image_file": "WeTwo’s Asoka Ground Chakkar Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Asoka%20Ground%20Chakkar%20Box.png"
@@ -344,7 +372,7 @@
     "packing": "Box",
     "mrp": 1170,
     "special_rate": 234,
-    "stock": 299,
+    "stock": 294,
     "min_qty": 1,
     "image_file": "Ground Chakkar Deluxe Fireworks Box.png",
     "image_url": "/Diwali/Ground%20Chakkar%20Deluxe%20Fireworks%20Box.png"
@@ -358,7 +386,7 @@
     "packing": "Box",
     "mrp": 570,
     "special_rate": 114,
-    "stock": 482,
+    "stock": 483,
     "min_qty": 1,
     "image_file": "Twinkling Star Fairy Fireworks Box.png",
     "image_url": "/Diwali/Twinkling%20Star%20Fairy%20Fireworks%20Box.png"
@@ -372,7 +400,7 @@
     "packing": "Box",
     "mrp": 1020,
     "special_rate": 204,
-    "stock": 301,
+    "stock": 294,
     "min_qty": 1,
     "image_file": "Twinkling Star Fairy Fireworks Box.png",
     "image_url": "/Diwali/Twinkling%20Star%20Fairy%20Fireworks%20Box.png"
@@ -386,7 +414,7 @@
     "packing": "Box",
     "mrp": 820,
     "special_rate": 164,
-    "stock": 302,
+    "stock": 309,
     "min_qty": 1,
     "image_file": "WeTwo Flower Pots Big Fireworks Box.png",
     "image_url": "/Diwali/WeTwo%20Flower%20Pots%20Big%20Fireworks%20Box.png"
@@ -400,7 +428,7 @@
     "packing": "Box",
     "mrp": 1170,
     "special_rate": 234,
-    "stock": 201,
+    "stock": 203,
     "min_qty": 1,
     "image_file": "Colourful Flower Pot Fireworks Packaging.png",
     "image_url": "/Diwali/Colourful%20Flower%20Pot%20Fireworks%20Packaging.png"
@@ -414,7 +442,7 @@
     "packing": "Box",
     "mrp": 1530,
     "special_rate": 306,
-    "stock": 120,
+    "stock": 119,
     "min_qty": 1,
     "image_file": "Vibrant Flower Pots Super Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Flower%20Pots%20Super%20Fireworks%20Box.png"
@@ -428,7 +456,7 @@
     "packing": "Box",
     "mrp": 1660,
     "special_rate": 332,
-    "stock": 82,
+    "stock": 81,
     "min_qty": 1,
     "image_file": "Giant Flower Pots Fireworks Box.png",
     "image_url": "/Diwali/Giant%20Flower%20Pots%20Fireworks%20Box.png"
@@ -456,7 +484,7 @@
     "packing": "Box",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 53,
+    "stock": 55,
     "min_qty": 1,
     "image_file": "Vibrant Maha Flower Pots Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Maha%20Flower%20Pots%20Fireworks%20Box.png"
@@ -470,7 +498,7 @@
     "packing": "Box",
     "mrp": 1870,
     "special_rate": 374,
-    "stock": 120,
+    "stock": 118,
     "min_qty": 1,
     "image_file": "Colour Koti Peacock Fireworks Box.png",
     "image_url": "/Diwali/Colour%20Koti%20Peacock%20Fireworks%20Box.png"
@@ -498,7 +526,7 @@
     "packing": "Box",
     "mrp": 1180,
     "special_rate": 236,
-    "stock": 123,
+    "stock": 120,
     "min_qty": 1,
     "image_file": "Vibrant WeTwo’s 3 Colour Pots Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20WeTwo%E2%80%99s%203%20Colour%20Pots%20Fireworks%20Box.png"
@@ -512,7 +540,7 @@
     "packing": "Box",
     "mrp": 1520,
     "special_rate": 304,
-    "stock": 100,
+    "stock": 98,
     "min_qty": 1,
     "image_file": "WeTwo’s Red Colour Pot Deluxe Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Red%20Colour%20Pot%20Deluxe%20Box.png"
@@ -526,7 +554,7 @@
     "packing": "Box",
     "mrp": 500,
     "special_rate": 100,
-    "stock": 299,
+    "stock": 297,
     "min_qty": 1,
     "image_file": "Comic-Style Rectangular Bomb Fireworks Box.png",
     "image_url": "/Diwali/Comic-Style%20Rectangular%20Bomb%20Fireworks%20Box.png"
@@ -540,7 +568,7 @@
     "packing": "BAGS",
     "mrp": 325,
     "special_rate": 65,
-    "stock": 489,
+    "stock": 490,
     "min_qty": 2,
     "image_file": "Red Bijili Crackers Packaging.png",
     "image_url": "/Diwali/Red%20Bijili%20Crackers%20Packaging.png"
@@ -554,7 +582,7 @@
     "packing": "BAGS",
     "mrp": 350,
     "special_rate": 70,
-    "stock": 474,
+    "stock": 472,
     "min_qty": 2,
     "image_file": "R58-STRIPPED BIJILI CRACKERS.jpeg",
     "image_url": "/Diwali/R58-STRIPPED%20BIJILI%20CRACKERS.jpeg"
@@ -568,7 +596,7 @@
     "packing": "Box",
     "mrp": 420,
     "special_rate": 84,
-    "stock": 405,
+    "stock": 406,
     "min_qty": 1,
     "image_file": "Chitput Cartoon Firework Box.png",
     "image_url": "/Diwali/Chitput%20Cartoon%20Firework%20Box.png"
@@ -582,7 +610,7 @@
     "packing": "PKTS",
     "mrp": 430,
     "special_rate": 86,
-    "stock": 599,
+    "stock": 580,
     "min_qty": 2,
     "image_file": "Electric Giant Crackers Package.png",
     "image_url": "/Diwali/Electric%20Giant%20Crackers%20Package.png"
@@ -596,7 +624,7 @@
     "packing": "PKTS",
     "mrp": 220,
     "special_rate": 44,
-    "stock": 1016,
+    "stock": 1014,
     "min_qty": 2,
     "image_file": "Electric Giant Crackers 28-Pack.png",
     "image_url": "/Diwali/Electric%20Giant%20Crackers%2028-Pack.png"
@@ -610,7 +638,7 @@
     "packing": "Box",
     "mrp": 800,
     "special_rate": 160,
-    "stock": 150,
+    "stock": 149,
     "min_qty": 1,
     "image_file": "Rocket Bomb Firework Box Packaging.png",
     "image_url": "/Diwali/Rocket%20Bomb%20Firework%20Box%20Packaging.png"
@@ -624,7 +652,7 @@
     "packing": "Box",
     "mrp": 1165,
     "special_rate": 233,
-    "stock": 108,
+    "stock": 109,
     "min_qty": 1,
     "image_file": "Colourful 7 Shots Fireworks Box.png",
     "image_url": "/Diwali/Colourful%207%20Shots%20Fireworks%20Box.png"
@@ -638,7 +666,7 @@
     "packing": "PACK",
     "mrp": 1370,
     "special_rate": 274,
-    "stock": 102,
+    "stock": 103,
     "min_qty": 1,
     "image_file": "CHINNA CHOTTA FANCY.jpg",
     "image_url": "/Diwali/CHINNA%20CHOTTA%20FANCY.jpg"
@@ -652,7 +680,7 @@
     "packing": "Box",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 192,
+    "stock": 189,
     "min_qty": 1,
     "image_file": "ARC.png",
     "image_url": "/Diwali/ARC.png"
@@ -666,7 +694,7 @@
     "packing": "PACK",
     "mrp": 1600,
     "special_rate": 320,
-    "stock": 122,
+    "stock": 123,
     "min_qty": 1,
     "image_file": "Classic Hits Firework Box Collection.png",
     "image_url": "/Diwali/Classic%20Hits%20Firework%20Box%20Collection.png"
@@ -680,7 +708,7 @@
     "packing": "Box",
     "mrp": 2000,
     "special_rate": 400,
-    "stock": 85,
+    "stock": 84,
     "min_qty": 1,
     "image_file": "WeTwo’s Carnival Ferris Wheel Fireworks.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Carnival%20Ferris%20Wheel%20Fireworks.png"
@@ -708,7 +736,7 @@
     "packing": "Box",
     "mrp": 2500,
     "special_rate": 500,
-    "stock": 102,
+    "stock": 103,
     "min_qty": 1,
     "image_file": "Vibrant Thogai Fireworks Package.png",
     "image_url": "/Diwali/Vibrant%20Thogai%20Fireworks%20Package.png"
@@ -722,7 +750,7 @@
     "packing": "PCS",
     "mrp": 3000,
     "special_rate": 600,
-    "stock": 49,
+    "stock": 51,
     "min_qty": 1,
     "image_file": "25 Rider Fireworks Box Mockup.png",
     "image_url": "/Diwali/25%20Rider%20Fireworks%20Box%20Mockup.png"
@@ -736,7 +764,7 @@
     "packing": "Bndl",
     "mrp": 900,
     "special_rate": 180,
-    "stock": 3,
+    "stock": 6,
     "min_qty": 1,
     "image_file": "Robin 7UP Cartoon Matchbox Packaging.png",
     "image_url": "/Diwali/Robin%207UP%20Cartoon%20Matchbox%20Packaging.png"
@@ -750,7 +778,7 @@
     "packing": "Bndl",
     "mrp": 450,
     "special_rate": 90,
-    "stock": 1,
+    "stock": 3,
     "min_qty": 1,
     "image_file": "Robin Classic 5 in 1.webp",
     "image_url": "/Diwali/Robin%20Classic%205%20in%201.webp"
@@ -764,7 +792,7 @@
     "packing": "Bndl",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 1,
+    "stock": 2,
     "min_qty": 1,
     "image_file": "Robin Super Deluxe 10 in 1.webp",
     "image_url": "/Diwali/Robin%20Super%20Deluxe%2010%20in%201.webp"
@@ -792,7 +820,7 @@
     "packing": "PACK",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 111,
+    "stock": 108,
     "min_qty": 1,
     "image_file": "F123A - JUSTICE LEAGUE.jpeg",
     "image_url": "/Diwali/F123A%20-%20JUSTICE%20LEAGUE.jpeg"
@@ -806,7 +834,7 @@
     "packing": "PCS",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 64,
+    "stock": 63,
     "min_qty": 1,
     "image_file": "Goo Goo White Shower Firework Box.png",
     "image_url": "/Diwali/Goo%20Goo%20White%20Shower%20Firework%20Box.png"
@@ -820,7 +848,7 @@
     "packing": "PCS",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 62,
+    "stock": 60,
     "min_qty": 1,
     "image_file": "Bloody Blazes Red Shower Firework Box.png",
     "image_url": "/Diwali/Bloody%20Blazes%20Red%20Shower%20Firework%20Box.png"
@@ -834,7 +862,7 @@
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 80,
+    "stock": 82,
     "min_qty": 1,
     "image_file": "WeTwo’s Popcorn Fountain Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Popcorn%20Fountain%20Box.png"
@@ -848,7 +876,7 @@
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 81,
+    "stock": 83,
     "min_qty": 1,
     "image_file": "Vibrant Crackling Fountain Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Crackling%20Fountain%20Fireworks%20Box.png"
@@ -876,7 +904,7 @@
     "packing": "PCS",
     "mrp": 700,
     "special_rate": 140,
-    "stock": 79,
+    "stock": 78,
     "min_qty": 1,
     "image_file": "Vibrant Nature Fountain Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Nature%20Fountain%20Fireworks%20Box.png"
@@ -904,7 +932,7 @@
     "packing": "PCS",
     "mrp": 560,
     "special_rate": 112,
-    "stock": 154,
+    "stock": 151,
     "min_qty": 2,
     "image_file": "AMBER SHOW Fireworks Pack.png",
     "image_url": "/Diwali/AMBER%20SHOW%20Fireworks%20Pack.png"
@@ -932,7 +960,7 @@
     "packing": "Box",
     "mrp": 1300,
     "special_rate": 260,
-    "stock": 23,
+    "stock": 26,
     "min_qty": 1,
     "image_file": "Magenta Pop Corn Bow Fireworks Box.png",
     "image_url": "/Diwali/Magenta%20Pop%20Corn%20Bow%20Fireworks%20Box.png"
@@ -946,7 +974,7 @@
     "packing": "Box",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 20,
+    "stock": 22,
     "min_qty": 1,
     "image_file": "Golden Yellow Bow Fireworks Box.png",
     "image_url": "/Diwali/Golden%20Yellow%20Bow%20Fireworks%20Box.png"
@@ -960,7 +988,7 @@
     "packing": "Box",
     "mrp": 1300,
     "special_rate": 260,
-    "stock": 20,
+    "stock": 21,
     "min_qty": 1,
     "image_file": "Red Bow Fireworks Box.png",
     "image_url": "/Diwali/Red%20Bow%20Fireworks%20Box.png"
@@ -974,7 +1002,7 @@
     "packing": "Box",
     "mrp": 1300,
     "special_rate": 260,
-    "stock": 32,
+    "stock": 33,
     "min_qty": 1,
     "image_file": "Silver Bow Fireworks Box.png",
     "image_url": "/Diwali/Silver%20Bow%20Fireworks%20Box.png"
@@ -988,7 +1016,7 @@
     "packing": "Box",
     "mrp": 1260,
     "special_rate": 252,
-    "stock": 34,
+    "stock": 35,
     "min_qty": 1,
     "image_file": "WeTwo’s Crackling Bow Fireworks Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Crackling%20Bow%20Fireworks%20Box.png"
@@ -1002,7 +1030,7 @@
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 26,
+    "stock": 27,
     "min_qty": 1,
     "image_file": "Sea of Stars Fireworks Box.png",
     "image_url": "/Diwali/Sea%20of%20Stars%20Fireworks%20Box.png"
@@ -1016,7 +1044,7 @@
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 25,
+    "stock": 23,
     "min_qty": 1,
     "image_file": "Bloody Blazes Red Shower Firework Box.png",
     "image_url": "/Diwali/Bloody%20Blazes%20Red%20Shower%20Firework%20Box.png"
@@ -1030,7 +1058,7 @@
     "packing": "Box",
     "mrp": 2200,
     "special_rate": 440,
-    "stock": 29,
+    "stock": 23,
     "min_qty": 1,
     "image_file": "Vibrant Green Garden Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Green%20Garden%20Fireworks%20Box.png"
@@ -1044,7 +1072,7 @@
     "packing": "PCS",
     "mrp": 1440,
     "special_rate": 288,
-    "stock": 42,
+    "stock": 43,
     "min_qty": 1,
     "image_file": "Disco Lights Fireworks Box.png",
     "image_url": "/Diwali/Disco%20Lights%20Fireworks%20Box.png"
@@ -1058,7 +1086,7 @@
     "packing": "PCS",
     "mrp": 1580,
     "special_rate": 316,
-    "stock": 81,
+    "stock": 82,
     "min_qty": 1,
     "image_file": "Masti Magic Fireworks Box.png",
     "image_url": "/Diwali/Masti%20Magic%20Fireworks%20Box.png"
@@ -1072,7 +1100,7 @@
     "packing": "Box",
     "mrp": 10700,
     "special_rate": 2140,
-    "stock": 20,
+    "stock": 23,
     "min_qty": 1,
     "image_file": "60 Shots.webp",
     "image_url": "/Diwali/60%20Shots.webp"
@@ -1086,7 +1114,7 @@
     "packing": "PCS",
     "mrp": 18600,
     "special_rate": 3720,
-    "stock": 8,
+    "stock": 6,
     "min_qty": 1,
     "image_file": "Vibrant Sky War Fireworks Box.png",
     "image_url": "/Diwali/Vibrant%20Sky%20War%20Fireworks%20Box.png"
@@ -1100,7 +1128,7 @@
     "packing": "Box",
     "mrp": 5060,
     "special_rate": 1012,
-    "stock": 31,
+    "stock": 30,
     "min_qty": 1,
     "image_file": "Fire Storm Fireworks Box Packaging.png",
     "image_url": "/Diwali/Fire%20Storm%20Fireworks%20Box%20Packaging.png"
@@ -1114,7 +1142,7 @@
     "packing": "Box",
     "mrp": 4025,
     "special_rate": 805,
-    "stock": 46,
+    "stock": 47,
     "min_qty": 1,
     "image_file": "30 Shots Square.webp",
     "image_url": "/Diwali/30%20Shots%20Square.webp"
@@ -1128,7 +1156,7 @@
     "packing": "Box",
     "mrp": 5060,
     "special_rate": 1012,
-    "stock": 34,
+    "stock": 32,
     "min_qty": 1,
     "image_file": "Elite 30 Multicolour Fireworks Box.png",
     "image_url": "/Diwali/Elite%2030%20Multicolour%20Fireworks%20Box.png"
@@ -1142,7 +1170,7 @@
     "packing": "Box",
     "mrp": 420,
     "special_rate": 84,
-    "stock": 200,
+    "stock": 202,
     "min_qty": 2,
     "image_file": "Mini King Lion Fireworks Box.png",
     "image_url": "/Diwali/Mini%20King%20Lion%20Fireworks%20Box.png"
@@ -1156,7 +1184,7 @@
     "packing": "Box",
     "mrp": 1210,
     "special_rate": 242,
-    "stock": 149,
+    "stock": 147,
     "min_qty": 1,
     "image_file": "Regal Lion Nano Fireworks Box.png",
     "image_url": "/Diwali/Regal%20Lion%20Nano%20Fireworks%20Box.png"
@@ -1170,7 +1198,7 @@
     "packing": "Box",
     "mrp": 2140,
     "special_rate": 428,
-    "stock": 100,
+    "stock": 102,
     "min_qty": 1,
     "image_file": "Regal Lion Pyro Toy King Box.png",
     "image_url": "/Diwali/Regal%20Lion%20Pyro%20Toy%20King%20Box.png"
@@ -1184,7 +1212,7 @@
     "packing": "Box",
     "mrp": 3100,
     "special_rate": 620,
-    "stock": 50,
+    "stock": 48,
     "min_qty": 1,
     "image_file": "MARVEL (500 wala Double).png",
     "image_url": "/Diwali/MARVEL%20(500%20wala%20Double).png"
@@ -1198,7 +1226,7 @@
     "packing": "Box",
     "mrp": 2700,
     "special_rate": 540,
-    "stock": 72,
+    "stock": 69,
     "min_qty": 1,
     "image_file": "Pyro Marvel King Fireworks Box.png",
     "image_url": "/Diwali/Pyro%20Marvel%20King%20Fireworks%20Box.png"
@@ -1212,7 +1240,7 @@
     "packing": "Box",
     "mrp": 6270,
     "special_rate": 1254,
-    "stock": 12,
+    "stock": 9,
     "min_qty": 1,
     "image_file": "Royal Lion Monster Fireworks Box.png",
     "image_url": "/Diwali/Royal%20Lion%20Monster%20Fireworks%20Box.png"
@@ -1240,7 +1268,7 @@
     "packing": "Box",
     "mrp": 12000,
     "special_rate": 2400,
-    "stock": 11,
+    "stock": 12,
     "min_qty": 1,
     "image_file": "5K Likes Cosmic Fireworks Packaging.png",
     "image_url": "/Diwali/5K%20Likes%20Cosmic%20Fireworks%20Packaging.png"
@@ -1254,7 +1282,7 @@
     "packing": "Box",
     "mrp": 24000,
     "special_rate": 4800,
-    "stock": 4,
+    "stock": 3,
     "min_qty": 1,
     "image_file": "10K Likes Cosmic Fireworks Box.png",
     "image_url": "/Diwali/10K%20Likes%20Cosmic%20Fireworks%20Box.png"
@@ -1268,7 +1296,7 @@
     "packing": "PCS",
     "mrp": 1500,
     "special_rate": 300,
-    "stock": 90,
+    "stock": 91,
     "min_qty": 1,
     "image_file": "Mystic Burst Green Fireworks Canister.png",
     "image_url": "/Diwali/Mystic%20Burst%20Green%20Fireworks%20Canister.png"
@@ -1296,7 +1324,7 @@
     "packing": "PCS",
     "mrp": 750,
     "special_rate": 150,
-    "stock": 235,
+    "stock": 234,
     "min_qty": 1,
     "image_file": "Silver Blaze Fireworks Tin.png",
     "image_url": "/Diwali/Silver%20Blaze%20Fireworks%20Tin.png"
@@ -1310,7 +1338,7 @@
     "packing": "Box",
     "mrp": 1500,
     "special_rate": 300,
-    "stock": 99,
+    "stock": 100,
     "min_qty": 1,
     "image_file": "Tricolour Smoke Fireworks Box.png",
     "image_url": "/Diwali/Tricolour%20Smoke%20Fireworks%20Box.png"
@@ -1324,7 +1352,7 @@
     "packing": "Box",
     "mrp": 1500,
     "special_rate": 300,
-    "stock": 103,
+    "stock": 102,
     "min_qty": 1,
     "image_file": "Colour Smoke Fireworks Box.png",
     "image_url": "/Diwali/Colour%20Smoke%20Fireworks%20Box.png"
@@ -1338,7 +1366,7 @@
     "packing": "Box",
     "mrp": 1600,
     "special_rate": 320,
-    "stock": 84,
+    "stock": 86,
     "min_qty": 1,
     "image_file": "Meteor Shower Fireworks Box.png",
     "image_url": "/Diwali/Meteor%20Shower%20Fireworks%20Box.png"
@@ -1380,7 +1408,7 @@
     "packing": "Box",
     "mrp": 3900,
     "special_rate": 780,
-    "stock": 100,
+    "stock": 98,
     "min_qty": 1,
     "image_file": "GIFT BOX - NEITHAL.png",
     "image_url": "/Diwali/GIFT%20BOX%20-%20NEITHAL.png"
@@ -1394,7 +1422,7 @@
     "packing": "Box",
     "mrp": 4590,
     "special_rate": 918,
-    "stock": 40,
+    "stock": 31,
     "min_qty": 1,
     "image_file": "Marutham Agricultural Land Gift Box.png",
     "image_url": "/Diwali/Marutham%20Agricultural%20Land%20Gift%20Box.png"
@@ -1422,7 +1450,7 @@
     "packing": "Box",
     "mrp": 7610,
     "special_rate": 1522,
-    "stock": 46,
+    "stock": 44,
     "min_qty": 1,
     "image_file": "palai.png",
     "image_url": "/Diwali/palai.png"
@@ -1464,9 +1492,65 @@
     "packing": "PCS",
     "mrp": 2400,
     "special_rate": 480,
-    "stock": 19,
+    "stock": 20,
     "min_qty": 1,
     "image_file": "Nayagara Falls Fireworks Box.png",
     "image_url": "/Diwali/Nayagara%20Falls%20Fireworks%20Box.png"
+  },
+  {
+    "ordr": 106,
+    "id": "cracker-109",
+    "barcode": "CRK-109",
+    "name": "Sony Ring",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 50,
+    "special_rate": 10,
+    "stock": 100,
+    "min_qty": 1,
+    "image_file": "sonyring.jpeg",
+    "image_url": "/Diwali/sonyring.jpeg"
+  },
+  {
+    "ordr": 107,
+    "id": "cracker-110",
+    "barcode": "CRK-110",
+    "name": "Match Throw",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 100,
+    "special_rate": 20,
+    "stock": 100,
+    "min_qty": 1,
+    "image_file": "matchthrow.jpeg",
+    "image_url": "/Diwali/matchthrow.jpeg"
+  },
+  {
+    "ordr": 108,
+    "id": "cracker-111",
+    "barcode": "CRK-111",
+    "name": "Bulk Gun",
+    "category": "General",
+    "packing": "PCS",
+    "mrp": 250,
+    "special_rate": 50,
+    "stock": 100,
+    "min_qty": 1,
+    "image_file": "bulkgun.jpeg",
+    "image_url": "/Diwali/bulkgun.jpeg"
+  },
+  {
+    "ordr": 109,
+    "id": "cracker-112",
+    "barcode": "CRK-112",
+    "name": "Eagol Gun",
+    "category": "General",
+    "packing": "PCS",
+    "mrp": 850,
+    "special_rate": 170,
+    "stock": 100,
+    "min_qty": 1,
+    "image_file": "Eagolgun.jpeg",
+    "image_url": "/Diwali/Eagolgun.jpeg"
   }
 ]

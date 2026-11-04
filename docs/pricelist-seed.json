@@ -1176,5 +1176,45 @@
     "special_rate": 480,
     "stock": 100,
     "image": "Nayagara Falls Fireworks Box.png"
+  },
+  {
+    "item_no": 117,
+    "ordr": 117,
+    "name": "Sony Ring",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 50,
+    "special_rate": 10,
+    "stock": 100
+  },
+  {
+    "item_no": 118,
+    "ordr": 118,
+    "name": "Match Throw",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 100,
+    "special_rate": 20,
+    "stock": 100
+  },
+  {
+    "item_no": 119,
+    "ordr": 119,
+    "name": "Bulk Gun",
+    "category": "General",
+    "packing": "PCS",
+    "mrp": 250,
+    "special_rate": 50,
+    "stock": 100
+  },
+  {
+    "item_no": 120,
+    "ordr": 120,
+    "name": "Eagol Gun",
+    "category": "General",
+    "packing": "PCS",
+    "mrp": 850,
+    "special_rate": 170,
+    "stock": 100
   }
 ]
