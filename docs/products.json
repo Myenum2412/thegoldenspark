@@ -1,34 +1,6 @@
 [
   {
     "ordr": 1,
-    "id": "a7bec230-7c33-4fe7-9cf1-2f2b1562af93",
-    "barcode": "760762072195",
-    "name": "Silver Bow ",
-    "category": "General",
-    "packing": "",
-    "mrp": 260,
-    "special_rate": 260,
-    "stock": 1,
-    "min_qty": 1,
-    "image_file": "Silver Bow Fireworks Box.png",
-    "image_url": "/Diwali/Silver%20Bow%20Fireworks%20Box.png"
-  },
-  {
-    "ordr": 2,
-    "id": "cd15931e-5449-4daa-a17b-a8ab9907751f",
-    "barcode": "760762072157",
-    "name": "Red Bow",
-    "category": "General",
-    "packing": "",
-    "mrp": 260,
-    "special_rate": 260,
-    "stock": 1,
-    "min_qty": 1,
-    "image_file": "Red Bow Fireworks Box.png",
-    "image_url": "/Diwali/Red%20Bow%20Fireworks%20Box.png"
-  },
-  {
-    "ordr": 1,
     "id": "cracker-079",
     "barcode": "R05",
     "name": "2.5\" WETWO CRACKERS",
