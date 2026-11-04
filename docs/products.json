@@ -22,7 +22,7 @@
     "packing": "PKTS",
     "mrp": 140,
     "special_rate": 28,
-    "stock": 628,
+    "stock": 618,
     "min_qty": 5,
     "image_file": "Diwali Firecracker Pack with Goddess Labels.png",
     "image_url": "/Diwali/Diwali%20Firecracker%20Pack%20with%20Goddess%20Labels.png"
@@ -120,7 +120,7 @@
     "packing": "Box",
     "mrp": 1000,
     "special_rate": 200,
-    "stock": 161,
+    "stock": 160,
     "min_qty": 5,
     "image_file": "Rainbow Sparkler Box Packaging.png",
     "image_url": "/Diwali/Rainbow%20Sparkler%20Box%20Packaging.png"
@@ -190,7 +190,7 @@
     "packing": "Box",
     "mrp": 410,
     "special_rate": 82,
-    "stock": 402,
+    "stock": 400,
     "min_qty": 1,
     "image_file": "Vibrant Purple Colour Sparklers Packaging.png",
     "image_url": "/Diwali/Vibrant%20Purple%20Colour%20Sparklers%20Packaging.png"
@@ -330,7 +330,7 @@
     "packing": "Box",
     "mrp": 670,
     "special_rate": 134,
-    "stock": 451,
+    "stock": 450,
     "min_qty": 1,
     "image_file": "WeTwo’s Asoka Ground Chakkar Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Asoka%20Ground%20Chakkar%20Box.png"
@@ -442,7 +442,7 @@
     "packing": "Box",
     "mrp": 1230,
     "special_rate": 246,
-    "stock": 201,
+    "stock": 200,
     "min_qty": 1,
     "image_file": "WeTwo’s Colourful Flower Pots 2-in-1 Box.png",
     "image_url": "/Diwali/WeTwo%E2%80%99s%20Colourful%20Flower%20Pots%202-in-1%20Box.png"
@@ -526,7 +526,7 @@
     "packing": "Box",
     "mrp": 500,
     "special_rate": 100,
-    "stock": 297,
+    "stock": 296,
     "min_qty": 1,
     "image_file": "Comic-Style Rectangular Bomb Fireworks Box.png",
     "image_url": "/Diwali/Comic-Style%20Rectangular%20Bomb%20Fireworks%20Box.png"
@@ -610,7 +610,7 @@
     "packing": "Box",
     "mrp": 800,
     "special_rate": 160,
-    "stock": 149,
+    "stock": 148,
     "min_qty": 1,
     "image_file": "Rocket Bomb Firework Box Packaging.png",
     "image_url": "/Diwali/Rocket%20Bomb%20Firework%20Box%20Packaging.png"
@@ -750,10 +750,10 @@
     "packing": "Bndl",
     "mrp": 450,
     "special_rate": 90,
-    "stock": 3,
+    "stock": 2,
     "min_qty": 1,
-    "image_file": "Robin Classic 5 in 1.webp",
-    "image_url": "/Diwali/Robin%20Classic%205%20in%201.webp"
+    "image_file": "Robin Super Deluxe 10 in 1.webp",
+    "image_url": "/Diwali/Robin%20Super%20Deluxe%2010%20in%201.webp"
   },
   {
     "ordr": 55,
