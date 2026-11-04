@@ -1216,5 +1216,15 @@
     "mrp": 850,
     "special_rate": 170,
     "stock": 100
+  },
+  {
+    "item_no": 121,
+    "ordr": 121,
+    "name": "Wonder Throw",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 75,
+    "special_rate": 15,
+    "stock": 100
   }
 ]

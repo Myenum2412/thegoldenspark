@@ -1524,5 +1524,19 @@
     "min_qty": 1,
     "image_file": "Eagolgun.jpeg",
     "image_url": "/Diwali/Eagolgun.jpeg"
+  },
+  {
+    "ordr": 110,
+    "id": "cracker-113",
+    "barcode": "CRK-113",
+    "name": "Wonder Throw",
+    "category": "General",
+    "packing": "Box",
+    "mrp": 75,
+    "special_rate": 15,
+    "stock": 100,
+    "min_qty": 1,
+    "image_file": "wonderthrow.jpeg",
+    "image_url": "/Diwali/wonderthrow.jpeg"
   }
 ]

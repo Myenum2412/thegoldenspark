@@ -177,6 +177,7 @@ Salem - 636004
 | CRK-110 | Match Throw | Box | ₹100 | **₹20** |
 | CRK-111 | Bulk Gun | PCS | ₹250 | **₹50** |
 | CRK-112 | Eagol Gun | PCS | ₹850 | **₹170** |
+| CRK-113 | Wonder Throw | Box | ₹75 | **₹15** |
 
 ---
 

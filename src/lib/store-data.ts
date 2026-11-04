@@ -135,6 +135,8 @@ const DIWALI_FILE_MAP: Record<string, string> = {
   "matchthrowjpeg": "matchthrow.jpeg",
   "sonyring": "sonyring.jpeg",
   "sonyringjpeg": "sonyring.jpeg",
+  "wonderthrow": "wonderthrow.jpeg",
+  "wonderthrowjpeg": "wonderthrow.jpeg",
   "10cmelectricsparklers": "10 CM Electric Sparklers.webp",
   "10klikescosmicfireworksbox": "10K Likes Cosmic Fireworks Box.png",
   "240shots": "240shots.png",

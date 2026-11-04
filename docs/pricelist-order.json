@@ -543,5 +543,10 @@
     "ordr": 109,
     "barcode": "CRK-112",
     "name": "Eagol Gun"
+  },
+  {
+    "ordr": 110,
+    "barcode": "CRK-113",
+    "name": "Wonder Throw"
   }
 ]
